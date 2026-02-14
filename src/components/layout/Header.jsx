@@ -89,7 +89,7 @@ export default function Header() {
             <Button
               size="icon"
               variant="ghost"
-              className="absolute left-2 top-1/2 -translate-y-1/2 hover:bg-blue-500/20 rounded-xl transition-all"
+              className="absolute left-2 top-1/2 -translate-y-1/2 hover:bg-blue-500/20 rounded-xl transition-all cursor-pointer"
             >
               <Search className="h-5 w-5 lg:h-6 lg:w-6 text-blue-400" />
             </Button>
@@ -99,14 +99,14 @@ export default function Header() {
           <div className="flex flex-col items-center order-1 lg:order-2">
             <div className="flex items-center gap-1">
               <span className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white">
-                کارین
+                بنیامین
               </span>
               <span className="text-2xl lg:text-3xl xl:text-4xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
                 شاپ
               </span>
             </div>
             <p className="text-xs lg:text-sm text-gray-400 mt-1">
-              خرید موبایل و لپ‌تاپ
+              خرید انواع لوازم خودرو
             </p>
           </div>
 
