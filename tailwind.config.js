@@ -13,7 +13,7 @@ export default {
         foreground: "#F1F5F9",
       },
       fontFamily: {
-        sans: ["Dana", "Morabba", "sans-serif"],
+        dana: ["Dana", "sans-serif"],
       },
     },
   },

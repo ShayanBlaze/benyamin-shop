@@ -6,13 +6,10 @@ import {
   MapPin,
   Sun,
   Moon,
-  ChevronDown,
   Laptop,
   Smartphone,
   Watch,
   Headphones,
-  Speaker,
-  Camera,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +19,6 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
@@ -35,7 +31,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-gradient-to-b from-[#1e2a3a] to-[#1a2332] text-white shadow-2xl relative z-50">
+    <header className="text-white relative z-50 mt-10">
       {/* Top Section */}
       <div className="container mx-auto px-4 lg:px-8 py-4 lg:py-5">
         <div className="flex items-center justify-between gap-4 lg:gap-8">
@@ -52,7 +48,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="bg-[#1a2332] text-white border-gray-700"
+              className="bg-[#1f2a38] text-white border-gray-700"
             >
               <nav className="flex flex-col gap-6 mt-8">
                 <a
@@ -118,7 +114,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-3 xl:gap-4 order-3">
             <Button
               variant="outline"
-              className="bg-transparent border-2 border-gray-600 hover:bg-white/10 hover:border-blue-400 text-white text-base lg:text-lg h-12 lg:h-14 px-5 lg:px-6 rounded-2xl transition-all shadow-lg"
+              className="bg-transparent border-2 border-gray-600 hover:bg-white/10 hover:border-blue-400 text-white text-base lg:text-lg h-12 lg:h-14 px-5 lg:px-6 rounded-2xl transition-all shadow-lg cursor-pointer"
             >
               <User className="h-5 w-5 lg:h-6 lg:w-6 ml-2" />
               حساب کاربری
@@ -127,7 +123,7 @@ export default function Header() {
               variant="ghost"
               size="icon"
               onClick={() => setIsDark(!isDark)}
-              className="hover:bg-white/10 h-12 w-12 lg:h-14 lg:w-14 rounded-2xl transition-all shadow-lg"
+              className="hover:bg-white/10 h-12 w-12 lg:h-14 lg:w-14 rounded-2xl transition-all shadow-lg border border-gray-700 cursor-pointer"
             >
               {isDark ? (
                 <Sun className="h-6 w-6 lg:h-7 lg:w-7 text-yellow-400" />
@@ -138,7 +134,7 @@ export default function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="relative hover:bg-white/10 h-12 w-12 lg:h-14 lg:w-14 rounded-2xl transition-all shadow-lg"
+              className="relative hover:bg-blue-700 h-12 w-12 lg:h-14 lg:w-14 rounded-2xl transition-all shadow-lg border border-gray-700 bg-blue-500 cursor-pointer"
             >
               <ShoppingCart className="h-6 w-6 lg:h-7 lg:w-7" />
               <Badge className="absolute -top-1 -right-1 h-6 w-6 lg:h-7 lg:w-7 flex items-center justify-center p-0 bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 border-0 text-sm lg:text-base font-bold shadow-lg rounded-full">
@@ -164,15 +160,15 @@ export default function Header() {
       </div>
 
       {/* Bottom Section: Navigation */}
-      <div className="bg-gradient-to-b from-[#141d28] to-[#0f1720] border-t border-white/5 shadow-xl">
+      <div className=" bg-[#1f2a38] border-white/5 relative z-40 rounded-3xl">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="hidden lg:flex items-center justify-between py-4">
-            {/* Navigation Menu (Moved to Right) */}
-            <NavigationMenu dir="rtl">
+          <div className="hidden lg:flex items-center justify-between py-4 relative">
+            {/* Right Side: Navigation Menu */}
+            <NavigationMenu dir="rtl" className="max-w-full justify-start z-50">
               <NavigationMenuList className="gap-2">
                 <NavigationMenuItem>
                   <a href="#" className={navigationMenuTriggerStyle()}>
-                    <span className="text-base lg:text-lg hover:text-blue-400 transition-colors">
+                    <span className="text-base lg:text-lg hover:text-blue-400 transition-colors cursor-pointer bg-transparent">
                       صفحه اصلی
                     </span>
                   </a>
@@ -180,34 +176,16 @@ export default function Header() {
 
                 {/* Mega Menu for Categories */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-white/5 text-white data-[state=open]:bg-white/10 text-base lg:text-lg">
+                  <NavigationMenuTrigger className="bg-transparent hover:bg-white/5 text-white data-[state=open]:bg-white/10 text-base lg:text-lg cursor-pointer focus:bg-transparent focus:text-white">
                     دسته بندی ها
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="w-[600px] lg:w-[800px] p-6 bg-[#1a2332] text-white border border-gray-700 rounded-xl shadow-2xl grid grid-cols-2 gap-6">
-                      {/* Left Column: Featured Image/Offer */}
-                      <div className="relative rounded-lg overflow-hidden bg-gradient-to-br from-blue-600 to-purple-600 p-6 flex flex-col justify-end">
-                        <div className="absolute top-0 right-0 p-4">
-                          <Badge className="bg-yellow-400 text-black hover:bg-yellow-500">
-                            پیشنهاد ویژه
-                          </Badge>
-                        </div>
-                        <h3 className="text-2xl font-bold mb-2">
-                          جشنواره تابستانی
-                        </h3>
-                        <p className="text-sm text-blue-100 mb-4">
-                          تا ۵۰٪ تخفیف روی لوازم جانبی موبایل
-                        </p>
-                        <Button
-                          variant="secondary"
-                          className="w-fit bg-white text-blue-900 hover:bg-gray-100"
-                        >
-                          مشاهده همه
-                        </Button>
-                      </div>
 
-                      {/* Right Column: Categories Grid */}
-                      <div className="grid grid-cols-2 gap-4">
+                  {/* FIX: Added bg-transparent and border-0 to main wrapper */}
+                  <NavigationMenuContent className="absolute top-0 right-0 w-[600px] md:w-[700px] lg:w-[900px] bg-transparent border-0 shadow-none outline-none ring-0 data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52">
+                    {/* Inner Div with Background and Border */}
+                    <div className="grid grid-cols-12 gap-6 p-6 bg-[#1a2332] text-white border border-gray-700 rounded-xl shadow-2xl outline-none ring-0">
+                      {/* Categories Grid (Span 8) */}
+                      <div className="col-span-8 grid grid-cols-2 gap-4">
                         <a
                           href="#"
                           className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group"
@@ -264,34 +242,27 @@ export default function Header() {
                             </div>
                           </div>
                         </a>
-                        <a
-                          href="#"
-                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group"
+                      </div>
+
+                      {/* Featured Offer (Span 4) */}
+                      <div className="col-span-4 relative rounded-lg overflow-hidden bg-gradient-to-br from-blue-600 to-purple-600 p-6 flex flex-col justify-end">
+                        <div className="absolute top-0 right-0 p-4">
+                          <Badge className="bg-yellow-400 text-black hover:bg-yellow-500">
+                            پیشنهاد ویژه
+                          </Badge>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">
+                          جشنواره تابستانی
+                        </h3>
+                        <p className="text-sm text-blue-100 mb-4">
+                          تا ۵۰٪ تخفیف روی لوازم جانبی
+                        </p>
+                        <Button
+                          variant="secondary"
+                          className="w-full bg-white text-blue-900 hover:bg-gray-100"
                         >
-                          <div className="h-10 w-10 rounded-full bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500 transition-colors">
-                            <Speaker className="h-5 w-5 text-orange-400 group-hover:text-white" />
-                          </div>
-                          <div>
-                            <div className="font-medium">اسپیکر</div>
-                            <div className="text-xs text-gray-400">
-                              JBL، سونی، هارمن
-                            </div>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group"
-                        >
-                          <div className="h-10 w-10 rounded-full bg-cyan-500/20 flex items-center justify-center group-hover:bg-cyan-500 transition-colors">
-                            <Camera className="h-5 w-5 text-cyan-400 group-hover:text-white" />
-                          </div>
-                          <div>
-                            <div className="font-medium">دوربین</div>
-                            <div className="text-xs text-gray-400">
-                              کانن، نیکون، سونی
-                            </div>
-                          </div>
-                        </a>
+                          مشاهده همه
+                        </Button>
                       </div>
                     </div>
                   </NavigationMenuContent>
@@ -299,14 +270,14 @@ export default function Header() {
 
                 <NavigationMenuItem>
                   <a href="#" className={navigationMenuTriggerStyle()}>
-                    <span className="text-base lg:text-lg hover:text-blue-400 transition-colors">
+                    <span className="text-base lg:text-lg hover:text-blue-400 transition-colors cursor-pointer bg-transparent">
                       فروشگاه
                     </span>
                   </a>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <a href="#" className={navigationMenuTriggerStyle()}>
-                    <span className="text-base lg:text-lg hover:text-blue-400 transition-colors">
+                    <span className="text-base lg:text-lg hover:text-blue-400 transition-colors cursor-pointer bg-transparent">
                       وبلاگ
                     </span>
                   </a>
@@ -314,10 +285,10 @@ export default function Header() {
               </NavigationMenuList>
             </NavigationMenu>
 
-            {/* Location Selector (Moved to Left) */}
+            {/* Left Side: Location Selector */}
             <Button
               variant="ghost"
-              className="text-white hover:bg-white/10 text-base lg:text-lg h-12 lg:h-14 px-5 lg:px-6 rounded-2xl transition-all shadow-lg ml-auto mr-0"
+              className="text-white hover:bg-white/10 text-base lg:text-lg h-12 lg:h-14 px-5 lg:px-6 rounded-2xl transition-all ml-0"
             >
               <MapPin className="h-5 w-5 lg:h-6 lg:w-6 ml-2 text-orange-500" />
               آدرس خود را انتخاب کنید

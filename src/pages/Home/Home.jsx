@@ -14,6 +14,42 @@ export default function Home() {
       discount: 70,
       rating: 5.0,
     },
+    {
+      id: 1,
+      title: "لپ تاپ ۱۵.۶ اینچی ایسوس مدل Vivobook",
+      image: "/placeholder-laptop.jpg",
+      price: 75000000,
+      originalPrice: 70000000,
+      discount: 70,
+      rating: 5.0,
+    },
+    {
+      id: 1,
+      title: "لپ تاپ ۱۵.۶ اینچی ایسوس مدل Vivobook",
+      image: "/placeholder-laptop.jpg",
+      price: 75000000,
+      originalPrice: 70000000,
+      discount: 70,
+      rating: 5.0,
+    },
+    {
+      id: 1,
+      title: "لپ تاپ ۱۵.۶ اینچی ایسوس مدل Vivobook",
+      image: "/placeholder-laptop.jpg",
+      price: 75000000,
+      originalPrice: 70000000,
+      discount: 70,
+      rating: 5.0,
+    },
+    {
+      id: 1,
+      title: "لپ تاپ ۱۵.۶ اینچی ایسوس مدل Vivobook",
+      image: "/placeholder-laptop.jpg",
+      price: 75000000,
+      originalPrice: 70000000,
+      discount: 70,
+      rating: 5.0,
+    },
   ];
 
   return (
