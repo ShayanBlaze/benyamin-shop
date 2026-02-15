@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -35,7 +35,7 @@ const sliderData = [
       { icon: Award, label: "مورد تأیید BMW و Mercedes" },
     ],
     image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2000",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1200&auto=format",
   },
   {
     id: 2,
@@ -53,7 +53,7 @@ const sliderData = [
       { icon: Award, label: "نصب آسان" },
     ],
     image:
-      "https://images.unsplash.com/photo-1610647752706-3bb12232b3ab?q=80&w=2000",
+      "https://images.unsplash.com/photo-1610647752706-3bb12232b3ab?q=80&w=1200&auto=format",
   },
   {
     id: 3,
@@ -71,7 +71,7 @@ const sliderData = [
       { icon: Award, label: "صرفه‌جویی سوخت" },
     ],
     image:
-      "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?q=80&w=2000",
+      "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?q=80&w=1200&auto=format",
   },
 ];
 
@@ -93,6 +93,17 @@ const HeroSlider = () => {
     };
   }, [api]);
 
+  // Memoize badge class to prevent re-calculations
+  const getBadgeClass = useMemo(() => {
+    return (badge) => {
+      const baseClass = "text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-lg shrink-0 whitespace-nowrap";
+      if (badge === "پرفروش") return `${baseClass} bg-orange-500 hover:bg-orange-600`;
+      if (badge === "جدید") return `${baseClass} bg-green-500 hover:bg-green-600`;
+      if (badge === "پیشنهاد ویژه") return `${baseClass} bg-red-500 hover:bg-red-600`;
+      return baseClass;
+    };
+  }, []);
+
   return (
     <section
       className="relative w-full bg-background overflow-hidden"
@@ -105,6 +116,8 @@ const HeroSlider = () => {
           align: "start",
           loop: true,
           direction: "rtl",
+          skipSnaps: false,
+          dragFree: false,
         }}
         className="w-full"
       >
@@ -113,121 +126,78 @@ const HeroSlider = () => {
             <CarouselItem key={slide.id} className="relative w-full pl-0">
               {/* Responsive Height Container */}
               <div className="relative w-full h-125 sm:h-150 md:h-162.5 lg:h-175 xl:h-187.5">
-                {/* Background Image Container */}
+                {/* Background Image Container - Optimized */}
                 <div className="absolute inset-0 overflow-hidden rounded-none sm:rounded-lg md:rounded-xl lg:rounded-2xl">
                   <img
                     src={slide.image}
                     alt={slide.model}
-                    className={`w-full h-full object-cover object-center transition-transform duration-700 ease-out
-                      ${current === index ? "scale-100" : "scale-105"}`}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    className="w-full h-full object-cover object-center"
+                    style={{
+                      transform: current === index ? 'scale(1)' : 'scale(1.05)',
+                      transition: 'transform 0.7s ease-out',
+                      willChange: current === index ? 'transform' : 'auto',
+                    }}
                   />
 
-                  {/* Gradient Overlays */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 sm:via-black/30 to-transparent" />
-                  <div className="absolute inset-0 bg-linear-to-r from-black/60 via-transparent to-transparent" />
+                  {/* Simplified Gradient Overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
                 </div>
 
                 {/* Content Container */}
                 <div className="relative z-10 h-full w-full" dir="rtl">
                   <div className="container mx-auto h-full px-4 sm:px-6 md:px-8">
                     <div className="flex flex-col justify-end h-full pb-24 sm:pb-28 md:pb-32 lg:pb-36 xl:pb-44 max-w-full sm:max-w-2xl lg:max-w-3xl">
-                      <div className="flex items-center gap-2 mb-3 sm:mb-4 flex-wrap animate-in slide-in-from-right-8 fade-in duration-500">
+                      {/* Badges Row - Optimized */}
+                      <div className="flex items-center gap-2 mb-3 sm:mb-4 flex-wrap">
                         {/* Brand Badge */}
-                        <div
-                          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full 
-                                        bg-black/50 backdrop-blur-md border border-white/30 shrink-0"
-                        >
-                          <div
-                            className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-500 animate-pulse`}
-                          ></div>
-                          <span
-                            className="text-[10px] sm:text-xs md:text-sm font-semibold text-white tracking-widest uppercase whitespace-nowrap"
-                            style={{ textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}
-                          >
+                        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black/40 sm:bg-black/50 border border-white/20 sm:border-white/30 shrink-0">
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                          <span className="text-[10px] sm:text-xs md:text-sm font-semibold text-white tracking-widest uppercase whitespace-nowrap">
                             {slide.brand}
                           </span>
                         </div>
 
-                        {/* Product Badge (پرفروش، جدید، ویژه) */}
+                        {/* Product Badge */}
                         {slide.badge && (
-                          <Badge
-                            className={`
-                            ${slide.badge === "پرفروش" ? "bg-orange-500 hover:bg-orange-600" : ""}
-                            ${slide.badge === "جدید" ? "bg-green-500 hover:bg-green-600" : ""}
-                            ${slide.badge === "پیشنهاد ویژه" ? "bg-red-500 hover:bg-red-600" : ""}
-                            text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-lg shrink-0 whitespace-nowrap
-                          `}
-                          >
+                          <Badge className={getBadgeClass(slide.badge)}>
                             {slide.badge}
                           </Badge>
                         )}
 
                         {/* Discount Badge */}
                         {slide.discount && (
-                          <Badge
-                            className="bg-linear-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700
-                                          text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-lg
-                                          flex items-center gap-1 shrink-0 whitespace-nowrap"
-                          >
+                          <Badge className="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-lg flex items-center gap-1 shrink-0 whitespace-nowrap">
                             <Percent className="w-3 h-3" />
                             {slide.discount}٪ تخفیف
                           </Badge>
                         )}
                       </div>
 
-                      {/* Main Title */}
-                      <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 animate-in slide-in-from-right-10 fade-in duration-700 delay-100">
-                        <h1
-                          className="text-3xl sm:text-4xl md:text-5xl  
-                                     font-black text-white leading-[0.95] tracking-tighter"
-                          style={{
-                            textShadow: `
-                              0 2px 12px rgba(0,0,0,0.8),
-                              0 0 20px rgba(0,0,0,0.5),
-                              1px 1px 0px rgba(0,0,0,0.4)
-                            `,
-                            WebkitTextStroke: "0.5px rgba(0,0,0,0.2)",
-                          }}
-                        >
+                      {/* Main Title - Simplified Shadows */}
+                      <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[0.95] tracking-tighter drop-shadow-2xl">
                           {slide.model}
                         </h1>
-                        <p
-                          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 
-                                     text-white font-medium tracking-wide"
-                          style={{
-                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
-                          }}
-                        >
+                        <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white font-medium tracking-wide drop-shadow-lg">
                           {slide.subtitle}
                         </p>
                       </div>
 
-                      {/* Specs Grid */}
-                      <div
-                        className="grid grid-cols-3 gap-1.5 sm:gap-2 md:gap-3 mb-4 sm:mb-6 
-                                      animate-in slide-in-from-right-10 fade-in duration-700 delay-200"
-                      >
+                      {/* Specs Grid - Reduced backdrop-blur */}
+                      <div className="grid grid-cols-3 gap-1.5 sm:gap-2 md:gap-3 mb-4 sm:mb-6">
                         {slide.specs.map((spec, idx) => {
                           const Icon = spec.icon;
                           return (
                             <div
                               key={idx}
-                              className="flex flex-col sm:flex-row items-center justify-center sm:justify-start 
-                                         gap-1 sm:gap-2 p-2 sm:p-3 md:p-4 
-                                         rounded-lg sm:rounded-xl md:rounded-2xl 
-                                         bg-black/40 backdrop-blur-md border border-white/25
-                                         hover:bg-black/50 hover:border-white/35 transition-all"
+                              className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl md:rounded-2xl bg-black/30 sm:bg-black/40 border border-white/20 hover:bg-black/40 sm:hover:bg-black/50 hover:border-white/30 transition-all"
+                              style={{ willChange: 'auto' }}
                             >
-                              <Icon
-                                className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-400 shrink-0`}
-                              />
-                              <span
-                                className="text-[10px] sm:text-xs md:text-sm font-medium text-white 
-                                           text-center sm:text-right leading-tight"
-                                style={{
-                                  textShadow: "0 1px 6px rgba(0,0,0,0.6)",
-                                }}
-                              >
+                              <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-400 shrink-0" />
+                              <span className="text-[10px] sm:text-xs md:text-sm font-medium text-white text-center sm:text-right leading-tight">
                                 {spec.label}
                               </span>
                             </div>
@@ -236,30 +206,17 @@ const HeroSlider = () => {
                       </div>
 
                       {/* Price & Stock & Buttons */}
-                      <div className="flex flex-col gap-3 sm:gap-4 animate-in slide-in-from-right-10 fade-in duration-700 delay-300">
+                      <div className="flex flex-col gap-3 sm:gap-4">
                         {/* Price Row */}
                         <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
-                          {/* Price Tag */}
-                          <div
-                            className="bg-black/50 backdrop-blur-md border border-white/30 
-                                          rounded-xl sm:rounded-2xl px-4 sm:px-5 py-2.5 sm:py-3"
-                          >
+                          {/* Price Tag - Reduced backdrop blur */}
+                          <div className="bg-black/40 sm:bg-black/50 border border-white/20 sm:border-white/30 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-2.5 sm:py-3">
                             {slide.originalPrice && (
-                              <p
-                                className="text-[10px] sm:text-xs text-gray-400 line-through mb-0.5"
-                                style={{
-                                  textShadow: "0 1px 4px rgba(0,0,0,0.6)",
-                                }}
-                              >
+                              <p className="text-[10px] sm:text-xs text-gray-400 line-through mb-0.5">
                                 {slide.originalPrice} تومان
                               </p>
                             )}
-                            <p
-                              className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white"
-                              style={{
-                                textShadow: "0 2px 6px rgba(0,0,0,0.6)",
-                              }}
-                            >
+                            <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white">
                               {slide.price}{" "}
                               <span className="text-xs sm:text-sm text-gray-300">
                                 تومان
@@ -268,10 +225,7 @@ const HeroSlider = () => {
                           </div>
 
                           {/* Stock Status */}
-                          <div
-                            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5
-                                          bg-black/40 backdrop-blur-md border border-white/25 rounded-xl sm:rounded-2xl"
-                          >
+                          <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-black/30 sm:bg-black/40 border border-white/20 rounded-xl sm:rounded-2xl">
                             <Package
                               className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 ${
                                 slide.stock.includes("موجود")
@@ -279,44 +233,27 @@ const HeroSlider = () => {
                                   : "text-orange-400"
                               }`}
                             />
-                            <span
-                              className="text-[10px] sm:text-xs md:text-sm font-medium text-white whitespace-nowrap"
-                              style={{
-                                textShadow: "0 1px 4px rgba(0,0,0,0.6)",
-                              }}
-                            >
+                            <span className="text-[10px] sm:text-xs md:text-sm font-medium text-white whitespace-nowrap">
                               {slide.stock}
                             </span>
                           </div>
                         </div>
 
+                        {/* Buttons */}
                         <div className="flex flex-col xs:flex-row gap-2 sm:gap-3">
                           <Button
                             size="lg"
-                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6
-                                       rounded-full text-xs sm:text-sm md:text-base font-semibold
-                                       bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 
-                                       text-white
-                                       shadow-[0_0_20px_rgba(59,130,246,0.4)] 
-                                       hover:shadow-[0_0_30px_rgba(59,130,246,0.6)]
-                                       hover:scale-105 transition-all duration-300
-                                       w-full xs:w-auto md:w-96 touch-target
-                                       flex items-center justify-center gap-2 cursor-pointer"
+                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 text-white shadow-lg hover:shadow-xl hover:scale-[1.02] sm:hover:scale-105 transition-all duration-300 w-full xs:w-auto md:w-96 touch-target flex items-center justify-center gap-2 cursor-pointer"
+                            style={{ willChange: 'transform' }}
                           >
                             <ShoppingCart className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-                            <span className="whitespace-nowrap">
-                              افزودن به سبد
-                            </span>
+                            <span className="whitespace-nowrap">افزودن به سبد</span>
                           </Button>
 
                           <Button
                             variant="outline"
                             size="lg"
-                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6
-                                       rounded-full text-xs sm:text-sm md:text-base font-semibold
-                                       bg-black/30 backdrop-blur-md border-white/35 text-white 
-                                       hover:bg-black/40 hover:border-white/50 transition-all
-                                       w-full md:w-96 xs:w-auto touch-target whitespace-nowrap cursor-pointer"
+                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-black/20 sm:bg-black/30 border-white/30 text-white hover:bg-black/30 sm:hover:bg-black/40 hover:border-white/40 transition-all w-full md:w-96 xs:w-auto touch-target whitespace-nowrap cursor-pointer"
                           >
                             مشاهده جزئیات
                           </Button>
@@ -330,67 +267,44 @@ const HeroSlider = () => {
           ))}
         </CarouselContent>
 
-        <div
-          className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-14 xl:bottom-16
-                      left-1/2 -translate-x-1/2 z-30 w-auto"
-          dir="rtl"
-        >
+        {/* Navigation Controls */}
+        <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-14 xl:bottom-16 left-1/2 -translate-x-1/2 z-30 w-auto" dir="rtl">
           {/* Mobile Navigation */}
-          <div
-            className="sm:hidden flex items-center gap-3 px-4 py-3 
-                          rounded-full bg-black/60 backdrop-blur-xl 
-                          border border-white/20 shadow-2xl"
-          >
+          <div className="sm:hidden flex items-center gap-3 px-4 py-3 rounded-full bg-black/50 border border-white/20 shadow-2xl">
             <div className="flex gap-1.5">
               {sliderData.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => api?.scrollTo(idx)}
-                  className={`transition-all duration-500 rounded-full
-                    ${
-                      current === idx
-                        ? "w-8 h-2.5 bg-linear-to-r from-primary to-blue-600 shadow-[0_0_15px_rgba(59,130,246,0.6)]"
-                        : "w-2.5 h-2.5 bg-white/40 hover:bg-white/70 hover:scale-125"
-                    }`}
+                  className={`transition-all duration-300 rounded-full ${
+                    current === idx
+                      ? "w-8 h-2.5 bg-gradient-to-r from-primary to-blue-600"
+                      : "w-2.5 h-2.5 bg-white/40 hover:bg-white/70"
+                  }`}
                   aria-label={`اسلاید ${idx + 1}`}
                 />
               ))}
             </div>
             <div className="w-px h-6 bg-white/20"></div>
             <div className="flex items-center gap-1 px-2">
-              <span
-                className="text-lg font-black text-white tabular-nums"
-                style={{ textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}
-              >
+              <span className="text-lg font-black text-white tabular-nums">
                 {String(current + 1).padStart(2, "0")}
               </span>
               <span className="text-white/50 text-sm font-light">/</span>
-              <span
-                className="text-sm text-white/70 tabular-nums"
-                style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
-              >
+              <span className="text-sm text-white/70 tabular-nums">
                 {String(sliderData.length).padStart(2, "0")}
               </span>
             </div>
           </div>
 
           {/* Desktop Navigation */}
-          <div
-            className="hidden sm:flex items-center gap-4 md:gap-6 
-                          px-4 md:px-6 py-3 md:py-4 
-                          rounded-full bg-black/60 backdrop-blur-xl 
-                          border border-white/20 shadow-2xl"
-          >
+          <div className="hidden sm:flex items-center gap-4 md:gap-6 px-4 md:px-6 py-3 md:py-4 rounded-full bg-black/50 border border-white/20 shadow-2xl">
             <button
               onClick={() => api?.scrollPrev()}
-              className="w-9 h-9 md:w-11 md:h-11 rounded-full 
-                         bg-white/10 hover:bg-primary 
-                         border border-white/20 hover:border-primary 
-                         text-white transition-all duration-300 hover:scale-110 
-                         flex items-center justify-center group touch-target"
+              className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white transition-all duration-300 hover:scale-110 flex items-center justify-center group touch-target"
               aria-label="اسلاید قبلی"
             >
-              <ChevronRight className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
+              <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
             </button>
 
             <div className="flex gap-2">
@@ -398,12 +312,11 @@ const HeroSlider = () => {
                 <button
                   key={idx}
                   onClick={() => api?.scrollTo(idx)}
-                  className={`transition-all duration-500 rounded-full
-                    ${
-                      current === idx
-                        ? "w-10 md:w-12 h-2.5 md:h-3 bg-linear-to-r from-primary to-blue-600 shadow-[0_0_20px_rgba(59,130,246,0.6)]"
-                        : "w-2.5 md:w-3 h-2.5 md:h-3 bg-white/40 hover:bg-white/70 hover:scale-125"
-                    }`}
+                  className={`transition-all duration-300 rounded-full ${
+                    current === idx
+                      ? "w-10 md:w-12 h-2.5 md:h-3 bg-gradient-to-r from-primary to-blue-600"
+                      : "w-2.5 md:w-3 h-2.5 md:h-3 bg-white/40 hover:bg-white/70"
+                  }`}
                   aria-label={`اسلاید ${idx + 1}`}
                 />
               ))}
@@ -412,19 +325,11 @@ const HeroSlider = () => {
             <div className="w-px h-6 md:h-8 bg-white/20"></div>
 
             <div className="flex items-center gap-1.5 md:gap-2 px-2 md:px-3">
-              <span
-                className="text-xl md:text-2xl font-black text-white tabular-nums"
-                style={{ textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}
-              >
+              <span className="text-xl md:text-2xl font-black text-white tabular-nums">
                 {String(current + 1).padStart(2, "0")}
               </span>
-              <span className="text-white/50 text-base md:text-lg font-light">
-                /
-              </span>
-              <span
-                className="text-sm md:text-base text-white/70 tabular-nums"
-                style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
-              >
+              <span className="text-white/50 text-base md:text-lg font-light">/</span>
+              <span className="text-sm md:text-base text-white/70 tabular-nums">
                 {String(sliderData.length).padStart(2, "0")}
               </span>
             </div>
@@ -433,36 +338,27 @@ const HeroSlider = () => {
 
             <button
               onClick={() => api?.scrollNext()}
-              className="w-9 h-9 md:w-11 md:h-11 rounded-full 
-                         bg-white/10 hover:bg-primary 
-                         border border-white/20 hover:border-primary 
-                         text-white transition-all duration-300 hover:scale-110 
-                         flex items-center justify-center group touch-target"
+              className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white transition-all duration-300 hover:scale-110 flex items-center justify-center group touch-target"
               aria-label="اسلاید بعدی"
             >
-              <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
+              <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
             </button>
           </div>
         </div>
 
-        {/* Progress Bar */}
-        <div
-          className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 
-                        bg-linear-to-r from-white/10 via-white/5 to-white/10 
-                        z-20 overflow-hidden"
-        >
+        {/* Progress Bar - Simplified */}
+        <div className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-white/10 z-20 overflow-hidden">
           <div
-            className="h-full bg-linear-to-r from-primary via-blue-500 to-primary 
-                       shadow-[0_0_10px_rgba(59,130,246,0.8)] sm:shadow-[0_0_15px_rgba(59,130,246,0.8)]
-                       transition-all duration-500 ease-out relative"
-            style={{ width: `${((current + 1) / sliderData.length) * 100}%` }}
-          >
-            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
-          </div>
+            className="h-full bg-gradient-to-r from-primary to-blue-600 transition-all duration-300 ease-out"
+            style={{ 
+              width: `${((current + 1) / sliderData.length) * 100}%`,
+              willChange: 'width'
+            }}
+          />
         </div>
       </Carousel>
 
-      {/* Wave Separator */}
+      {/* Wave Separator - Simplified */}
       <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-0 z-10">
         <svg
           className="relative block w-full h-10 sm:h-12 md:h-15 lg:h-20"
@@ -470,21 +366,13 @@ const HeroSlider = () => {
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
         >
-          <defs>
-            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="rgba(15, 23, 42, 0.95)" />
-              <stop offset="100%" stopColor="rgba(15, 23, 42, 1)" />
-            </linearGradient>
-          </defs>
           <path
             d="M0,48 C240,90 480,90 720,48 C960,6 1080,6 1200,48 L1200,120 L0,120 Z"
-            fill="url(#waveGradient)"
-            className="animate-[wave_8s_ease-in-out_infinite]"
+            fill="rgba(15, 23, 42, 0.95)"
           />
           <path
             d="M0,72 C240,36 480,36 720,72 C960,108 1080,108 1200,72 L1200,120 L0,120 Z"
-            fill="rgba(15, 23, 42, 0.8)"
-            className="animate-[wave_10s_ease-in-out_infinite_reverse]"
+            fill="rgba(15, 23, 42, 0.9)"
           />
         </svg>
       </div>
