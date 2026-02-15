@@ -21,7 +21,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useState, useRef, useEffect } from "react";
@@ -51,12 +56,14 @@ export default function Header() {
     };
   }, []);
 
-  // Reset open category when mobile menu closes
-  useEffect(() => {
-    if (!mobileMenuOpen) {
+  // تابعی برای مدیریت باز و بسته شدن منو
+  const handleMobileMenuChange = (open) => {
+    setMobileMenuOpen(open);
+    // اگر منو دارد بسته می‌شود، دسته‌های باز شده را هم ببند
+    if (!open) {
       setOpenCategory(null);
     }
-  }, [mobileMenuOpen]);
+  };
 
   // Hardcoded Data
   const recentSearches = ["لنت ترمز پراید", "روغن موتور کاسترول", "شمع NGK"];
@@ -134,7 +141,7 @@ export default function Header() {
         <div className="container mx-auto px-4 sm:px-6 md:px-8 py-3 sm:py-4 lg:py-5 relative z-50">
           <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-8">
             {/* Mobile Menu Button */}
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <Sheet open={mobileMenuOpen} onOpenChange={handleMobileMenuChange}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
@@ -146,22 +153,24 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-[85vw] sm:w-[380px] p-0 border-gray-700/50 overflow-hidden flex flex-col"
+                className="w-[85vw] sm:w-95 p-0 border-gray-700/50 overflow-hidden flex flex-col transition-all duration-500 ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right [&>button]:hidden"
               >
                 {/* Menu Header with Search */}
                 <div className="p-4 pb-3 bg-[#1a2332] border-b border-gray-700/50">
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-bold text-white">منوی اصلی</h2>
+                    <SheetTitle className="text-xl font-bold text-white">
+                      منوی اصلی
+                    </SheetTitle>
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => handleMobileMenuChange(false)}
                       className="h-8 w-8 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white"
                     >
                       <X className="h-5 w-5" />
                     </Button>
                   </div>
-                  
+
                   {/* Mobile Menu Search */}
                   <div className="relative">
                     <Input
@@ -183,21 +192,27 @@ export default function Header() {
                         className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group"
                       >
                         <Home className="h-5 w-5 text-blue-400 group-hover:scale-110 transition-transform" />
-                        <span className="text-base font-medium text-gray-200 group-hover:text-white">صفحه اصلی</span>
+                        <span className="text-base font-medium text-gray-200 group-hover:text-white">
+                          صفحه اصلی
+                        </span>
                       </a>
                       <a
                         href="#"
                         className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group"
                       >
                         <Store className="h-5 w-5 text-green-400 group-hover:scale-110 transition-transform" />
-                        <span className="text-base font-medium text-gray-200 group-hover:text-white">فروشگاه</span>
+                        <span className="text-base font-medium text-gray-200 group-hover:text-white">
+                          فروشگاه
+                        </span>
                       </a>
                       <a
                         href="#"
                         className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group"
                       >
                         <FileText className="h-5 w-5 text-purple-400 group-hover:scale-110 transition-transform" />
-                        <span className="text-base font-medium text-gray-200 group-hover:text-white">وبلاگ</span>
+                        <span className="text-base font-medium text-gray-200 group-hover:text-white">
+                          وبلاگ
+                        </span>
                       </a>
                     </div>
 
@@ -215,7 +230,9 @@ export default function Header() {
                             className="flex items-center justify-between w-full px-4 py-3 rounded-xl hover:bg-white/5 transition-all group"
                           >
                             <div className="flex items-center gap-3">
-                              <span className={`${cat.bgColor} p-2 rounded-lg group-hover:scale-110 transition-transform`}>
+                              <span
+                                className={`${cat.bgColor} p-2 rounded-lg group-hover:scale-110 transition-transform`}
+                              >
                                 <span className={cat.color}>{cat.icon}</span>
                               </span>
                               <span className="text-sm font-medium text-gray-200 group-hover:text-white">
@@ -228,7 +245,7 @@ export default function Header() {
                               }`}
                             />
                           </button>
-                          
+
                           {/* Collapsible Items */}
                           <div
                             className={`overflow-hidden transition-all duration-300 ease-out ${
@@ -276,9 +293,7 @@ export default function Header() {
                     )}
                   </Button>
 
-                  <Button
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white justify-start gap-3 h-12 shadow-lg"
-                  >
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white justify-start gap-3 h-12 shadow-lg">
                     <LogIn className="h-5 w-5" />
                     <span>ورود / ثبت نام</span>
                   </Button>
