@@ -27,6 +27,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [openCategory, setOpenCategory] = useState(null);
   const searchContainerRef = useRef(null);
 
   // Close search when clicking outside
@@ -44,6 +45,13 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Reset open category when mobile menu closes
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      setOpenCategory(null);
+    }
+  }, [mobileMenuOpen]);
 
   // Hardcoded Data
   const recentSearches = ["لنت ترمز پراید", "روغن موتور کاسترول", "شمع NGK"];
@@ -91,6 +99,10 @@ export default function Header() {
     },
   ];
 
+  const toggleCategory = (index) => {
+    setOpenCategory(openCategory === index ? null : index);
+  };
+
   return (
     <>
       {/* Search Overlay/Backdrop */}
@@ -121,7 +133,7 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="bg-[#1f2a38] text-white border-gray-700 w-70 sm:w-[320px]"
+                className="bg-[#1f2a38] text-white border-gray-700 w-70 sm:w-[320px] overflow-y-auto"
               >
                 <nav className="flex flex-col gap-4 sm:gap-6 mt-8">
                   <a
@@ -131,29 +143,53 @@ export default function Header() {
                     صفحه اصلی
                   </a>
 
-                  {/* Mobile Categories */}
-                  <div className="space-y-4">
-                    <div className="text-base sm:text-lg font-semibold text-gray-300">
+                  {/* Mobile Categories - Collapsible */}
+                  <div className="space-y-3">
+                    <div className="text-base sm:text-lg font-semibold text-gray-300 mb-2">
                       دسته بندی ها
                     </div>
                     {carCategories.map((cat, index) => (
-                      <div key={index} className="pr-4 space-y-2">
-                        <div className="flex items-center gap-2 text-sm font-medium text-blue-300">
-                          {cat.icon}
-                          <span>{cat.title}</span>
+                      <div key={index} className="border-b border-gray-700/50 pb-3">
+                        <button
+                          onClick={() => toggleCategory(index)}
+                          className="flex items-center justify-between w-full py-2 px-2 hover:bg-white/5 rounded-lg transition-colors group"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="bg-white/5 p-1.5 rounded-lg group-hover:bg-white/10 transition-colors">
+                              {cat.icon}
+                            </span>
+                            <span className="text-sm sm:text-base font-medium text-gray-200 group-hover:text-blue-400 transition-colors">
+                              {cat.title}
+                            </span>
+                          </div>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${
+                              openCategory === index ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                        
+                        {/* Collapsible Items */}
+                        <div
+                          className={`overflow-hidden transition-all duration-300 ${
+                            openCategory === index
+                              ? "max-h-96 opacity-100 mt-2"
+                              : "max-h-0 opacity-0"
+                          }`}
+                        >
+                          <ul className="pr-8 space-y-2">
+                            {cat.items.map((item, idx) => (
+                              <li key={idx}>
+                                <a
+                                  href="#"
+                                  className="text-xs sm:text-sm text-gray-400 hover:text-blue-400 hover:-translate-x-1 transition-all duration-200 block py-1.5"
+                                >
+                                  {item}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        <ul className="pr-6 space-y-1.5">
-                          {cat.items.slice(0, 3).map((item, idx) => (
-                            <li key={idx}>
-                              <a
-                                href="#"
-                                className="text-xs sm:text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 block py-1"
-                              >
-                                {item}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
                       </div>
                     ))}
                   </div>
