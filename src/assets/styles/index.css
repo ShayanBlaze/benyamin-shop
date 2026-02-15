@@ -95,7 +95,7 @@
 @layer utilities {
   /* Container Variants */
   .container-tight {
-    @apply container max-w-screen-lg;
+    @apply container max-w-5xl;
   }
 
   .container-wide {
@@ -127,7 +127,7 @@
 
   /* Touch Targets - مهم برای موبایل */
   .touch-target {
-    @apply min-h-[44px] min-w-[44px];
+    @apply min-h-11 min-w-11;
   }
 
   /* Prevent Text Selection on Buttons */
