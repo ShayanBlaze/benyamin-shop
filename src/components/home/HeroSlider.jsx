@@ -106,7 +106,7 @@ const HeroSlider = () => {
 
   return (
     <section
-      className="relative w-full bg-background overflow-hidden"
+      className="relative w-full bg-background overflow-hidden rounded-2xl"
       dir="ltr"
     >
       <Carousel
