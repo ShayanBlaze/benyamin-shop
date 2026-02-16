@@ -112,8 +112,8 @@ export default function AmazingOffer() {
 
   return (
     <section className="container mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-8">
-      <div className="bg-linear-to-br from-[#1e3a8a] via-[#3b82f6] to-[#2563eb] rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-8 items-stretch relative overflow-hidden shadow-2xl will-change-transform">
-        {/* Simplified Background Decorations - Reduced blur for performance */}
+      <div className="bg-gradient-to-br from-[#1e3a8a] via-[#3b82f6] to-[#2563eb] rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-8 items-stretch relative overflow-hidden shadow-2xl will-change-transform">
+        {/* Simplified Background Decorations */}
         <div
           className="absolute top-0 right-0 w-64 sm:w-80 h-64 sm:h-80 bg-blue-400/10 rounded-full blur-2xl pointer-events-none"
           style={{ transform: "translate(50%, -50%)", willChange: "transform" }}
@@ -127,7 +127,7 @@ export default function AmazingOffer() {
         <div className="lg:hidden flex items-center justify-between w-full z-10 pb-3 border-b border-white/20">
           <div className="flex items-center gap-3">
             <div
-              className="w-12 h-12 sm:w-14 sm:h-14 bg-linear-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg"
+              className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg"
               style={{ transform: "rotate(3deg)" }}
             >
               <Zap className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
@@ -162,7 +162,7 @@ export default function AmazingOffer() {
         <div className="hidden lg:flex lg:w-1/5 flex-col items-center justify-center text-center text-white shrink-0 z-10">
           <div className="mb-6 relative">
             <div
-              className="w-24 h-24 bg-linear-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-xl transition-transform duration-300 hover:scale-105"
+              className="w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-xl transition-transform duration-300 hover:scale-105"
               style={{ transform: "rotate(3deg)" }}
             >
               <Zap className="w-12 h-12 text-white" />
@@ -220,29 +220,32 @@ export default function AmazingOffer() {
                   key={product.id}
                   className="pl-2 md:pl-3 basis-[47%] xs:basis-2/5 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5"
                 >
-                  <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 h-full flex flex-col relative group hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden will-change-transform">
-                    {/* Special Offer Badge */}
+                  {/* Modernized Product Card */}
+                  <div className="bg-gradient-to-br from-white to-gray-50/80 rounded-2xl sm:rounded-3xl p-3 sm:p-4 h-full flex flex-col relative group hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.15)] transition-all duration-300 cursor-pointer overflow-hidden will-change-transform border border-gray-100/50 hover:border-blue-200/50 hover:-translate-y-1">
+                    {/* Subtle shine effect on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    
+                    {/* Special Offer Badge - Modernized */}
                     <div className="absolute top-0 right-0 z-10">
-                      <span className="bg-linear-to-r from-orange-500 to-pink-600 text-white text-[9px] sm:text-[10px] px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-bl-lg sm:rounded-bl-xl rounded-tr-xl sm:rounded-tr-2xl font-bold shadow-lg flex items-center gap-0.5 sm:gap-1">
+                      <span className="bg-gradient-to-br from-orange-500 via-orange-600 to-pink-600 text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1 sm:py-1.5 rounded-bl-xl sm:rounded-bl-2xl rounded-tr-2xl sm:rounded-tr-3xl font-bold shadow-lg flex items-center gap-0.5 sm:gap-1">
                         <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-white" />
                         <span className="hidden xs:inline">شگفت‌انگیز</span>
                       </span>
                     </div>
 
-                    {/* Image Area */}
-                    <div className="relative aspect-square mb-3 sm:mb-4 p-2 bg-linear-to-br from-gray-50 to-blue-50/30 rounded-lg sm:rounded-xl overflow-hidden transition-shadow duration-300">
+                    {/* Image Area - Enhanced */}
+                    <div className="relative aspect-square mb-3 sm:mb-4 p-3 bg-gradient-to-br from-blue-50/50 via-gray-50/30 to-indigo-50/50 rounded-xl sm:rounded-2xl overflow-hidden group-hover:shadow-inner transition-all duration-300 ring-1 ring-gray-100/50 group-hover:ring-blue-200/50">
                       <img
                         src={product.image}
                         alt={product.title}
-                        className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-110"
                         loading="lazy"
                         onError={(e) => {
-                          e.target.src =
-                            "https://placehold.co/200x200?text=Product";
+                          e.target.src = "https://placehold.co/200x200?text=Product";
                         }}
                       />
                       {product.isExpress && (
-                        <div className="absolute bottom-1.5 sm:bottom-2 right-1.5 sm:right-2 flex items-center gap-0.5 sm:gap-1 text-[9px] sm:text-[10px] text-blue-600 bg-blue-50 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full border border-blue-200 font-medium shadow-sm">
+                        <div className="absolute bottom-2 sm:bottom-2.5 right-2 sm:right-2.5 flex items-center gap-1 text-[9px] sm:text-[10px] text-blue-700 bg-gradient-to-br from-blue-50 to-blue-100/80 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-full border border-blue-200/50 font-semibold shadow-sm backdrop-blur-sm">
                           <Rocket className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                           <span className="hidden xs:inline">ارسال امروز</span>
                         </div>
@@ -250,46 +253,47 @@ export default function AmazingOffer() {
                     </div>
 
                     {/* Content Area */}
-                    <div className="flex-1 flex flex-col justify-between space-y-2 sm:space-y-3">
+                    <div className="flex-1 flex flex-col justify-between space-y-2 sm:space-y-3 relative z-10">
                       <div>
-                        <div className="flex items-center gap-1 mb-1.5 sm:mb-2">
-                          <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-amber-400 text-amber-400" />
-                          <span className="text-[10px] sm:text-xs text-gray-600 font-semibold">
-                            {product.rating}
-                          </span>
+                        {/* Rating - Enhanced */}
+                        <div className="flex items-center gap-1 mb-2 sm:mb-2.5">
+                          <div className="flex items-center gap-0.5 bg-gradient-to-r from-amber-50 to-orange-50 px-1.5 py-0.5 rounded-lg border border-amber-200/50">
+                            <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-amber-400 text-amber-500" />
+                            <span className="text-[10px] sm:text-xs text-gray-700 font-bold">
+                              {product.rating}
+                            </span>
+                          </div>
                         </div>
-                        <h3 className="text-xs sm:text-sm text-gray-700 font-medium leading-snug line-clamp-2 min-h-8 sm:min-h-10 group-hover:text-blue-600 transition-colors">
+                        
+                        {/* Product Title */}
+                        <h3 className="text-xs sm:text-sm text-gray-800 font-semibold leading-snug line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] group-hover:text-blue-700 transition-colors">
                           {product.title}
                         </h3>
                       </div>
 
-                      <div className="flex items-end justify-between mt-auto pt-2 sm:pt-3 border-t border-gray-100">
-                        <div className="flex flex-col">
-                          <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
-                            <span className="bg-linear-to-r from-red-500 to-pink-600 text-white text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-md font-bold shadow-sm">
-                              {product.discount}%
-                            </span>
-                            <del className="text-[10px] sm:text-xs text-gray-400 decoration-gray-400">
-                              {parseInt(product.price.replace(/,/g, "")) *
-                                1.15 >
-                              0
-                                ? (
-                                    parseInt(product.price.replace(/,/g, "")) *
-                                    1.15
-                                  )
-                                    .toFixed(0)
-                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                                : ""}
-                            </del>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-sm sm:text-base md:text-lg font-black text-blue-600">
-                              {product.price}
-                            </span>
-                            <span className="text-[9px] sm:text-[10px] text-gray-500 font-medium">
-                              تومان
-                            </span>
-                          </div>
+                      {/* Price Section - Modernized */}
+                      <div className="mt-auto pt-3 sm:pt-4 border-t border-gray-100">
+                        <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-2.5">
+                          <span className="bg-gradient-to-r from-red-500 to-rose-600 text-white text-[9px] sm:text-[10px] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg font-bold shadow-sm">
+                            {product.discount}%
+                          </span>
+                          <del className="text-[10px] sm:text-xs text-gray-400 font-medium">
+                            {parseInt(product.price.replace(/,/g, "")) * 1.15 > 0
+                              ? (parseInt(product.price.replace(/,/g, "")) * 1.15)
+                                  .toFixed(0)
+                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                              : ""}
+                          </del>
+                        </div>
+                        
+                        {/* Price Display - Enhanced */}
+                        <div className="flex items-baseline gap-1 bg-gradient-to-br from-blue-50 to-indigo-50/50 px-3 py-2 rounded-xl border border-blue-100/50">
+                          <span className="text-base sm:text-lg md:text-xl font-black text-blue-600">
+                            {product.price}
+                          </span>
+                          <span className="text-[9px] sm:text-[10px] text-gray-500 font-semibold">
+                            تومان
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -297,16 +301,16 @@ export default function AmazingOffer() {
                 </CarouselItem>
               ))}
 
-              {/* "See All" Card */}
+              {/* "See All" Card - Modernized */}
               <CarouselItem className="pl-2 md:pl-3 basis-[47%] xs:basis-2/5 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5">
-                <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 border-dashed rounded-xl sm:rounded-2xl h-full min-h-70 sm:min-h-80 flex flex-col items-center justify-center text-center p-4 sm:p-6 cursor-pointer hover:bg-white/20 hover:border-white/50 transition-all duration-300 group/see-all">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center mb-2 sm:mb-3 group-hover/see-all:scale-110 transition-transform duration-300 shadow-lg">
-                    <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 border-dashed rounded-2xl sm:rounded-3xl h-full min-h-[280px] sm:min-h-[320px] flex flex-col items-center justify-center text-center p-4 sm:p-6 cursor-pointer hover:bg-white/20 hover:border-white/50 transition-all duration-300 group/see-all">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-white/20 to-white/10 backdrop-blur flex items-center justify-center mb-3 sm:mb-4 group-hover/see-all:scale-110 transition-transform duration-300 shadow-lg border border-white/20">
+                    <ChevronLeft className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                   </div>
-                  <span className="text-white font-bold text-xs sm:text-sm drop-shadow-lg">
+                  <span className="text-white font-bold text-sm sm:text-base drop-shadow-lg mb-1">
                     مشاهده همه
                   </span>
-                  <span className="text-white/80 text-[10px] sm:text-xs mt-1">
+                  <span className="text-white/80 text-[10px] sm:text-xs">
                     شگفت‌انگیزها
                   </span>
                 </div>
