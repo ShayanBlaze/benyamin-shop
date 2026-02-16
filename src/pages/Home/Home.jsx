@@ -3,6 +3,7 @@ import CategorySection from "@/components/home/CategorySection";
 import BrandSection from "@/components/home/BrandSection";
 import { Card } from "@/components/ui/card";
 import HeroSlider from "@/components/home/HeroSlider";
+import AmazingOffer from "@/components/home/AmazingOffer";
 
 export default function Home() {
   const sampleProducts = [
@@ -58,8 +59,11 @@ export default function Home() {
       {/* Hero Banner */}
       <HeroSlider />
 
+      {/* Amazing Offer Section */}
+      <AmazingOffer />
+
       {/* Featured Products */}
-      <ProductCarousel title="پیشنهاد شگفت انگیز" products={sampleProducts} />
+      {/* <ProductCarousel title="پیشنهاد شگفت انگیز" products={sampleProducts} /> */}
 
       {/* Categories */}
       <CategorySection />
