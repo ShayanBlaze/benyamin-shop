@@ -124,7 +124,6 @@ const HeroSlider = () => {
         <CarouselContent className="h-full ml-0">
           {sliderData.map((slide, index) => (
             <CarouselItem key={slide.id} className="relative w-full pl-0">
-              {/* Responsive Height Container */}
               <div className="relative w-full h-125 sm:h-150 md:h-162.5 lg:h-175 xl:h-187.5">
                 {/* Background Image Container - Optimized */}
                 <div className="absolute inset-0 overflow-hidden rounded-none sm:rounded-lg md:rounded-xl lg:rounded-2xl">
@@ -137,37 +136,46 @@ const HeroSlider = () => {
                     style={{
                       transform: current === index ? 'scale(1)' : 'scale(1.05)',
                       transition: 'transform 0.7s ease-out',
-                      willChange: current === index ? 'transform' : 'auto',
                     }}
                   />
 
-                  {/* Simplified Gradient Overlays */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
-                  <div className="absolute inset-0 bg-linear-to-r from-black/50 via-transparent to-transparent" />
+                  {/* Simplified Gradient Overlays - Reduced layers */}
+                  <div 
+                    className="absolute inset-0" 
+                    style={{
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)',
+                      pointerEvents: 'none'
+                    }}
+                  />
+                  <div 
+                    className="absolute inset-0" 
+                    style={{
+                      background: 'linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 50%)',
+                      pointerEvents: 'none'
+                    }}
+                  />
                 </div>
 
                 {/* Content Container */}
                 <div className="relative z-10 h-full w-full" dir="rtl">
                   <div className="container mx-auto h-full px-4 sm:px-6 md:px-8">
                     <div className="flex flex-col justify-end h-full pb-24 sm:pb-28 md:pb-32 lg:pb-36 xl:pb-44 max-w-full sm:max-w-2xl lg:max-w-3xl">
-                      {/* Badges Row - Optimized */}
+                      {/* Badges Row */}
                       <div className="flex items-center gap-2 mb-3 sm:mb-4 flex-wrap">
-                        {/* Brand Badge */}
-                        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black/40 sm:bg-black/50 border border-white/20 sm:border-white/30 shrink-0">
-                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                        {/* Brand Badge - Removed backdrop-blur */}
+                        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black/50 border border-white/20 shrink-0">
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-500"></div>
                           <span className="text-[10px] sm:text-xs md:text-sm font-semibold text-white tracking-widest uppercase whitespace-nowrap">
                             {slide.brand}
                           </span>
                         </div>
 
-                        {/* Product Badge */}
                         {slide.badge && (
                           <Badge className={getBadgeClass(slide.badge)}>
                             {slide.badge}
                           </Badge>
                         )}
 
-                        {/* Discount Badge */}
                         {slide.discount && (
                           <Badge className="bg-linear-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-lg flex items-center gap-1 shrink-0 whitespace-nowrap">
                             <Percent className="w-3 h-3" />
@@ -176,7 +184,7 @@ const HeroSlider = () => {
                         )}
                       </div>
 
-                      {/* Main Title - Simplified Shadows */}
+                      {/* Main Title */}
                       <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[0.95] tracking-tighter drop-shadow-2xl">
                           {slide.model}
@@ -186,15 +194,14 @@ const HeroSlider = () => {
                         </p>
                       </div>
 
-                      {/* Specs Grid - Reduced backdrop-blur */}
+                      {/* Specs Grid - Removed backdrop-blur */}
                       <div className="grid grid-cols-3 gap-1.5 sm:gap-2 md:gap-3 mb-4 sm:mb-6">
                         {slide.specs.map((spec, idx) => {
                           const Icon = spec.icon;
                           return (
                             <div
                               key={idx}
-                              className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl md:rounded-2xl bg-black/30 sm:bg-black/40 border border-white/20 hover:bg-black/40 sm:hover:bg-black/50 hover:border-white/30 transition-all"
-                              style={{ willChange: 'auto' }}
+                              className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl md:rounded-2xl bg-black/40 border border-white/20 hover:bg-black/50 hover:border-white/30 transition-colors duration-300"
                             >
                               <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-400 shrink-0" />
                               <span className="text-[10px] sm:text-xs md:text-sm font-medium text-white text-center sm:text-right leading-tight">
@@ -207,10 +214,9 @@ const HeroSlider = () => {
 
                       {/* Price & Stock & Buttons */}
                       <div className="flex flex-col gap-3 sm:gap-4">
-                        {/* Price Row */}
                         <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
-                          {/* Price Tag - Reduced backdrop blur */}
-                          <div className="bg-black/40 sm:bg-black/50 border border-white/20 sm:border-white/30 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-2.5 sm:py-3">
+                          {/* Price Tag - Removed backdrop blur */}
+                          <div className="bg-black/50 border border-white/20 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-2.5 sm:py-3">
                             {slide.originalPrice && (
                               <p className="text-[10px] sm:text-xs text-gray-400 line-through mb-0.5">
                                 {slide.originalPrice} تومان
@@ -225,7 +231,7 @@ const HeroSlider = () => {
                           </div>
 
                           {/* Stock Status */}
-                          <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-black/30 sm:bg-black/40 border border-white/20 rounded-xl sm:rounded-2xl">
+                          <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-black/40 border border-white/20 rounded-xl sm:rounded-2xl">
                             <Package
                               className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 ${
                                 slide.stock.includes("موجود")
@@ -239,12 +245,11 @@ const HeroSlider = () => {
                           </div>
                         </div>
 
-                        {/* Buttons */}
+                        {/* Buttons - Optimized transforms */}
                         <div className="flex flex-col xs:flex-row gap-2 sm:gap-3">
                           <Button
                             size="lg"
-                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 text-white shadow-lg hover:shadow-xl hover:scale-[1.02] sm:hover:scale-105 transition-all duration-300 w-full xs:w-auto md:w-96 touch-target flex items-center justify-center gap-2 cursor-pointer"
-                            style={{ willChange: 'transform' }}
+                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 w-full xs:w-auto md:w-96 touch-target flex items-center justify-center gap-2 cursor-pointer"
                           >
                             <ShoppingCart className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                             <span className="whitespace-nowrap">افزودن به سبد</span>
@@ -253,7 +258,7 @@ const HeroSlider = () => {
                           <Button
                             variant="outline"
                             size="lg"
-                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-black/20 sm:bg-black/30 border-white/30 text-white hover:bg-black/30 sm:hover:bg-black/40 hover:border-white/40 transition-all w-full md:w-96 xs:w-auto touch-target whitespace-nowrap cursor-pointer"
+                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-black/30 border-white/30 text-white hover:bg-black/40 hover:border-white/40 transition-colors duration-300 w-full md:w-96 xs:w-auto touch-target whitespace-nowrap cursor-pointer"
                           >
                             مشاهده جزئیات
                           </Button>
@@ -301,7 +306,7 @@ const HeroSlider = () => {
           <div className="hidden sm:flex items-center gap-4 md:gap-6 px-4 md:px-6 py-3 md:py-4 rounded-full bg-black/50 border border-white/20 shadow-2xl">
             <button
               onClick={() => api?.scrollPrev()}
-              className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white transition-all duration-300 hover:scale-110 flex items-center justify-center group touch-target"
+              className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white transition-all duration-300 flex items-center justify-center group touch-target"
               aria-label="اسلاید قبلی"
             >
               <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
@@ -338,7 +343,7 @@ const HeroSlider = () => {
 
             <button
               onClick={() => api?.scrollNext()}
-              className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white transition-all duration-300 hover:scale-110 flex items-center justify-center group touch-target"
+              className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white transition-all duration-300 flex items-center justify-center group touch-target"
               aria-label="اسلاید بعدی"
             >
               <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
@@ -346,20 +351,19 @@ const HeroSlider = () => {
           </div>
         </div>
 
-        {/* Progress Bar - Simplified */}
+        {/* Progress Bar */}
         <div className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-white/10 z-20 overflow-hidden">
           <div
             className="h-full bg-linear-to-r from-primary to-blue-600 transition-all duration-300 ease-out"
             style={{ 
-              width: `${((current + 1) / sliderData.length) * 100}%`,
-              willChange: 'width'
+              width: `${((current + 1) / sliderData.length) * 100}%`
             }}
           />
         </div>
       </Carousel>
 
-      {/* Wave Separator - Simplified */}
-      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-0 z-10">
+      {/* Wave Separator */}
+      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-0 z-10 pointer-events-none">
         <svg
           className="relative block w-full h-10 sm:h-12 md:h-15 lg:h-20"
           xmlns="http://www.w3.org/2000/svg"
