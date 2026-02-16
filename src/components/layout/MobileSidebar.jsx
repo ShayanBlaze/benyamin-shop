@@ -76,10 +76,10 @@ export default function MobileSidebar({ onClose, isDark, onToggleDark }) {
 
   return (
     <>
-      {/* Menu Header with Search */}
+      {/* Menu Header */}
 
       <div className="p-4 pb-3 bg-[#1a2332] border-b border-gray-700/50">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-2">
           <h2 className="text-xl font-bold text-white">منوی اصلی</h2>
           <Button
             variant="ghost"
@@ -89,15 +89,6 @@ export default function MobileSidebar({ onClose, isDark, onToggleDark }) {
           >
             <X className="h-5 w-5" />
           </Button>
-        </div>
-        {/* Mobile Menu Search */}
-        <div className="relative">
-          <Input
-            type="text"
-            placeholder="جستجو در فروشگاه..."
-            className="bg-[#2d3c4f] border-0 text-white placeholder:text-gray-400 pr-10 h-11 text-sm rounded-xl"
-          />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
         </div>
       </div>
 
