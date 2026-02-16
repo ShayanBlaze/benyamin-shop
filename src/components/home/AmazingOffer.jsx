@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Star, Rocket, Zap } from "lucide-react";
 import {
   Carousel,
@@ -6,7 +6,6 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 const products = [
   {
@@ -71,7 +70,7 @@ export default function AmazingOffer() {
   const [minutes, setMinutes] = useState(45);
   const [seconds, setSeconds] = useState(30);
 
-  // Countdown timer effect (demo)
+  // Countdown timer effect
   useEffect(() => {
     const timer = setInterval(() => {
       setSeconds((prev) => {
@@ -124,20 +123,18 @@ export default function AmazingOffer() {
             </h2>
           </div>
 
-          {/* Countdown Timer with Animation - FIXED ORDER: seconds : minutes : hours */}
+          {/* Countdown Timer - CORRECT ORDER: seconds : minutes : hours */}
           <div className="flex items-center gap-2 mb-6 direction-ltr">
-            <div className="bg-white/95 backdrop-blur text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg transform hover:scale-110 transition-all duration-300">
-              {String(hours).padStart(2, '0')}
+            <div className="bg-white/95 backdrop-blur text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg transform hover:scale-110 transition-all duration-300 animate-pulse">
+              {String(seconds).padStart(2, "0")}
             </div>
-            <span className="text-white font-bold text-2xl animate-pulse">
-              :
-            </span>
+            <span className="text-white font-bold text-2xl animate-pulse">:</span>
             <div className="bg-white/95 backdrop-blur text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg transform hover:scale-110 transition-all duration-300">
               {String(minutes).padStart(2, "0")}
             </div>
             <span className="text-white font-bold text-2xl animate-pulse">:</span>
-            <div className="bg-white/95 backdrop-blur text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg transform hover:scale-110 transition-all duration-300 animate-pulse">
-              {String(seconds).padStart(2, '0')}
+            <div className="bg-white/95 backdrop-blur text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg transform hover:scale-110 transition-all duration-300">
+              {String(hours).padStart(2, "0")}
             </div>
           </div>
 
@@ -186,7 +183,7 @@ export default function AmazingOffer() {
           <Carousel
             opts={{
               align: "start",
-              loop: false, // FIXED: Disabled loop so it stops at "See All" card
+              loop: false,
               direction: "rtl",
             }}
             setApi={setApi}
@@ -199,7 +196,7 @@ export default function AmazingOffer() {
                   className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5"
                 >
                   <div className="bg-white rounded-2xl p-4 h-full flex flex-col relative group hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden">
-                    {/* Special Offer Badge with Animation */}
+                    {/* Special Offer Badge */}
                     <div className="absolute top-0 right-0 z-10">
                       <span className="bg-gradient-to-r from-orange-500 to-pink-600 text-white text-[10px] px-2.5 py-1 rounded-bl-xl rounded-tr-2xl font-bold shadow-lg flex items-center gap-1 animate-pulse">
                         <Zap className="w-3 h-3 fill-white" />
@@ -207,15 +204,14 @@ export default function AmazingOffer() {
                       </span>
                     </div>
 
-                    {/* Image Area with Hover Effect */}
+                    {/* Image Area */}
                     <div className="relative aspect-square mb-4 p-2 bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-xl overflow-hidden group-hover:shadow-inner transition-all duration-300">
                       <img
                         src={product.image}
                         alt={product.title}
                         className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
                         onError={(e) => {
-                          e.target.src =
-                            "https://placehold.co/200x200?text=Product";
+                          e.target.src = "https://placehold.co/200x200?text=Product";
                         }}
                       />
                       {product.isExpress && (
@@ -241,7 +237,7 @@ export default function AmazingOffer() {
                         </h3>
                       </div>
 
-                      {/* Price Section with Better Design */}
+                      {/* Price Section */}
                       <div className="flex items-end justify-between mt-auto pt-3 border-t border-gray-100">
                         <div className="flex flex-col">
                           <div className="flex items-center gap-2 mb-1">
@@ -249,13 +245,8 @@ export default function AmazingOffer() {
                               {product.discount}%
                             </span>
                             <del className="text-xs text-gray-400 decoration-gray-400">
-                              {parseInt(product.price.replace(/,/g, "")) *
-                                1.15 >
-                              0
-                                ? (
-                                    parseInt(product.price.replace(/,/g, "")) *
-                                    1.15
-                                  )
+                              {parseInt(product.price.replace(/,/g, "")) * 1.15 > 0
+                                ? (parseInt(product.price.replace(/,/g, "")) * 1.15)
                                     .toFixed(0)
                                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                                 : ""}
@@ -276,7 +267,7 @@ export default function AmazingOffer() {
                 </CarouselItem>
               ))}
 
-              {/* "See All" Card with Better Design */}
+              {/* "See All" Card */}
               <CarouselItem className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5">
                 <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 border-dashed rounded-2xl h-full flex flex-col items-center justify-center text-center p-6 cursor-pointer hover:bg-white/20 hover:border-white/50 transition-all duration-300 group/see-all">
                   <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center mb-3 group-hover/see-all:scale-110 group-hover/see-all:rotate-12 transition-all duration-300 shadow-lg">
@@ -291,27 +282,27 @@ export default function AmazingOffer() {
                 </div>
               </CarouselItem>
             </CarouselContent>
-            
-            {/* Custom Navigation Buttons with Better Style */}
+
+            {/* Navigation Buttons - FIXED: Using api instead of carouselRef */}
             <div className="absolute top-1/2 -translate-y-1/2 -right-4 lg:-right-6 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity hidden sm:flex">
               <Button
                 variant="secondary"
                 size="icon"
                 className="h-10 w-10 rounded-full shadow-xl bg-white hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:scale-110"
-                onClick={() => carouselRef.current?.scrollPrev()}
-               >
-                 <ChevronRight className="h-5 w-5 text-blue-600" />
-               </Button>
+                onClick={() => api?.scrollPrev()}
+              >
+                <ChevronRight className="h-5 w-5 text-blue-600" />
+              </Button>
             </div>
             <div className="absolute top-1/2 -translate-y-1/2 -left-4 lg:-left-6 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity hidden sm:flex">
               <Button
                 variant="secondary"
                 size="icon"
                 className="h-10 w-10 rounded-full shadow-xl bg-white hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:scale-110"
-                 onClick={() => carouselRef.current?.scrollNext()}
-               >
-                 <ChevronLeft className="h-5 w-5 text-blue-600" />
-               </Button>
+                onClick={() => api?.scrollNext()}
+              >
+                <ChevronLeft className="h-5 w-5 text-blue-600" />
+              </Button>
             </div>
           </Carousel>
         </div>
