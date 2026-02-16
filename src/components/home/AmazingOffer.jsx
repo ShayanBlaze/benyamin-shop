@@ -69,17 +69,6 @@ export default function AmazingOffer() {
   const [hours, setHours] = useState(12);
   const [minutes, setMinutes] = useState(45);
   const [seconds, setSeconds] = useState(30);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  // Detect if user prefers reduced motion
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handler = (e) => setPrefersReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, []);
 
   // Optimized countdown timer using requestAnimationFrame
   useEffect(() => {
@@ -221,7 +210,7 @@ export default function AmazingOffer() {
                   className="pl-2 md:pl-3 basis-[47%] xs:basis-2/5 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5"
                 >
                   <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 h-full flex flex-col relative group hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden will-change-transform">
-                    {/* Special Offer Badge - Removed animate-pulse for performance */}
+                    {/* Special Offer Badge */}
                     <div className="absolute top-0 right-0 z-10">
                       <span className="bg-gradient-to-r from-orange-500 to-pink-600 text-white text-[9px] sm:text-[10px] px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-bl-lg sm:rounded-bl-xl rounded-tr-xl sm:rounded-tr-2xl font-bold shadow-lg flex items-center gap-0.5 sm:gap-1">
                         <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-white" />
@@ -229,7 +218,7 @@ export default function AmazingOffer() {
                       </span>
                     </div>
 
-                    {/* Image Area - Optimized hover effect */}
+                    {/* Image Area */}
                     <div className="relative aspect-square mb-3 sm:mb-4 p-2 bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-lg sm:rounded-xl overflow-hidden transition-shadow duration-300">
                       <img
                         src={product.image}
