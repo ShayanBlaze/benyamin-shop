@@ -10,10 +10,6 @@ import {
   History,
   TrendingUp,
   X,
-  SprayCan,
-  Wrench,
-  Battery,
-  Disc,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -76,7 +72,6 @@ export default function Header() {
         <div className="container mx-auto px-4 sm:px-6 md:px-8 py-3 sm:py-4 lg:py-5 relative z-50">
           <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-8">
             {/* Mobile Menu Button */}
-            {/* Mobile Menu Button */}
             <Sheet open={mobileMenuOpen} onOpenChange={handleMobileMenuChange}>
               <SheetTrigger asChild>
                 <Button
@@ -90,7 +85,7 @@ export default function Header() {
 
               <SheetContent
                 side="right"
-                className="w-[85vw] sm:w-95 p-0 border-gray-700/50 overflow-hidden flex flex-col transition-all duration-500 ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right [&>button]:hidden"
+                className="w-[85vw] sm:w-95 p-0 border-gray-700/50 overflow-hidden flex flex-col [&>button]:hidden"
               >
                 <SheetTitle className="sr-only">منوی اصلی</SheetTitle>
                 <SheetDescription className="sr-only">
