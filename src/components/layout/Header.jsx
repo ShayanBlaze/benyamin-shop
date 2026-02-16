@@ -104,15 +104,8 @@ export default function Header() {
               </SheetContent>
             </Sheet>
 
-            {/* Mobile Search Button (Only on very small screens) */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMobileSearchOpen(true)}
-              className="sm:hidden hover:bg-white/10 rounded-xl transition-all duration-300 touch-target h-10 w-10"
-            >
-              <Search className="h-5 w-5 text-blue-400" />
-            </Button>
+            {/* Mobile Search Button REPLACED with Location Combo */}
+            {/* REMOVED: Separate Mobile Search Button */}
 
             {/* Desktop Search Area */}
             <div
@@ -246,8 +239,19 @@ export default function Header() {
               </Button>
             </div>
 
-            {/* Mobile Cart Icon */}
+            {/* Mobile Cart Icon & Search/Location Combo */}
             <div className="flex lg:hidden items-center gap-1.5 sm:gap-2 order-3">
+              
+              {/* NEW Mobile Location/Search Trigger */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsMobileSearchOpen(true)}
+                className="sm:hidden hover:bg-white/10 rounded-xl transition-all duration-300 touch-target h-10 w-10 flex items-center justify-center"
+              >
+                 <MapPin className="h-5 w-5 text-orange-500" />
+              </Button>
+
               <Button
                 variant="ghost"
                 size="icon"
@@ -262,7 +266,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Search Modal */}
+        {/* Mobile Search Modal - UPDATED to include location context */}
         {isMobileSearchOpen && (
           <div className="fixed inset-0 z-50 sm:hidden">
             <div className="absolute inset-x-0 top-0 bg-[#1f2a38] rounded-b-3xl shadow-2xl p-4 animate-in slide-in-from-top duration-300">
@@ -275,12 +279,18 @@ export default function Header() {
                 >
                   <X className="h-5 w-5" />
                 </Button>
-                <Input
-                  type="text"
-                  placeholder="جستجو کنید..."
-                  autoFocus
-                  className="bg-[#2d3c4f] border-0 text-white placeholder:text-gray-400 h-10 text-sm rounded-xl flex-1"
-                />
+                
+                {/* Location Badge inside Search Input container */}
+                <div className="relative flex-1">
+                    <Input
+                    type="text"
+                    placeholder="جستجو در محله شما..."
+                    autoFocus
+                    className="bg-[#2d3c4f] border-0 text-white placeholder:text-gray-400 h-10 text-sm rounded-xl w-full pl-10"
+                    />
+                     <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-500" />
+                </div>
+
                 <Button
                   size="icon"
                   variant="ghost"
@@ -290,8 +300,21 @@ export default function Header() {
                 </Button>
               </div>
 
+               {/* Location Selection Button inside Modal */}
+               <Button 
+                variant="outline" 
+                className="w-full mb-4 bg-white/5 border-dashed border-gray-600 text-gray-300 hover:text-white hover:bg-white/10 hover:border-orange-500 h-10 text-xs justify-between group"
+               >
+                 <span className="flex items-center gap-2">
+                    <MapPin className="h-3.5 w-3.5 text-orange-500 group-hover:animate-bounce" />
+                    مکان فعلی: تهران، سعادت‌آباد
+                 </span>
+                 <span className="text-blue-400">تغییر</span>
+               </Button>
+
+
               {/* Mobile Search Content */}
-              <div className="max-h-[60vh] overflow-y-auto">
+              <div className="max-h-[50vh] overflow-y-auto">
                 <div className="mb-3">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs text-gray-400 flex items-center gap-1.5">
@@ -452,15 +475,10 @@ export default function Header() {
               </Button>
             </div>
 
-            {/* Mobile/Tablet Bottom Navigation */}
-            <div className="lg:hidden flex items-center justify-center py-2.5 sm:py-3">
-              <Button
-                variant="ghost"
-                className="text-white hover:bg-white/10 text-xs sm:text-sm h-9 sm:h-10 px-3 sm:px-4 rounded-xl transition-all duration-300"
-              >
-                <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 ml-1.5 sm:ml-2 text-orange-500" />
-                آدرس خود را انتخاب کنید
-              </Button>
+            {/* Mobile/Tablet Bottom Navigation - REMOVED the dedicated location bar as it is now integrated into header icon */}
+            {/* The bottom bar container remains for visual balance but content is hidden on mobile if needed, or we can just remove this div if it's empty on mobile */}
+             <div className="lg:hidden flex items-center justify-center py-2.5 sm:py-3 opacity-0 pointer-events-none h-0 sm:h-auto overflow-hidden">
+                 {/* Placeholder to keep layout if necessary, or better yet, removed to save space */}
             </div>
           </div>
         </div>
