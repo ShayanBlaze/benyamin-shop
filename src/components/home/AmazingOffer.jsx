@@ -66,7 +66,7 @@ const products = [
 ];
 
 export default function AmazingOffer() {
-  const carouselRef = useRef(null);
+  const [api, setApi] = useState();
   const [hours, setHours] = useState(12);
   const [minutes, setMinutes] = useState(45);
   const [seconds, setSeconds] = useState(30);
@@ -124,10 +124,10 @@ export default function AmazingOffer() {
             </h2>
           </div>
 
-          {/* Countdown Timer with Animation */}
+          {/* Countdown Timer with Animation - FIXED ORDER: seconds : minutes : hours */}
           <div className="flex items-center gap-2 mb-6 direction-ltr">
             <div className="bg-white/95 backdrop-blur text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg transform hover:scale-110 transition-all duration-300">
-              {String(hours).padStart(2, "0")}
+              {String(hours).padStart(2, '0')}
             </div>
             <span className="text-white font-bold text-2xl animate-pulse">
               :
@@ -135,11 +135,9 @@ export default function AmazingOffer() {
             <div className="bg-white/95 backdrop-blur text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg transform hover:scale-110 transition-all duration-300">
               {String(minutes).padStart(2, "0")}
             </div>
-            <span className="text-white font-bold text-2xl animate-pulse">
-              :
-            </span>
+            <span className="text-white font-bold text-2xl animate-pulse">:</span>
             <div className="bg-white/95 backdrop-blur text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg transform hover:scale-110 transition-all duration-300 animate-pulse">
-              {String(seconds).padStart(2, "0")}
+              {String(seconds).padStart(2, '0')}
             </div>
           </div>
 
@@ -188,11 +186,11 @@ export default function AmazingOffer() {
           <Carousel
             opts={{
               align: "start",
-              loop: true,
+              loop: false, // FIXED: Disabled loop so it stops at "See All" card
               direction: "rtl",
             }}
+            setApi={setApi}
             className="w-full"
-            ref={carouselRef}
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {products.map((product) => (
@@ -293,7 +291,7 @@ export default function AmazingOffer() {
                 </div>
               </CarouselItem>
             </CarouselContent>
-
+            
             {/* Custom Navigation Buttons with Better Style */}
             <div className="absolute top-1/2 -translate-y-1/2 -right-4 lg:-right-6 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity hidden sm:flex">
               <Button
@@ -301,19 +299,19 @@ export default function AmazingOffer() {
                 size="icon"
                 className="h-10 w-10 rounded-full shadow-xl bg-white hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:scale-110"
                 onClick={() => carouselRef.current?.scrollPrev()}
-              >
-                <ChevronRight className="h-5 w-5 text-blue-600" />
-              </Button>
+               >
+                 <ChevronRight className="h-5 w-5 text-blue-600" />
+               </Button>
             </div>
             <div className="absolute top-1/2 -translate-y-1/2 -left-4 lg:-left-6 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity hidden sm:flex">
               <Button
                 variant="secondary"
                 size="icon"
                 className="h-10 w-10 rounded-full shadow-xl bg-white hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:scale-110"
-                onClick={() => carouselRef.current?.scrollNext()}
-              >
-                <ChevronLeft className="h-5 w-5 text-blue-600" />
-              </Button>
+                 onClick={() => carouselRef.current?.scrollNext()}
+               >
+                 <ChevronLeft className="h-5 w-5 text-blue-600" />
+               </Button>
             </div>
           </Carousel>
         </div>
