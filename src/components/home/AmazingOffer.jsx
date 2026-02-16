@@ -112,7 +112,7 @@ export default function AmazingOffer() {
 
   return (
     <section className="container mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-8">
-      <div className="bg-gradient-to-br from-[#1e3a8a] via-[#3b82f6] to-[#2563eb] rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-8 items-stretch relative overflow-hidden shadow-2xl will-change-transform">
+      <div className="bg-gradient-to-br from-[#1e3a8a] via-[#3b82f6] to-[#2563eb] rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-8 items-stretch relative overflow-visible shadow-2xl will-change-transform">
         {/* Simplified Background Decorations */}
         <div
           className="absolute top-0 right-0 w-64 sm:w-80 h-64 sm:h-80 bg-blue-400/10 rounded-full blur-2xl pointer-events-none"
@@ -317,8 +317,8 @@ export default function AmazingOffer() {
               </CarouselItem>
             </CarouselContent>
 
-            {/* Navigation Buttons */}
-            <div className="absolute top-1/2 -translate-y-1/2 -right-4 lg:-right-6 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity hidden md:flex">
+            {/* Navigation Buttons - Fixed z-index */}
+            <div className="absolute top-1/2 -translate-y-1/2 -right-4 lg:-right-6 z-50 opacity-0 group-hover/carousel:opacity-100 transition-opacity hidden md:flex">
               <Button
                 variant="secondary"
                 size="icon"
@@ -328,7 +328,7 @@ export default function AmazingOffer() {
                 <ChevronRight className="h-5 w-5 text-blue-600" />
               </Button>
             </div>
-            <div className="absolute top-1/2 -translate-y-1/2 -left-4 lg:-left-6 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity hidden md:flex">
+            <div className="absolute top-1/2 -translate-y-1/2 -left-4 lg:-left-6 z-50 opacity-0 group-hover/carousel:opacity-100 transition-opacity hidden md:flex">
               <Button
                 variant="secondary"
                 size="icon"
