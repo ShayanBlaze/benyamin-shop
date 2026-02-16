@@ -142,8 +142,8 @@ const HeroSlider = () => {
                   />
 
                   {/* Simplified Gradient Overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-r from-black/50 via-transparent to-transparent" />
                 </div>
 
                 {/* Content Container */}
@@ -169,7 +169,7 @@ const HeroSlider = () => {
 
                         {/* Discount Badge */}
                         {slide.discount && (
-                          <Badge className="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-lg flex items-center gap-1 shrink-0 whitespace-nowrap">
+                          <Badge className="bg-linear-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-lg flex items-center gap-1 shrink-0 whitespace-nowrap">
                             <Percent className="w-3 h-3" />
                             {slide.discount}٪ تخفیف
                           </Badge>
@@ -243,7 +243,7 @@ const HeroSlider = () => {
                         <div className="flex flex-col xs:flex-row gap-2 sm:gap-3">
                           <Button
                             size="lg"
-                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 text-white shadow-lg hover:shadow-xl hover:scale-[1.02] sm:hover:scale-105 transition-all duration-300 w-full xs:w-auto md:w-96 touch-target flex items-center justify-center gap-2 cursor-pointer"
+                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 text-white shadow-lg hover:shadow-xl hover:scale-[1.02] sm:hover:scale-105 transition-all duration-300 w-full xs:w-auto md:w-96 touch-target flex items-center justify-center gap-2 cursor-pointer"
                             style={{ willChange: 'transform' }}
                           >
                             <ShoppingCart className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
@@ -278,7 +278,7 @@ const HeroSlider = () => {
                   onClick={() => api?.scrollTo(idx)}
                   className={`transition-all duration-300 rounded-full ${
                     current === idx
-                      ? "w-8 h-2.5 bg-gradient-to-r from-primary to-blue-600"
+                      ? "w-8 h-2.5 bg-linear-to-r from-primary to-blue-600"
                       : "w-2.5 h-2.5 bg-white/40 hover:bg-white/70"
                   }`}
                   aria-label={`اسلاید ${idx + 1}`}
@@ -314,7 +314,7 @@ const HeroSlider = () => {
                   onClick={() => api?.scrollTo(idx)}
                   className={`transition-all duration-300 rounded-full ${
                     current === idx
-                      ? "w-10 md:w-12 h-2.5 md:h-3 bg-gradient-to-r from-primary to-blue-600"
+                      ? "w-10 md:w-12 h-2.5 md:h-3 bg-linear-to-r from-primary to-blue-600"
                       : "w-2.5 md:w-3 h-2.5 md:h-3 bg-white/40 hover:bg-white/70"
                   }`}
                   aria-label={`اسلاید ${idx + 1}`}
@@ -349,7 +349,7 @@ const HeroSlider = () => {
         {/* Progress Bar - Simplified */}
         <div className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-white/10 z-20 overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-primary to-blue-600 transition-all duration-300 ease-out"
+            className="h-full bg-linear-to-r from-primary to-blue-600 transition-all duration-300 ease-out"
             style={{ 
               width: `${((current + 1) / sliderData.length) * 100}%`,
               willChange: 'width'
