@@ -101,36 +101,44 @@ export default function AmazingOffer() {
   }, []);
 
   // Memoize formatted time to prevent unnecessary re-renders
-  const formattedTime = useMemo(() => ({
-    hours: String(hours).padStart(2, "0"),
-    minutes: String(minutes).padStart(2, "0"),
-    seconds: String(seconds).padStart(2, "0"),
-  }), [hours, minutes, seconds]);
+  const formattedTime = useMemo(
+    () => ({
+      hours: String(hours).padStart(2, "0"),
+      minutes: String(minutes).padStart(2, "0"),
+      seconds: String(seconds).padStart(2, "0"),
+    }),
+    [hours, minutes, seconds],
+  );
 
   return (
     <section className="container mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-8">
-      <div className="bg-gradient-to-br from-[#1e3a8a] via-[#3b82f6] to-[#2563eb] rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-8 items-stretch relative overflow-hidden shadow-2xl will-change-transform">
+      <div className="bg-linear-to-br from-[#1e3a8a] via-[#3b82f6] to-[#2563eb] rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-8 items-stretch relative overflow-hidden shadow-2xl will-change-transform">
         {/* Simplified Background Decorations - Reduced blur for performance */}
-        <div 
+        <div
           className="absolute top-0 right-0 w-64 sm:w-80 h-64 sm:h-80 bg-blue-400/10 rounded-full blur-2xl pointer-events-none"
-          style={{ transform: 'translate(50%, -50%)', willChange: 'transform' }}
+          style={{ transform: "translate(50%, -50%)", willChange: "transform" }}
         />
-        <div 
+        <div
           className="absolute bottom-0 left-0 w-48 sm:w-64 h-48 sm:h-64 bg-indigo-600/10 rounded-full blur-xl pointer-events-none"
-          style={{ transform: 'translate(-50%, 50%)', willChange: 'transform' }}
+          style={{ transform: "translate(-50%, 50%)", willChange: "transform" }}
         />
 
         {/* Mobile: Horizontal Header */}
         <div className="lg:hidden flex items-center justify-between w-full z-10 pb-3 border-b border-white/20">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg" style={{ transform: 'rotate(3deg)' }}>
+            <div
+              className="w-12 h-12 sm:w-14 sm:h-14 bg-linear-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg"
+              style={{ transform: "rotate(3deg)" }}
+            >
               <Zap className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
             </div>
             <div>
               <h2 className="text-lg sm:text-xl font-bold text-white drop-shadow-lg">
                 پیشنهاد شگفت‌انگیز
               </h2>
-              <p className="text-xs text-yellow-300 font-medium">تا پایان فرصت</p>
+              <p className="text-xs text-yellow-300 font-medium">
+                تا پایان فرصت
+              </p>
             </div>
           </div>
 
@@ -153,7 +161,10 @@ export default function AmazingOffer() {
         {/* Desktop: Vertical Sidebar */}
         <div className="hidden lg:flex lg:w-1/5 flex-col items-center justify-center text-center text-white shrink-0 z-10">
           <div className="mb-6 relative">
-            <div className="w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-xl transition-transform duration-300 hover:scale-105" style={{ transform: 'rotate(3deg)' }}>
+            <div
+              className="w-24 h-24 bg-linear-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-xl transition-transform duration-300 hover:scale-105"
+              style={{ transform: "rotate(3deg)" }}
+            >
               <Zap className="w-12 h-12 text-white" />
             </div>
 
@@ -212,21 +223,22 @@ export default function AmazingOffer() {
                   <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 h-full flex flex-col relative group hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden will-change-transform">
                     {/* Special Offer Badge */}
                     <div className="absolute top-0 right-0 z-10">
-                      <span className="bg-gradient-to-r from-orange-500 to-pink-600 text-white text-[9px] sm:text-[10px] px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-bl-lg sm:rounded-bl-xl rounded-tr-xl sm:rounded-tr-2xl font-bold shadow-lg flex items-center gap-0.5 sm:gap-1">
+                      <span className="bg-linear-to-r from-orange-500 to-pink-600 text-white text-[9px] sm:text-[10px] px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-bl-lg sm:rounded-bl-xl rounded-tr-xl sm:rounded-tr-2xl font-bold shadow-lg flex items-center gap-0.5 sm:gap-1">
                         <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-white" />
                         <span className="hidden xs:inline">شگفت‌انگیز</span>
                       </span>
                     </div>
 
                     {/* Image Area */}
-                    <div className="relative aspect-square mb-3 sm:mb-4 p-2 bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-lg sm:rounded-xl overflow-hidden transition-shadow duration-300">
+                    <div className="relative aspect-square mb-3 sm:mb-4 p-2 bg-linear-to-br from-gray-50 to-blue-50/30 rounded-lg sm:rounded-xl overflow-hidden transition-shadow duration-300">
                       <img
                         src={product.image}
                         alt={product.title}
                         className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                         onError={(e) => {
-                          e.target.src = "https://placehold.co/200x200?text=Product";
+                          e.target.src =
+                            "https://placehold.co/200x200?text=Product";
                         }}
                       />
                       {product.isExpress && (
@@ -246,7 +258,7 @@ export default function AmazingOffer() {
                             {product.rating}
                           </span>
                         </div>
-                        <h3 className="text-xs sm:text-sm text-gray-700 font-medium leading-snug line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-xs sm:text-sm text-gray-700 font-medium leading-snug line-clamp-2 min-h-8 sm:min-h-10 group-hover:text-blue-600 transition-colors">
                           {product.title}
                         </h3>
                       </div>
@@ -254,12 +266,17 @@ export default function AmazingOffer() {
                       <div className="flex items-end justify-between mt-auto pt-2 sm:pt-3 border-t border-gray-100">
                         <div className="flex flex-col">
                           <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
-                            <span className="bg-gradient-to-r from-red-500 to-pink-600 text-white text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-md font-bold shadow-sm">
+                            <span className="bg-linear-to-r from-red-500 to-pink-600 text-white text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-md font-bold shadow-sm">
                               {product.discount}%
                             </span>
                             <del className="text-[10px] sm:text-xs text-gray-400 decoration-gray-400">
-                              {parseInt(product.price.replace(/,/g, "")) * 1.15 > 0
-                                ? (parseInt(product.price.replace(/,/g, "")) * 1.15)
+                              {parseInt(product.price.replace(/,/g, "")) *
+                                1.15 >
+                              0
+                                ? (
+                                    parseInt(product.price.replace(/,/g, "")) *
+                                    1.15
+                                  )
                                     .toFixed(0)
                                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                                 : ""}
@@ -282,7 +299,7 @@ export default function AmazingOffer() {
 
               {/* "See All" Card */}
               <CarouselItem className="pl-2 md:pl-3 basis-[47%] xs:basis-2/5 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5">
-                <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 border-dashed rounded-xl sm:rounded-2xl h-full min-h-[280px] sm:min-h-[320px] flex flex-col items-center justify-center text-center p-4 sm:p-6 cursor-pointer hover:bg-white/20 hover:border-white/50 transition-all duration-300 group/see-all">
+                <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 border-dashed rounded-xl sm:rounded-2xl h-full min-h-70 sm:min-h-80 flex flex-col items-center justify-center text-center p-4 sm:p-6 cursor-pointer hover:bg-white/20 hover:border-white/50 transition-all duration-300 group/see-all">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center mb-2 sm:mb-3 group-hover/see-all:scale-110 transition-transform duration-300 shadow-lg">
                     <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                   </div>

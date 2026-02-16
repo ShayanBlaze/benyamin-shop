@@ -96,10 +96,14 @@ const HeroSlider = () => {
   // Memoize badge class to prevent re-calculations
   const getBadgeClass = useMemo(() => {
     return (badge) => {
-      const baseClass = "text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-lg shrink-0 whitespace-nowrap";
-      if (badge === "پرفروش") return `${baseClass} bg-orange-500 hover:bg-orange-600`;
-      if (badge === "جدید") return `${baseClass} bg-green-500 hover:bg-green-600`;
-      if (badge === "پیشنهاد ویژه") return `${baseClass} bg-red-500 hover:bg-red-600`;
+      const baseClass =
+        "text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-lg shrink-0 whitespace-nowrap";
+      if (badge === "پرفروش")
+        return `${baseClass} bg-orange-500 hover:bg-orange-600`;
+      if (badge === "جدید")
+        return `${baseClass} bg-green-500 hover:bg-green-600`;
+      if (badge === "پیشنهاد ویژه")
+        return `${baseClass} bg-red-500 hover:bg-red-600`;
       return baseClass;
     };
   }, []);
@@ -134,24 +138,26 @@ const HeroSlider = () => {
                     decoding="async"
                     className="w-full h-full object-cover object-center"
                     style={{
-                      transform: current === index ? 'scale(1)' : 'scale(1.05)',
-                      transition: 'transform 0.7s ease-out',
+                      transform: current === index ? "scale(1)" : "scale(1.05)",
+                      transition: "transform 0.7s ease-out",
                     }}
                   />
 
                   {/* Simplified Gradient Overlays - Reduced layers */}
-                  <div 
-                    className="absolute inset-0" 
+                  <div
+                    className="absolute inset-0"
                     style={{
-                      background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)',
-                      pointerEvents: 'none'
+                      background:
+                        "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)",
+                      pointerEvents: "none",
                     }}
                   />
-                  <div 
-                    className="absolute inset-0" 
+                  <div
+                    className="absolute inset-0"
                     style={{
-                      background: 'linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 50%)',
-                      pointerEvents: 'none'
+                      background:
+                        "linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 50%)",
+                      pointerEvents: "none",
                     }}
                   />
                 </div>
@@ -252,7 +258,9 @@ const HeroSlider = () => {
                             className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 w-full xs:w-auto md:w-96 touch-target flex items-center justify-center gap-2 cursor-pointer"
                           >
                             <ShoppingCart className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-                            <span className="whitespace-nowrap">افزودن به سبد</span>
+                            <span className="whitespace-nowrap">
+                              افزودن به سبد
+                            </span>
                           </Button>
 
                           <Button
@@ -273,7 +281,10 @@ const HeroSlider = () => {
         </CarouselContent>
 
         {/* Navigation Controls */}
-        <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-14 xl:bottom-16 left-1/2 -translate-x-1/2 z-30 w-auto" dir="rtl">
+        <div
+          className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-14 xl:bottom-16 left-1/2 -translate-x-1/2 z-30 w-auto"
+          dir="rtl"
+        >
           {/* Mobile Navigation */}
           <div className="sm:hidden flex items-center gap-3 px-4 py-3 rounded-full bg-black/50 border border-white/20 shadow-2xl">
             <div className="flex gap-1.5">
@@ -333,7 +344,9 @@ const HeroSlider = () => {
               <span className="text-xl md:text-2xl font-black text-white tabular-nums">
                 {String(current + 1).padStart(2, "0")}
               </span>
-              <span className="text-white/50 text-base md:text-lg font-light">/</span>
+              <span className="text-white/50 text-base md:text-lg font-light">
+                /
+              </span>
               <span className="text-sm md:text-base text-white/70 tabular-nums">
                 {String(sliderData.length).padStart(2, "0")}
               </span>
@@ -355,8 +368,8 @@ const HeroSlider = () => {
         <div className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-white/10 z-20 overflow-hidden">
           <div
             className="h-full bg-linear-to-r from-primary to-blue-600 transition-all duration-300 ease-out"
-            style={{ 
-              width: `${((current + 1) / sliderData.length) * 100}%`
+            style={{
+              width: `${((current + 1) / sliderData.length) * 100}%`,
             }}
           />
         </div>
