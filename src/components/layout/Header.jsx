@@ -90,7 +90,7 @@ export default function Header() {
 
               <SheetContent
                 side="right"
-                className="w-[85vw] sm:w-95 p-0 border-gray-700/50 overflow-hidden flex flex-col transition-all duration-500 ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right [&>button]:hidden"
+                className="w-[85vw] sm:w-95 p-0 border-gray-700/50 overflow-hidden flex flex-col [&>button]:hidden"
               >
                 <SheetTitle className="sr-only">منوی اصلی</SheetTitle>
                 <SheetDescription className="sr-only">
