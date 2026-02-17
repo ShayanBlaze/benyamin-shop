@@ -3,14 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ProductCard from "./ProductCard";
 import { popularProducts } from "@/const/popularProducts";
-import { TrendingUp, ChevronLeft, Loader2 } from "lucide-react";
+import { TrendingUp, ChevronLeft } from "lucide-react";
 
 export default function PopularProducts() {
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
 
-  // تشخیص موبایل
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 640); // sm breakpoint
@@ -29,7 +28,6 @@ export default function PopularProducts() {
       // Simulate API delay
       await new Promise((resolve) => setTimeout(resolve, 800));
 
-      // در واقعیت اینجا API call می‌زنید:
       // const response = await fetch('/api/products/popular');
       // const data = await response.json();
       // setProducts(data);
@@ -41,19 +39,18 @@ export default function PopularProducts() {
     fetchProducts();
   }, []);
 
-  // محدود کردن تعداد محصولات در موبایل (6 محصول = 3 ردیف)
   const displayedProducts = isMobile ? products.slice(0, 6) : products;
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-linear-to-b from-slate-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 mb-8 sm:mb-12">
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Icon with glow effect */}
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl blur-xl opacity-50 animate-pulse" />
-              <div className="relative p-3 sm:p-4 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 shadow-2xl">
+              <div className="absolute inset-0 bg-linear-to-br from-orange-500 to-red-500 rounded-2xl blur-xl opacity-50 animate-pulse" />
+              <div className="relative p-3 sm:p-4 rounded-2xl bg-linear-to-br from-orange-500 to-red-500 shadow-2xl">
                 <TrendingUp className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
               </div>
             </div>
@@ -132,7 +129,6 @@ export default function PopularProducts() {
           </div>
         )}
 
-        {/* اعلان "محصولات بیشتر" فقط در موبایل */}
         {!isLoading && isMobile && products.length > 6 && (
           <div className="mt-6 p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-center">
             <p className="text-sm text-slate-700 dark:text-slate-300 mb-2">

@@ -67,7 +67,7 @@ const ProductCard = memo(function ProductCard({ product }) {
           </div>
         )}
 
-        {/* Badges - ساده‌تر */}
+        {/* Badges */}
         <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1 sm:gap-1.5 z-10">
           {product.badge && (
             <Badge className="bg-orange-500 text-white text-[10px] sm:text-xs shadow-lg px-1.5 py-0.5 sm:px-2 sm:py-1">
@@ -83,8 +83,8 @@ const ProductCard = memo(function ProductCard({ product }) {
         </div>
       </div>
 
-      {/* Content - با flex-grow برای یکسان سازی */}
-      <div className="p-2.5 sm:p-3.5 md:p-4 flex flex-col flex-grow">
+      {/* Content */}
+      <div className="p-2.5 sm:p-3.5 md:p-4 flex flex-col grow">
         {/* Brand */}
         <div className="mb-1.5 sm:mb-2">
           <span className="text-[10px] sm:text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wide">
@@ -92,12 +92,12 @@ const ProductCard = memo(function ProductCard({ product }) {
           </span>
         </div>
 
-        {/* Title - ارتفاع ثابت */}
+        {/* Title */}
         <h3 className="text-xs sm:text-sm md:text-base font-bold text-slate-900 dark:text-white mb-2 sm:mb-3 line-clamp-2 h-8 sm:h-10 leading-tight">
           {product.name}
         </h3>
 
-        {/* Rating - ساده‌تر */}
+        {/* Rating */}
         <div className="flex items-center gap-1 mb-2 sm:mb-3">
           <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-yellow-400 text-yellow-400" />
           <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
@@ -108,8 +108,8 @@ const ProductCard = memo(function ProductCard({ product }) {
           </span>
         </div>
 
-        {/* Spacer - فضای خالی تا دکمه همیشه پایین بچسبه */}
-        <div className="flex-grow" />
+        {/* Spacer */}
+        <div className="grow" />
 
         {/* Price */}
         <div className="mb-2.5 sm:mb-3">
@@ -128,7 +128,7 @@ const ProductCard = memo(function ProductCard({ product }) {
           </div>
         </div>
 
-        {/* Add to Cart Button - همیشه در پایین */}
+        {/* Add to Cart Button */}
         <Button
           onClick={handleAddToCart}
           disabled={isOutOfStock || isAddingToCart || isAdded}

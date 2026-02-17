@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import ArticleCard from "./ArticleCard";
 import { recentArticles } from "@/const";
 import { BookOpen, ChevronLeft } from "lucide-react";
@@ -11,7 +10,7 @@ export default function RecentArticles() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 sm:mb-12">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg">
+            <div className="p-3 rounded-xl bg-linear-to-br from-purple-500 to-pink-500 shadow-lg">
               <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
             </div>
             <div>

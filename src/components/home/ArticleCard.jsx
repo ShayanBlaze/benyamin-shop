@@ -13,7 +13,7 @@ export default function ArticleCard({ article }) {
   return (
     <article className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
       {/* Image */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-700">
+      <div className="relative aspect-16/10 overflow-hidden bg-slate-100 dark:bg-slate-700">
         <img
           src={article.image}
           alt={article.title}
@@ -26,7 +26,7 @@ export default function ArticleCard({ article }) {
         </Badge>
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Content */}
