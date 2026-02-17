@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   ShoppingCart,
-  Heart,
   Star,
   Loader2,
   Check,
@@ -12,7 +11,6 @@ import {
 import { cn } from "@/lib/utils";
 
 const ProductCard = memo(function ProductCard({ product }) {
-  const [isFavorite, setIsFavorite] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -36,12 +34,6 @@ const ProductCard = memo(function ProductCard({ product }) {
       setIsAdded(true);
       setTimeout(() => setIsAdded(false), 2000);
     }, 600);
-  };
-
-  // Handle favorite toggle
-  const handleFavoriteToggle = (e) => {
-    e.preventDefault();
-    setIsFavorite(!isFavorite);
   };
 
   return (
@@ -89,27 +81,6 @@ const ProductCard = memo(function ProductCard({ product }) {
             </Badge>
           )}
         </div>
-
-        {/* Favorite Button */}
-        <button
-          onClick={handleFavoriteToggle}
-          className={cn(
-            "absolute top-2 right-2 sm:top-3 sm:right-3 z-10 p-1.5 sm:p-2 rounded-full backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95",
-            isFavorite
-              ? "bg-red-500 shadow-lg"
-              : "bg-white/90 dark:bg-slate-800/90",
-          )}
-          aria-label="علاقه‌مندی"
-        >
-          <Heart
-            className={cn(
-              "w-3 h-3 sm:w-4 sm:h-4 transition-all",
-              isFavorite
-                ? "fill-white text-white"
-                : "text-slate-600 dark:text-slate-300",
-            )}
-          />
-        </button>
       </div>
 
       {/* Content - با flex-grow برای یکسان سازی */}
