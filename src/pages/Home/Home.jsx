@@ -1,7 +1,6 @@
 import ProductCarousel from "@/components/home/ProductCarousel";
 import CategorySection from "@/components/home/CategorySection";
 import BrandSection from "@/components/home/BrandSection";
-import { Card } from "@/components/ui/card";
 import HeroSlider from "@/components/home/HeroSlider";
 import AmazingOffer from "@/components/home/AmazingOffer";
 
@@ -61,9 +60,6 @@ export default function Home() {
 
       {/* Amazing Offer Section */}
       <AmazingOffer />
-
-      {/* Featured Products */}
-      {/* <ProductCarousel title="پیشنهاد شگفت انگیز" products={sampleProducts} /> */}
 
       {/* Categories */}
       <CategorySection />
