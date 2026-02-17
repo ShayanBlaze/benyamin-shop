@@ -1,14 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, Sparkles } from "lucide-react";
+import { brandCardVariants } from "@/config/componentStyles";
 
 export default function BrandCard({ brand, index, variant = "default" }) {
-  const variants = {
-    hero: "col-span-2 row-span-2",
-    wide: "col-span-2 row-span-1",
-    tall: "col-span-1 row-span-2",
-    default: "col-span-1 row-span-1",
-  };
-
   const isLarge = variant === "hero";
   const isTall = variant === "tall";
   const isWide = variant === "wide";
@@ -18,7 +12,7 @@ export default function BrandCard({ brand, index, variant = "default" }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className={`group relative overflow-hidden rounded-2xl bg-linear-to-br ${brand.gradient} border border-slate-700/50 hover:border-primary/50 transition-all duration-500 cursor-pointer ${variants[variant]}`}
+      className={`group relative overflow-hidden rounded-2xl bg-linear-to-br ${brand.gradient} border border-slate-700/50 hover:border-primary/50 transition-all duration-500 cursor-pointer ${brandCardVariants[variant]}`}
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
