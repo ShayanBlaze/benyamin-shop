@@ -28,10 +28,11 @@ import { useState, useRef, useEffect } from "react";
 import MobileSidebar from "./MobileSidebar";
 import { carCategories } from "@/const";
 import { recentSearches, popularSearches } from "@/const";
+import { useTheme } from "@/contexts/ThemeContext";
 import React from "react";
 
 export default function Header() {
-  const [isDark, setIsDark] = useState(true);
+  const { theme, isDark, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
@@ -70,7 +71,7 @@ export default function Header() {
         />
       )}
 
-      <header className="text-white relative z-50 mt-4 sm:mt-6 md:mt-8 lg:mt-10">
+      <header className="text-white dark:text-slate-100 relative z-50 mt-4 sm:mt-6 md:mt-8 lg:mt-10">
         {/* Top Section */}
         <div className="container mx-auto px-4 sm:px-6 md:px-8 py-3 sm:py-4 lg:py-5 relative z-50">
           <div className="flex flex-col gap-4">
@@ -82,7 +83,7 @@ export default function Header() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="lg:hidden hover:bg-white/10 rounded-xl transition-all duration-300 touch-target h-10 w-10 sm:h-11 sm:w-11"
+                    className="lg:hidden hover:bg-white/10 dark:hover:bg-slate-800 rounded-xl transition-all duration-300 touch-target h-10 w-10 sm:h-11 sm:w-11"
                   >
                     <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
                   </Button>
@@ -90,7 +91,7 @@ export default function Header() {
 
                 <SheetContent
                   side="right"
-                  className="w-[85vw] sm:w-95 p-0 border-gray-700/50 overflow-hidden flex flex-col [&>button]:hidden"
+                  className="w-[85vw] sm:w-95 p-0 border-gray-700/50 dark:border-slate-700 overflow-hidden flex flex-col [&>button]:hidden bg-slate-900 dark:bg-slate-800"
                 >
                   <SheetTitle className="sr-only">منوی اصلی</SheetTitle>
                   <SheetDescription className="sr-only">
@@ -99,7 +100,7 @@ export default function Header() {
                   <MobileSidebar
                     onClose={() => handleMobileMenuChange(false)}
                     isDark={isDark}
-                    onToggleDark={() => setIsDark(!isDark)}
+                    onToggleDark={toggleTheme}
                   />
                 </SheetContent>
               </Sheet>
@@ -116,9 +117,9 @@ export default function Header() {
                     type="text"
                     placeholder="جستجو در بنیامین شاپ..."
                     onFocus={() => setIsSearchFocused(true)}
-                    className={`bg-[#2d3c4f] border-0 text-white placeholder:text-gray-400 pr-10 sm:pr-12 pl-4 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg rounded-xl sm:rounded-2xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-0 transition-all duration-300 ${
+                    className={`bg-[#2d3c4f] dark:bg-slate-800 border-0 text-white dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-500 pr-10 sm:pr-12 pl-4 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg rounded-xl sm:rounded-2xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-0 transition-all duration-300 ${
                       isSearchFocused
-                        ? "rounded-b-none shadow-none bg-[#1f2a38]"
+                        ? "rounded-b-none shadow-none bg-[#1f2a38] dark:bg-slate-900"
                         : ""
                     }`}
                   />
@@ -132,12 +133,12 @@ export default function Header() {
 
                   {/* Desktop Search Dropdown Panel */}
                   {isSearchFocused && (
-                    <div className="absolute top-full right-0 left-0 bg-[#1f2a38] rounded-b-xl sm:rounded-b-2xl border-t border-gray-700 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                    <div className="absolute top-full right-0 left-0 bg-[#1f2a38] dark:bg-slate-900 rounded-b-xl sm:rounded-b-2xl border-t border-gray-700 dark:border-slate-700 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                       <div className="p-3 sm:p-4 max-h-[60vh] overflow-y-auto">
                         {/* Recent Searches */}
                         <div className="mb-3 sm:mb-4">
                           <div className="flex items-center justify-between mb-2 px-1 sm:px-2">
-                            <span className="text-xs sm:text-sm text-gray-400 flex items-center gap-1.5 sm:gap-2">
+                            <span className="text-xs sm:text-sm text-gray-400 dark:text-slate-500 flex items-center gap-1.5 sm:gap-2">
                               <History className="w-3 h-3 sm:w-4 sm:h-4" />{" "}
                               جستجوهای اخیر
                             </span>
@@ -150,7 +151,7 @@ export default function Header() {
                               <li key={idx}>
                                 <a
                                   href="#"
-                                  className="flex items-center justify-between px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg hover:bg-white/5 text-sm sm:text-base text-gray-300 hover:text-white transition-colors group"
+                                  className="flex items-center justify-between px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg hover:bg-white/5 dark:hover:bg-slate-800 text-sm sm:text-base text-gray-300 dark:text-slate-300 hover:text-white dark:hover:text-white transition-colors group"
                                 >
                                   <span>{item}</span>
                                   <X className="w-3 h-3 sm:w-4 sm:h-4 opacity-0 group-hover:opacity-50 hover:opacity-100! cursor-pointer" />
@@ -160,12 +161,12 @@ export default function Header() {
                           </ul>
                         </div>
 
-                        <div className="border-t border-gray-700 my-2"></div>
+                        <div className="border-t border-gray-700 dark:border-slate-700 my-2"></div>
 
                         {/* Popular Searches */}
                         <div>
                           <div className="mb-2 px-1 sm:px-2 pt-2">
-                            <span className="text-xs sm:text-sm text-gray-400 flex items-center gap-1.5 sm:gap-2">
+                            <span className="text-xs sm:text-sm text-gray-400 dark:text-slate-500 flex items-center gap-1.5 sm:gap-2">
                               <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-orange-400" />{" "}
                               پیشنهادات پرطرفدار
                             </span>
@@ -175,7 +176,7 @@ export default function Header() {
                               <a
                                 key={idx}
                                 href="#"
-                                className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[#2d3c4f] hover:bg-blue-600 rounded-full text-xs sm:text-sm text-gray-300 hover:text-white transition-all duration-200"
+                                className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[#2d3c4f] dark:bg-slate-800 hover:bg-blue-600 dark:hover:bg-blue-600 rounded-full text-xs sm:text-sm text-gray-300 dark:text-slate-300 hover:text-white transition-all duration-200"
                               >
                                 {tag}
                               </a>
@@ -191,14 +192,14 @@ export default function Header() {
               {/* Center: Logo */}
               <div className="flex flex-col items-center order-1 lg:order-2">
                 <div className="flex items-center gap-0.5 sm:gap-1">
-                  <span className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white">
+                  <span className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white dark:text-slate-100">
                     بنیامین
                   </span>
                   <span className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-bold bg-linear-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
                     شاپ
                   </span>
                 </div>
-                <p className="text-[10px] sm:text-xs lg:text-sm text-gray-400 mt-0.5 sm:mt-1 hidden sm:block">
+                <p className="text-[10px] sm:text-xs lg:text-sm text-gray-400 dark:text-slate-500 mt-0.5 sm:mt-1 hidden sm:block">
                   مرجع تخصصی لوازم یدکی خودرو
                 </p>
               </div>
@@ -207,7 +208,7 @@ export default function Header() {
               <div className="hidden lg:flex items-center gap-2 xl:gap-4 order-3">
                 <Button
                   variant="outline"
-                  className="bg-transparent border-2 border-gray-600 hover:bg-white/10 hover:border-blue-400 text-white text-sm lg:text-base xl:text-lg h-11 lg:h-12 xl:h-14 px-4 lg:px-5 xl:px-6 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+                  className="bg-transparent border-2 border-gray-600 dark:border-slate-600 hover:bg-white/10 dark:hover:bg-slate-800 hover:border-blue-400 text-white dark:text-slate-100 text-sm lg:text-base xl:text-lg h-11 lg:h-12 xl:h-14 px-4 lg:px-5 xl:px-6 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
                 >
                   <User className="h-4 w-4 lg:h-5 lg:w-5 xl:h-6 xl:w-6 ml-2" />
                   حساب کاربری
@@ -215,8 +216,8 @@ export default function Header() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => setIsDark(!isDark)}
-                  className="hover:bg-white/10 h-11 w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg border border-gray-700 cursor-pointer"
+                  onClick={toggleTheme}
+                  className="hover:bg-white/10 dark:hover:bg-slate-800 h-11 w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg border border-gray-700 dark:border-slate-700 cursor-pointer"
                 >
                   {isDark ? (
                     <Sun className="h-5 w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7 text-yellow-400" />
@@ -227,7 +228,7 @@ export default function Header() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="relative hover:bg-blue-700 h-11 w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg border border-gray-700 bg-blue-500 cursor-pointer group"
+                  className="relative hover:bg-blue-700 dark:hover:bg-blue-600 h-11 w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg border border-gray-700 dark:border-slate-700 bg-blue-500 cursor-pointer group"
                 >
                   <ShoppingCart className="h-5 w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7" />
                   <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-linear-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 border-0 text-xs font-bold shadow-md rounded-full animate-pulse">
@@ -241,7 +242,7 @@ export default function Header() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="relative hover:bg-white/10 h-10 w-10 sm:h-11 sm:w-11 rounded-xl transition-all duration-300 touch-target"
+                  className="relative hover:bg-white/10 dark:hover:bg-slate-800 h-10 w-10 sm:h-11 sm:w-11 rounded-xl transition-all duration-300 touch-target"
                 >
                   <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />
                   <Badge className="absolute -top-1 -right-1 h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center p-0 bg-linear-to-r from-pink-500 to-rose-600 border-0 text-[10px] sm:text-xs font-bold rounded-full animate-pulse">
@@ -254,9 +255,9 @@ export default function Header() {
             {/* Row 2: Mobile Search Bar (Visible only on Mobile/Tablet) */}
             <div className="relative w-full lg:hidden" onClick={() => setIsMobileSearchOpen(true)}>
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-gray-400" />
+                  <Search className="h-5 w-5 text-gray-400 dark:text-slate-500" />
                 </div>
-                <div className="block w-full pl-10 pr-3 py-2.5 border-0 rounded-xl leading-5 bg-[#2d3c4f] text-gray-300 placeholder-gray-400 focus:outline-none focus:bg-[#1f2a38] focus:text-white sm:text-sm transition duration-150 ease-in-out cursor-text">
+                <div className="block w-full pl-10 pr-3 py-2.5 border-0 rounded-xl leading-5 bg-[#2d3c4f] dark:bg-slate-800 text-gray-300 dark:text-slate-300 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:bg-[#1f2a38] dark:focus:bg-slate-900 focus:text-white sm:text-sm transition duration-150 ease-in-out cursor-text">
                   جستجو در بنیامین شاپ...
                 </div>
             </div>
@@ -266,13 +267,13 @@ export default function Header() {
         {/* Mobile Search Modal */}
         {isMobileSearchOpen && (
           <div className="fixed inset-0 z-50 lg:hidden">
-            <div className="absolute inset-x-0 top-0 bg-[#1f2a38] rounded-b-3xl shadow-2xl p-4 animate-in slide-in-from-top duration-300">
+            <div className="absolute inset-x-0 top-0 bg-[#1f2a38] dark:bg-slate-900 rounded-b-3xl shadow-2xl p-4 animate-in slide-in-from-top duration-300">
               <div className="flex items-center gap-2 mb-4">
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsMobileSearchOpen(false)}
-                  className="hover:bg-white/10 rounded-xl h-10 w-10"
+                  className="hover:bg-white/10 dark:hover:bg-slate-800 rounded-xl h-10 w-10"
                 >
                   <X className="h-5 w-5" />
                 </Button>
@@ -281,7 +282,7 @@ export default function Header() {
                   type="text"
                   placeholder="جستجو کنید..."
                   autoFocus
-                  className="bg-[#2d3c4f] border-0 text-white placeholder:text-gray-400 h-10 text-sm rounded-xl flex-1"
+                  className="bg-[#2d3c4f] dark:bg-slate-800 border-0 text-white dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-500 h-10 text-sm rounded-xl flex-1"
                 />
 
                 <Button
@@ -297,7 +298,7 @@ export default function Header() {
               <div className="max-h-[60vh] overflow-y-auto">
                 <div className="mb-3">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs text-gray-400 flex items-center gap-1.5">
+                    <span className="text-xs text-gray-400 dark:text-slate-500 flex items-center gap-1.5">
                       <History className="w-3 h-3" /> جستجوهای اخیر
                     </span>
                     <button className="text-xs text-blue-400">پاک کردن</button>
@@ -307,21 +308,21 @@ export default function Header() {
                       <li key={idx}>
                         <a
                           href="#"
-                          className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-white/5 text-sm text-gray-300"
+                          className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-white/5 dark:hover:bg-slate-800 text-sm text-gray-300 dark:text-slate-300"
                         >
                           <span>{item}</span>
-                          <X className="w-4 h-4 text-gray-500" />
+                          <X className="w-4 h-4 text-gray-500 dark:text-slate-500" />
                         </a>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="border-t border-gray-700 my-3"></div>
+                <div className="border-t border-gray-700 dark:border-slate-700 my-3"></div>
 
                 <div>
                   <div className="mb-2">
-                    <span className="text-xs text-gray-400 flex items-center gap-1.5">
+                    <span className="text-xs text-gray-400 dark:text-slate-500 flex items-center gap-1.5">
                       <TrendingUp className="w-3 h-3 text-orange-400" />{" "}
                       پیشنهادات پرطرفدار
                     </span>
@@ -331,7 +332,7 @@ export default function Header() {
                       <a
                         key={idx}
                         href="#"
-                        className="px-3 py-1.5 bg-[#2d3c4f] rounded-full text-xs text-gray-300"
+                        className="px-3 py-1.5 bg-[#2d3c4f] dark:bg-slate-800 rounded-full text-xs text-gray-300 dark:text-slate-300"
                       >
                         {tag}
                       </a>
@@ -344,7 +345,7 @@ export default function Header() {
         )}
 
         {/* Bottom Navigation Bar */}
-        <div className="bg-[#1f2a38] border-white/5 relative z-30 rounded-2xl sm:rounded-3xl shadow-md mt-3 sm:mt-4 w-10/12 mx-auto">
+        <div className="bg-[#1f2a38] dark:bg-slate-900 border-white/5 dark:border-slate-800 relative z-30 rounded-2xl sm:rounded-3xl shadow-md mt-3 sm:mt-4 w-10/12 mx-auto">
           <div className="container mx-auto px-4 sm:px-6 md:px-8">
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center justify-between relative">
@@ -366,16 +367,16 @@ export default function Header() {
 
                   {/* Mega Menu Dropdown */}
                   <div className="absolute top-full right-0 w-full xl:w-250 2xl:w-300 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50 pt-2">
-                    <div className="bg-[#1a2332] rounded-xl border border-gray-700/50 shadow-2xl p-4 lg:p-6 grid grid-cols-12 gap-4 lg:gap-6 overflow-hidden">
+                    <div className="bg-[#1a2332] dark:bg-slate-900 rounded-xl border border-gray-700/50 dark:border-slate-700 shadow-2xl p-4 lg:p-6 grid grid-cols-12 gap-4 lg:gap-6 overflow-hidden">
                       {/* Categories List */}
                       <div className="col-span-9 grid grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-6 lg:gap-y-8">
                         {carCategories.map((cat, index) => (
                           <div key={index} className="space-y-2 lg:space-y-3">
-                            <div className="flex items-center gap-2 border-b border-gray-700/50 pb-2 mb-2 lg:mb-3">
-                              <span className="bg-white/5 p-1 lg:p-1.5 rounded-lg">
+                            <div className="flex items-center gap-2 border-b border-gray-700/50 dark:border-slate-700 pb-2 mb-2 lg:mb-3">
+                              <span className="bg-white/5 dark:bg-slate-800 p-1 lg:p-1.5 rounded-lg">
                                 <span className={cat.color}>{cat.icon}</span>
                               </span>
-                              <h3 className="font-bold text-blue-100 text-base lg:text-lg">
+                              <h3 className="font-bold text-blue-100 dark:text-slate-200 text-base lg:text-lg">
                                 {cat.title}
                               </h3>
                             </div>
@@ -384,7 +385,7 @@ export default function Header() {
                                 <li key={idx}>
                                   <a
                                     href="#"
-                                    className="text-gray-400 hover:text-blue-400 hover:-translate-x-1 transition-all duration-200 block text-xs lg:text-sm"
+                                    className="text-gray-400 dark:text-slate-400 hover:text-blue-400 hover:-translate-x-1 transition-all duration-200 block text-xs lg:text-sm"
                                   >
                                     {item}
                                   </a>
@@ -396,8 +397,8 @@ export default function Header() {
                       </div>
 
                       {/* Featured Side Banner */}
-                      <div className="col-span-3 bg-linear-to-b from-blue-900/50 to-slate-900/50 rounded-xl p-4 lg:p-5 border border-white/5 flex flex-col justify-between relative group/banner overflow-hidden">
-                        <div className="absolute inset-0 bg-blue-600/10 blur-xl group-hover/banner:bg-blue-600/20 transition-all duration-500"></div>
+                      <div className="col-span-3 bg-linear-to-b from-blue-900/50 to-slate-900/50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 lg:p-5 border border-white/5 dark:border-slate-700 flex flex-col justify-between relative group/banner overflow-hidden">
+                        <div className="absolute inset-0 bg-blue-600/10 dark:bg-blue-500/10 blur-xl group-hover/banner:bg-blue-600/20 dark:group-hover/banner:bg-blue-500/20 transition-all duration-500"></div>
                         <div className="relative z-10">
                           <div className="bg-orange-500 text-white text-xs font-bold px-2.5 lg:px-3 py-1 rounded-full w-fit mb-3 lg:mb-4">
                             پیشنهاد لحظه‌ای
@@ -405,7 +406,7 @@ export default function Header() {
                           <h4 className="text-lg lg:text-xl font-bold mb-1.5 lg:mb-2 text-white">
                             روغن موتور اسپیدی
                           </h4>
-                          <p className="text-gray-400 text-xs lg:text-sm mb-3 lg:mb-4">
+                          <p className="text-gray-400 dark:text-slate-400 text-xs lg:text-sm mb-3 lg:mb-4">
                             مناسب برای تمام فصول با گرانروی 20W-50
                           </p>
                         </div>
@@ -413,7 +414,7 @@ export default function Header() {
                         <div className="relative z-10 text-center mt-3 lg:mt-4">
                           <div className="text-xl lg:text-2xl font-bold text-blue-400 mb-3 lg:mb-4">
                             450,000{" "}
-                            <span className="text-xs lg:text-sm text-gray-400">
+                            <span className="text-xs lg:text-sm text-gray-400 dark:text-slate-400">
                               تومان
                             </span>
                           </div>
