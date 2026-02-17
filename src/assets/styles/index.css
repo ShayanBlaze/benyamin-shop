@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
+@import "./theme-variables.css";
 
 @font-face {
   font-family: "Dana";
@@ -62,7 +63,9 @@
   }
 
   body {
-    @apply bg-[#0F172A] text-slate-100;
+    /* Use CSS variables for theming */
+    background-color: var(--bg-theme);
+    color: var(--text-theme);
     font-family: "Dana", sans-serif;
     /* Prevent horizontal scroll */
     overflow-x: hidden;
