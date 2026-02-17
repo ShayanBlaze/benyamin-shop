@@ -1,9 +1,6 @@
-import ProductCarousel from "@/components/home/ProductCarousel";
 import CategorySection from "@/components/home/CategorySection";
-import BrandSection from "@/components/home/BrandSection";
 import HeroSlider from "@/components/home/HeroSlider";
 import AmazingOffer from "@/components/home/AmazingOffer";
-import { amazingOfferProducts } from "@/const";
 import PopularProducts from "@/components/home/PopularProducts";
 import RecentArticles from "@/components/home/RecentArticles";
 
@@ -19,18 +16,11 @@ export default function Home() {
       {/* Categories */}
       <CategorySection />
 
+      {/* Popular Products */}
       <PopularProducts />
 
+      {/* Recent Articles */}
       <RecentArticles />
-
-      {/* Brands */}
-      <BrandSection />
-
-      {/* More Product Sections */}
-      <ProductCarousel
-        title="محبوب‌ترین برندها"
-        products={amazingOfferProducts}
-      />
     </div>
   );
 }
