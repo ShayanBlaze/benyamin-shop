@@ -1,22 +1,18 @@
-/**
- * Theme Variables
- * متغیرهای CSS برای تم پویا
- */
 
 /* Light Theme */
 :root.light {
-  --bg-theme: #FFFFFF;
-  --bg-theme-secondary: #F8FAFC;
-  --bg-theme-card: #FFFFFF;
-  --bg-theme-hover: #F1F5F9;
-  
-  --text-theme: #0F172A;
+  --bg-theme: #ffffff;
+  --bg-theme-secondary: #f8fafc;
+  --bg-theme-card: #ffffff;
+  --bg-theme-hover: #f1f5f9;
+
+  --text-theme: #0f172a;
   --text-theme-secondary: #475569;
-  --text-theme-muted: #64748B;
-  
-  --border-theme: #E2E8F0;
-  --border-theme-hover: #CBD5E1;
-  
+  --text-theme-muted: #64748b;
+
+  --border-theme: #e2e8f0;
+  --border-theme-hover: #cbd5e1;
+
   --shadow-theme: rgba(0, 0, 0, 0.1);
   --shadow-theme-lg: rgba(0, 0, 0, 0.15);
 }
@@ -24,32 +20,30 @@
 /* Dark Theme (Default) */
 :root,
 :root.dark {
-  --bg-theme: #0F172A;
-  --bg-theme-secondary: #1E293B;
-  --bg-theme-card: #1E293B;
+  --bg-theme: #0f172a;
+  --bg-theme-secondary: #1e293b;
+  --bg-theme-card: #1e293b;
   --bg-theme-hover: #334155;
-  
-  --text-theme: #F1F5F9;
-  --text-theme-secondary: #CBD5E1;
-  --text-theme-muted: #94A3B8;
-  
+
+  --text-theme: #f1f5f9;
+  --text-theme-secondary: #cbd5e1;
+  --text-theme-muted: #94a3b8;
+
   --border-theme: #334155;
   --border-theme-hover: #475569;
-  
+
   --shadow-theme: rgba(0, 0, 0, 0.3);
   --shadow-theme-lg: rgba(0, 0, 0, 0.5);
 }
 
-/* Smooth transitions for theme changes */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Disable transitions on theme change for instant feedback */
-.theme-transitioning * {
-  transition: none !important;
+body,
+[class*="bg-theme"],
+[class*="text-theme"],
+[class*="border-theme"] {
+  transition:
+    background-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Body background */
