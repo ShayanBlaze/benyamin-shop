@@ -1,6 +1,5 @@
 import {
   X,
-  Search,
   Home,
   Store,
   FileText,
@@ -14,12 +13,14 @@ import {
   Disc,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
+import { useTheme } from "@/hooks/useTheme"; // ✅ اضافه کردن این خط
 
-export default function MobileSidebar({ onClose, isDark, onToggleDark }) {
+// ✅ حذف isDark و onToggleDark از props
+export default function MobileSidebar({ onClose }) {
   const [openCategory, setOpenCategory] = useState(null);
+  const { isDark, toggleTheme } = useTheme(); // ✅ اضافه کردن این خط
 
   const carCategories = [
     {
@@ -77,15 +78,37 @@ export default function MobileSidebar({ onClose, isDark, onToggleDark }) {
   return (
     <>
       {/* Menu Header */}
-
-      <div className="p-4 pb-3 bg-[#1a2332] border-b border-gray-700/50">
+      <div
+        className={`
+        p-4 pb-3 border-b
+        ${
+          isDark
+            ? "bg-slate-800 border-gray-700/50"
+            : "bg-white border-slate-200"
+        }
+      `}
+      >
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-xl font-bold text-white">منوی اصلی</h2>
+          <h2
+            className={`
+            text-xl font-bold
+            ${isDark ? "text-white" : "text-slate-900"}
+          `}
+          >
+            منوی اصلی
+          </h2>
           <Button
             variant="ghost"
             size="icon"
             onClick={onClose}
-            className="h-8 w-8 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white"
+            className={`
+              h-8 w-8 rounded-lg
+              ${
+                isDark
+                  ? "hover:bg-white/10 text-gray-400 hover:text-white"
+                  : "hover:bg-slate-100 text-slate-600 hover:text-slate-900"
+              }
+            `}
           >
             <X className="h-5 w-5" />
           </Button>
@@ -99,45 +122,90 @@ export default function MobileSidebar({ onClose, isDark, onToggleDark }) {
           <div className="space-y-1 mb-4">
             <a
               href="#"
-              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group"
+              className={`
+                flex items-center gap-3 px-4 py-3 rounded-xl transition-colors group
+                ${isDark ? "hover:bg-white/5" : "hover:bg-slate-100"}
+              `}
             >
               <Home className="h-5 w-5 text-blue-400 group-hover:scale-110 transition-transform" />
-              <span className="text-base font-medium text-gray-200 group-hover:text-white">
+              <span
+                className={`
+                text-base font-medium
+                ${
+                  isDark
+                    ? "text-gray-200 group-hover:text-white"
+                    : "text-slate-700 group-hover:text-slate-900"
+                }
+              `}
+              >
                 صفحه اصلی
               </span>
             </a>
             <a
               href="#"
-              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group"
+              className={`
+                flex items-center gap-3 px-4 py-3 rounded-xl transition-colors group
+                ${isDark ? "hover:bg-white/5" : "hover:bg-slate-100"}
+              `}
             >
               <Store className="h-5 w-5 text-green-400 group-hover:scale-110 transition-transform" />
-              <span className="text-base font-medium text-gray-200 group-hover:text-white">
+              <span
+                className={`
+                text-base font-medium
+                ${
+                  isDark
+                    ? "text-gray-200 group-hover:text-white"
+                    : "text-slate-700 group-hover:text-slate-900"
+                }
+              `}
+              >
                 فروشگاه
               </span>
             </a>
             <a
               href="#"
-              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group"
+              className={`
+                flex items-center gap-3 px-4 py-3 rounded-xl transition-colors group
+                ${isDark ? "hover:bg-white/5" : "hover:bg-slate-100"}
+              `}
             >
               <FileText className="h-5 w-5 text-purple-400 group-hover:scale-110 transition-transform" />
-              <span className="text-base font-medium text-gray-200 group-hover:text-white">
+              <span
+                className={`
+                text-base font-medium
+                ${
+                  isDark
+                    ? "text-gray-200 group-hover:text-white"
+                    : "text-slate-700 group-hover:text-slate-900"
+                }
+              `}
+              >
                 وبلاگ
               </span>
             </a>
           </div>
 
-          <Separator className="bg-gray-700/50 my-4" />
+          <Separator className={isDark ? "bg-gray-700/50" : "bg-slate-200"} />
 
           {/* Categories Section */}
           <div className="space-y-2">
-            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-4 mb-3">
+            <h3
+              className={`
+              text-xs font-semibold uppercase tracking-wider px-4 mb-3
+              ${isDark ? "text-gray-400" : "text-slate-500"}
+            `}
+            >
               دسته بندی محصولات
             </h3>
             {carCategories.map((cat, index) => (
               <div key={index} className="space-y-1">
                 <button
                   onClick={() => toggleCategory(index)}
-                  className="flex items-center justify-between w-full px-4 py-3 rounded-xl hover:bg-white/5 transition-all group"
+                  className={`
+                    flex items-center justify-between w-full px-4 py-3 
+                    rounded-xl transition-all group
+                    ${isDark ? "hover:bg-white/5" : "hover:bg-slate-100"}
+                  `}
                 >
                   <div className="flex items-center gap-3">
                     <span
@@ -145,14 +213,25 @@ export default function MobileSidebar({ onClose, isDark, onToggleDark }) {
                     >
                       <span className={cat.color}>{cat.icon}</span>
                     </span>
-                    <span className="text-sm font-medium text-gray-200 group-hover:text-white">
+                    <span
+                      className={`
+                      text-sm font-medium
+                      ${
+                        isDark
+                          ? "text-gray-200 group-hover:text-white"
+                          : "text-slate-700 group-hover:text-slate-900"
+                      }
+                    `}
+                    >
                       {cat.title}
                     </span>
                   </div>
                   <ChevronDown
-                    className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${
-                      openCategory === index ? "rotate-180" : ""
-                    }`}
+                    className={`
+                      w-4 h-4 transition-transform duration-300
+                      ${isDark ? "text-gray-400" : "text-slate-400"}
+                      ${openCategory === index ? "rotate-180" : ""}
+                    `}
                   />
                 </button>
 
@@ -169,7 +248,14 @@ export default function MobileSidebar({ onClose, isDark, onToggleDark }) {
                       <li key={idx}>
                         <a
                           href="#"
-                          className="block text-sm text-gray-400 hover:text-blue-400 py-2 px-3 rounded-lg hover:bg-white/5 transition-all duration-200"
+                          className={`
+                            block text-sm py-2 px-3 rounded-lg transition-all duration-200
+                            ${
+                              isDark
+                                ? "text-gray-400 hover:text-blue-400 hover:bg-white/5"
+                                : "text-slate-600 hover:text-blue-600 hover:bg-slate-100"
+                            }
+                          `}
                         >
                           {item}
                         </a>
@@ -184,11 +270,27 @@ export default function MobileSidebar({ onClose, isDark, onToggleDark }) {
       </div>
 
       {/* Menu Footer - Fixed at Bottom */}
-      <div className="p-4 bg-[#1a2332] border-t border-gray-700/50 space-y-2">
+      <div
+        className={`
+        p-4 border-t space-y-2
+        ${
+          isDark
+            ? "bg-slate-800 border-gray-700/50"
+            : "bg-white border-slate-200"
+        }
+      `}
+      >
         <Button
           variant="outline"
-          onClick={onToggleDark}
-          className="w-full bg-transparent border border-gray-600 hover:bg-white/10 hover:border-blue-400 text-white justify-start gap-3 h-12"
+          onClick={toggleTheme} // ✅ تغییر از onToggleDark
+          className={`
+            w-full justify-start gap-3 h-12
+            ${
+              isDark
+                ? "bg-transparent border-gray-600 hover:bg-white/10 hover:border-blue-400 text-white"
+                : "bg-white border-slate-300 hover:bg-slate-50 hover:border-blue-500 text-slate-900"
+            }
+          `}
         >
           {isDark ? (
             <>
@@ -197,7 +299,7 @@ export default function MobileSidebar({ onClose, isDark, onToggleDark }) {
             </>
           ) : (
             <>
-              <Moon className="h-5 w-5 text-blue-300" />
+              <Moon className="h-5 w-5 text-blue-500" />
               <span>حالت شب</span>
             </>
           )}

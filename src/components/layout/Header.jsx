@@ -9,10 +9,6 @@ import {
   History,
   TrendingUp,
   X,
-  SprayCan,
-  Wrench,
-  Battery,
-  Disc,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,11 +24,11 @@ import { useState, useRef, useEffect } from "react";
 import MobileSidebar from "./MobileSidebar";
 import { carCategories } from "@/const";
 import { recentSearches, popularSearches } from "@/const";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "@/hooks/useTheme";
 import React from "react";
 
 export default function Header() {
-  const { theme, isDark, toggleTheme } = useTheme();
+  const { isDark, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
@@ -71,14 +67,25 @@ export default function Header() {
         />
       )}
 
-      <header className="text-white dark:text-slate-100 relative z-50 mt-4 sm:mt-6 md:mt-8 lg:mt-10">
+      <header
+        className={`
+  sticky top-0 z-50 w-full 
+  border-b 
+  backdrop-blur-sm
+  ${isDark ? "bg-slate-900/90 border-slate-800" : "bg-white/90 border-slate-200"}
+  transition-colors duration-200
+`}
+      >
         {/* Top Section */}
         <div className="container mx-auto px-4 sm:px-6 md:px-8 py-3 sm:py-4 lg:py-5 relative z-50">
           <div className="flex flex-col gap-4">
             {/* Row 1: Logo, Mobile Menu, Cart/User */}
             <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-8">
               {/* Mobile Menu Button */}
-              <Sheet open={mobileMenuOpen} onOpenChange={handleMobileMenuChange}>
+              <Sheet
+                open={mobileMenuOpen}
+                onOpenChange={handleMobileMenuChange}
+              >
                 <SheetTrigger asChild>
                   <Button
                     variant="ghost"
@@ -91,16 +98,20 @@ export default function Header() {
 
                 <SheetContent
                   side="right"
-                  className="w-[85vw] sm:w-95 p-0 border-gray-700/50 dark:border-slate-700 overflow-hidden flex flex-col [&>button]:hidden bg-slate-900 dark:bg-slate-800"
+                  className={`
+    w-[85vw] sm:w-95 p-0 overflow-hidden flex flex-col [&>button]:hidden
+    transition-colors duration-200
+    ${isDark ? "bg-slate-900 border-slate-700" : "bg-white border-slate-200"}
+  `}
                 >
                   <SheetTitle className="sr-only">منوی اصلی</SheetTitle>
                   <SheetDescription className="sr-only">
                     دسترسی به منوی اصلی و دسته‌بندی محصولات
                   </SheetDescription>
+
+                  {/* ✅ فقط onClose پاس بدید */}
                   <MobileSidebar
                     onClose={() => handleMobileMenuChange(false)}
-                    isDark={isDark}
-                    onToggleDark={toggleTheme}
                   />
                 </SheetContent>
               </Sheet>
@@ -253,13 +264,16 @@ export default function Header() {
             </div>
 
             {/* Row 2: Mobile Search Bar (Visible only on Mobile/Tablet) */}
-            <div className="relative w-full lg:hidden" onClick={() => setIsMobileSearchOpen(true)}>
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-gray-400 dark:text-slate-500" />
-                </div>
-                <div className="block w-full pl-10 pr-3 py-2.5 border-0 rounded-xl leading-5 bg-[#2d3c4f] dark:bg-slate-800 text-gray-300 dark:text-slate-300 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:bg-[#1f2a38] dark:focus:bg-slate-900 focus:text-white sm:text-sm transition duration-150 ease-in-out cursor-text">
-                  جستجو در بنیامین شاپ...
-                </div>
+            <div
+              className="relative w-full lg:hidden"
+              onClick={() => setIsMobileSearchOpen(true)}
+            >
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-gray-400 dark:text-slate-500" />
+              </div>
+              <div className="block w-full pl-10 pr-3 py-2.5 border-0 rounded-xl leading-5 bg-[#2d3c4f] dark:bg-slate-800 text-gray-300 dark:text-slate-300 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:bg-[#1f2a38] dark:focus:bg-slate-900 focus:text-white sm:text-sm transition duration-150 ease-in-out cursor-text">
+                جستجو در بنیامین شاپ...
+              </div>
             </div>
           </div>
         </div>
@@ -277,7 +291,7 @@ export default function Header() {
                 >
                   <X className="h-5 w-5" />
                 </Button>
-                
+
                 <Input
                   type="text"
                   placeholder="جستجو کنید..."
@@ -444,7 +458,6 @@ export default function Header() {
               </nav>
 
               {/* Desktop Location Selector REMOVED */}
-              
             </div>
 
             {/* Mobile/Tablet Bottom Navigation REMOVED */}
