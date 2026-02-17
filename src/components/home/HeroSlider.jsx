@@ -17,6 +17,7 @@ import {
 import { sliderData } from "@/const";
 
 // Memoized spec item to prevent unnecessary re-renders
+// eslint-disable-next-line no-unused-vars
 const SpecItem = memo(({ Icon, label }) => (
   <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl md:rounded-2xl bg-black/40 border border-white/20 transition-colors duration-200">
     <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-400 shrink-0" />
@@ -26,7 +27,7 @@ const SpecItem = memo(({ Icon, label }) => (
   </div>
 ));
 
-SpecItem.displayName = 'SpecItem';
+SpecItem.displayName = "SpecItem";
 
 const HeroSlider = () => {
   const [api, setApi] = useState();
@@ -34,11 +35,11 @@ const HeroSlider = () => {
 
   // Optimized autoplay for smoother transitions
   const plugin = useRef(
-    Autoplay({ 
-      delay: 5000, 
+    Autoplay({
+      delay: 5000,
       stopOnInteraction: false,
       stopOnMouseEnter: true,
-    })
+    }),
   );
 
   useEffect(() => {
@@ -58,12 +59,9 @@ const HeroSlider = () => {
     return (badge) => {
       const baseClass =
         "text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-md shrink-0 whitespace-nowrap";
-      if (badge === "پرفروش")
-        return `${baseClass} bg-orange-500`;
-      if (badge === "جدید")
-        return `${baseClass} bg-green-500`;
-      if (badge === "پیشنهاد ویژه")
-        return `${baseClass} bg-red-500`;
+      if (badge === "پرفروش") return `${baseClass} bg-orange-500`;
+      if (badge === "جدید") return `${baseClass} bg-green-500`;
+      if (badge === "پیشنهاد ویژه") return `${baseClass} bg-red-500`;
       return baseClass;
     };
   }, []);
@@ -73,8 +71,8 @@ const HeroSlider = () => {
       className="relative w-full bg-background overflow-hidden rounded-2xl"
       dir="ltr"
       style={{
-        contain: 'layout style paint',
-        contentVisibility: 'auto',
+        contain: "layout style paint",
+        contentVisibility: "auto",
       }}
     >
       <Carousel
@@ -91,26 +89,26 @@ const HeroSlider = () => {
         }}
         className="w-full"
       >
-        <CarouselContent 
-          className="h-full ml-0" 
-          style={{ 
-            backfaceVisibility: 'hidden',
-            transform: 'translateZ(0)',
+        <CarouselContent
+          className="h-full ml-0"
+          style={{
+            backfaceVisibility: "hidden",
+            transform: "translateZ(0)",
           }}
         >
-          {sliderData.map((slide, index) => (
-            <CarouselItem 
-              key={slide.id} 
+          {sliderData.map((slide) => (
+            <CarouselItem
+              key={slide.id}
               className="relative w-full pl-0"
               style={{
-                transform: 'translateZ(0)',
-                backfaceVisibility: 'hidden',
+                transform: "translateZ(0)",
+                backfaceVisibility: "hidden",
               }}
             >
-              <div 
+              <div
                 className="relative w-full h-125 sm:h-150 md:h-162.5 lg:h-175 xl:h-187.5"
                 style={{
-                  contain: 'layout style paint',
+                  contain: "layout style paint",
                 }}
               >
                 {/* Background Image - Using CSS background for better performance */}
@@ -119,28 +117,28 @@ const HeroSlider = () => {
                     className="w-full h-full"
                     style={{
                       backgroundImage: `url(${slide.image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      transform: 'translateZ(0) scale(1)',
-                      willChange: 'auto',
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      transform: "translateZ(0) scale(1)",
+                      willChange: "auto",
                     }}
                   />
 
                   {/* Static gradient overlays */}
-                  <div 
-                    className="absolute inset-0" 
+                  <div
+                    className="absolute inset-0"
                     style={{
                       background:
                         "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, transparent 70%)",
-                      pointerEvents: 'none',
+                      pointerEvents: "none",
                     }}
                   />
-                  <div 
-                    className="absolute inset-0" 
+                  <div
+                    className="absolute inset-0"
                     style={{
                       background:
                         "linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 40%)",
-                      pointerEvents: 'none',
+                      pointerEvents: "none",
                     }}
                   />
                 </div>
@@ -166,7 +164,7 @@ const HeroSlider = () => {
                         )}
 
                         {slide.discount && (
-                          <Badge className="bg-gradient-to-r from-pink-500 to-rose-600 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-md flex items-center gap-1 shrink-0 whitespace-nowrap">
+                          <Badge className="bg-linear-to-r from-pink-500 to-rose-600 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-0 shadow-md flex items-center gap-1 shrink-0 whitespace-nowrap">
                             <Percent className="w-3 h-3" />
                             {slide.discount}٪ تخفیف
                           </Badge>
@@ -175,15 +173,15 @@ const HeroSlider = () => {
 
                       {/* Main Title - Simplified shadows */}
                       <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                        <h1 
+                        <h1
                           className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[0.95] tracking-tighter"
-                          style={{ textShadow: '0 4px 12px rgba(0,0,0,0.8)' }}
+                          style={{ textShadow: "0 4px 12px rgba(0,0,0,0.8)" }}
                         >
                           {slide.model}
                         </h1>
-                        <p 
+                        <p
                           className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white font-medium tracking-wide"
-                          style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}
+                          style={{ textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}
                         >
                           {slide.subtitle}
                         </p>
@@ -192,7 +190,11 @@ const HeroSlider = () => {
                       {/* Specs Grid - Using memoized component */}
                       <div className="grid grid-cols-3 gap-1.5 sm:gap-2 md:gap-3 mb-4 sm:mb-6">
                         {slide.specs.map((spec, idx) => (
-                          <SpecItem key={idx} Icon={spec.icon} label={spec.label} />
+                          <SpecItem
+                            key={idx}
+                            Icon={spec.icon}
+                            label={spec.label}
+                          />
                         ))}
                       </div>
 
@@ -233,7 +235,7 @@ const HeroSlider = () => {
                         <div className="flex flex-col xs:flex-row gap-2 sm:gap-3">
                           <Button
                             size="lg"
-                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-gradient-to-r from-primary to-blue-600 text-white shadow-lg w-full xs:w-auto md:w-96 flex items-center justify-center gap-2 cursor-pointer active:scale-95 transition-transform duration-150"
+                            className="h-11 sm:h-12 md:h-13 px-4 sm:px-5 md:px-6 rounded-full text-xs sm:text-sm md:text-base font-semibold bg-linear-to-r from-primary to-blue-600 text-white shadow-lg w-full xs:w-auto md:w-96 flex items-center justify-center gap-2 cursor-pointer active:scale-95 transition-transform duration-150"
                           >
                             <ShoppingCart className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                             <span className="whitespace-nowrap">
@@ -264,9 +266,12 @@ const HeroSlider = () => {
           dir="rtl"
         >
           {/* Mobile Navigation */}
-          <div 
+          <div
             className="sm:hidden flex items-center gap-3 px-4 py-3 rounded-full bg-black/60 border border-white/20 shadow-xl"
-            style={{ backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}
+            style={{
+              backdropFilter: "blur(4px)",
+              WebkitBackdropFilter: "blur(4px)",
+            }}
           >
             <div className="flex gap-1.5">
               {sliderData.map((_, idx) => (
@@ -275,7 +280,7 @@ const HeroSlider = () => {
                   onClick={() => api?.scrollTo(idx)}
                   className={`transition-all duration-200 rounded-full ${
                     current === idx
-                      ? "w-8 h-2.5 bg-gradient-to-r from-primary to-blue-600"
+                      ? "w-8 h-2.5 bg-linear-to-r from-primary to-blue-600"
                       : "w-2.5 h-2.5 bg-white/40"
                   }`}
                   aria-label={`اسلاید ${idx + 1}`}
@@ -295,9 +300,12 @@ const HeroSlider = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div 
+          <div
             className="hidden sm:flex items-center gap-4 md:gap-6 px-4 md:px-6 py-3 md:py-4 rounded-full bg-black/60 border border-white/20 shadow-xl"
-            style={{ backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
+            style={{
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+            }}
           >
             <button
               onClick={() => api?.scrollPrev()}
@@ -314,7 +322,7 @@ const HeroSlider = () => {
                   onClick={() => api?.scrollTo(idx)}
                   className={`transition-all duration-200 rounded-full ${
                     current === idx
-                      ? "w-10 md:w-12 h-2.5 md:h-3 bg-gradient-to-r from-primary to-blue-600"
+                      ? "w-10 md:w-12 h-2.5 md:h-3 bg-linear-to-r from-primary to-blue-600"
                       : "w-2.5 md:w-3 h-2.5 md:h-3 bg-white/40 hover:bg-white/60"
                   }`}
                   aria-label={`اسلاید ${idx + 1}`}
@@ -351,10 +359,10 @@ const HeroSlider = () => {
         {/* Progress Bar */}
         <div className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-white/10 z-20 overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-primary to-blue-600 transition-all duration-300 ease-linear"
+            className="h-full bg-linear-to-r from-primary to-blue-600 transition-all duration-300 ease-linear"
             style={{
               width: `${((current + 1) / sliderData.length) * 100}%`,
-              transform: 'translateZ(0)',
+              transform: "translateZ(0)",
             }}
           />
         </div>
@@ -367,7 +375,7 @@ const HeroSlider = () => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
-          style={{ transform: 'translateZ(0)' }}
+          style={{ transform: "translateZ(0)" }}
         >
           <path
             d="M0,48 C240,90 480,90 720,48 C960,6 1080,6 1200,48 L1200,120 L0,120 Z"
