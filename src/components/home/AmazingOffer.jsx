@@ -6,63 +6,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-
-const products = [
-  {
-    id: 1,
-    title: "روغن موتور الف مدل Evolution 700 ST",
-    image: "/images/oil-elf.png",
-    price: "1,250,000",
-    discount: 15,
-    rating: 4.8,
-    isExpress: true,
-  },
-  {
-    id: 2,
-    title: "لنت ترمز جلو تکستار مدل 206 تیپ 5",
-    image: "/images/brake-pad.png",
-    price: "980,000",
-    discount: 10,
-    rating: 4.5,
-    isExpress: false,
-  },
-  {
-    id: 3,
-    title: "شمع خودرو بوش مدل ایریدیوم پایه کوتاه",
-    image: "/images/spark-plug.png",
-    price: "450,000",
-    discount: 20,
-    rating: 4.9,
-    isExpress: true,
-  },
-  {
-    id: 4,
-    title: "فیلتر هوا سرکان مدل 206",
-    image: "/images/air-filter.png",
-    price: "120,000",
-    discount: 5,
-    rating: 4.2,
-    isExpress: true,
-  },
-  {
-    id: 5,
-    title: "تسمه تایم پاورگریپ مدل 206 تیپ 5",
-    image: "/images/belt.png",
-    price: "850,000",
-    discount: 12,
-    rating: 4.7,
-    isExpress: false,
-  },
-  {
-    id: 6,
-    title: "روغن ترمز فومن شیمی مدل DOT4",
-    image: "/images/brake-fluid.png",
-    price: "65,000",
-    discount: 8,
-    rating: 4.6,
-    isExpress: true,
-  },
-];
+import { amazingOfferProducts } from "@/const";
 
 export default function AmazingOffer() {
   const [api, setApi] = useState();
@@ -215,7 +159,7 @@ export default function AmazingOffer() {
             className="w-full"
           >
             <CarouselContent className="ml-2 md:ml-5 ">
-              {products.map((product) => (
+              {amazingOfferProducts.map((product) => (
                 <CarouselItem
                   key={product.id}
                   className="pl-2 md:pl-3 basis-[47%] xs:basis-2/5 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5"
