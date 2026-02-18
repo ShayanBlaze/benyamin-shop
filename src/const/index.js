@@ -5,3 +5,6 @@ export { sliderData } from "./sliderData";
 export { amazingOfferProducts } from "./products";
 export { popularProducts } from "./popularProducts";
 export { recentArticles } from "./RecentArticles.js";
+export { footerLinks } from "./footerLinks";
+export { contactItems } from "./contactsItem.jsx";
+export { teamMembers } from "./teamMembers.js";
