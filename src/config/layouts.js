@@ -1,11 +1,5 @@
 import { brandsData } from "@/const/brands";
 
-/**
- * Layout Configurations
- * این فایل شامل پیکربندی‌های layout و ترتیب نمایش عناصر است
- */
-
-// CategorySection Grid Layout
 export const categoryGridLayout = [
   { brand: brandsData[1], variant: "default" },
   { brand: brandsData[0], variant: "hero" },
