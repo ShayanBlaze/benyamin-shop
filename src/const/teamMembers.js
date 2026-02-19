@@ -16,7 +16,7 @@ export const teamMembers = [
       "متخصص در طراحی و پیاده‌سازی APIهای مقیاس‌پذیر و بهینه، مدیریت دیتابیس‌ها و ارتقای عملکرد سرور",
     github: "#",
     linkedin: "#",
-    avatar: "M2",
+    avatar: "HB",
     color: "from-purple-500 to-purple-700",
   },
   {
@@ -26,7 +26,7 @@ export const teamMembers = [
       "تمرکز بر طراحی ساختارهای پیچیده دیتابیس و توسعه APIهای سریع و ایمن، بهینه‌سازی منطق سرور برای مقیاس‌پذیری بالا",
     github: "#",
     linkedin: "#",
-    avatar: "M3",
+    avatar: "MS",
     color: "from-emerald-500 to-emerald-700",
   },
 ];

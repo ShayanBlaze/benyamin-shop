@@ -456,11 +456,7 @@ export default function Header() {
                   <span className="absolute bottom-3 xl:bottom-4 right-3 xl:right-4 left-3 xl:left-4 h-0.5 bg-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </a>
               </nav>
-
-              {/* Desktop Location Selector REMOVED */}
             </div>
-
-            {/* Mobile/Tablet Bottom Navigation REMOVED */}
           </div>
         </div>
       </header>
