@@ -74,7 +74,7 @@ export default function Header() {
         <div className="container mx-auto px-4 sm:px-6 md:px-8 py-3 sm:py-4 lg:py-5 relative z-50">
           <div className="flex flex-col gap-4">
             {/* Row 1: Logo, Mobile Menu, Cart/User */}
-            <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-8">
+            <div className="flex items-center justify-between gap-2 sm:gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6 lg:items-center">
               {/* Mobile Menu Button */}
               <Sheet
                 open={mobileMenuOpen}
@@ -107,12 +107,11 @@ export default function Header() {
                   />
                 </SheetContent>
               </Sheet>
-
               {/* Desktop Search Area (Hidden on Mobile) */}
               <div
                 ref={searchContainerRef}
-                className={`hidden lg:flex relative flex-1 transition-all duration-300 order-2 lg:order-1 ${
-                  isSearchFocused ? "lg:w-125 xl:w-150 z-50" : "lg:w-96"
+                className={`hidden lg:flex relative transition-all duration-300 order-2 lg:order-1 w-full max-w-sm xl:max-w-md ${
+                  isSearchFocused ? "z-50" : ""
                 }`}
               >
                 <div className="relative w-full">
@@ -191,9 +190,8 @@ export default function Header() {
                   )}
                 </div>
               </div>
-
               {/* Center: Logo */}
-              <div className="flex flex-col items-center order-1 lg:order-2">
+              <div className="flex flex-col items-center order-1 lg:order-2 lg:justify-self-center">
                 <div className="flex items-center gap-0.5 sm:gap-1">
                   <span className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white">
                     بنیامین
@@ -206,9 +204,8 @@ export default function Header() {
                   مرجع تخصصی لوازم یدکی خودرو
                 </p>
               </div>
-
               {/* Right: Desktop Icons */}
-              <div className="hidden lg:flex items-center gap-2 xl:gap-4 order-3">
+              <div className="hidden lg:flex items-center justify-end gap-2 xl:gap-4 order-3">
                 <Button
                   variant="outline"
                   className="bg-transparent border-2 border-gray-600 hover:bg-white/10 hover:border-blue-400 text-white text-sm lg:text-base xl:text-lg h-11 lg:h-12 xl:h-14 px-4 lg:px-5 xl:px-6 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
@@ -227,7 +224,6 @@ export default function Header() {
                   </Badge>
                 </Button>
               </div>
-
               {/* Mobile Cart Icon - Location Removed */}
               <div className="flex lg:hidden items-center gap-1.5 sm:gap-2 order-3">
                 <Button
