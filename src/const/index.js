@@ -8,3 +8,4 @@ export { recentArticles } from "./RecentArticles.js";
 export { footerLinks } from "./footerLinks";
 export { contactItems } from "./contactsItem.jsx";
 export { teamMembers } from "./teamMembers.js";
+export { mobileCategoris } from "./mobileCategoris.jsx";
