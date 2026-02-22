@@ -29,9 +29,7 @@ export const useLogin = () => {
     setOtpCode(code);
     try {
       const data = await authService.login(phoneNumber, code);
-
       login(data.token, { userId: data.userId, phoneNumber });
-
       toast.success("خوش آمدید!");
       return { success: true };
     } catch (error) {
@@ -54,11 +52,11 @@ export const useLogin = () => {
       const data = await authService.register({
         phoneNumber,
         code: otpCode,
+        userId: "",
+        token: "",
         ...formData,
       });
-
       login(data.token, { userId: data.userId, phoneNumber });
-
       toast.success("ثبت نام با موفقیت انجام شد!");
       return { success: true };
     } catch (error) {

@@ -10,8 +10,8 @@ export const authService = {
     const response = await api.post("/Auth/login", {
       phoneNumber,
       code,
-      // userId,
-      // token,
+      userId: "",
+      token: "",
     });
     return response.data;
   },
