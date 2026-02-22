@@ -7,12 +7,17 @@ export const authService = {
   },
 
   login: async (phoneNumber, code) => {
-    const response = await api.post("/Auth/login", { phoneNumber, code });
+    const response = await api.post("/Auth/login", {
+      phoneNumber,
+      code,
+      // userId,
+      // token,
+    });
     return response.data;
   },
 
-  register: async (userData) => {
-    const response = await api.post("/Auth/register", userData);
+  register: async (payload) => {
+    const response = await api.post("/Auth/register", payload);
     return response.data;
   },
 };
