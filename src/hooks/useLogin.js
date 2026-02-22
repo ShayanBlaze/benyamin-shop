@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { authService } from "@/services/auth.services";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 
 export const useLogin = () => {
