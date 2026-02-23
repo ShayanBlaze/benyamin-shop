@@ -13,7 +13,7 @@ export default function StepVerify({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (code.length >= 4) onSubmit(code);
+    if (code.length >= 5) onSubmit(code);
   };
 
   return (
@@ -36,16 +36,16 @@ export default function StepVerify({
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative" dir="ltr">
         <KeyRound className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
         <Input
           type="text"
           dir="ltr"
-          placeholder="----"
+          placeholder="-----"
           value={code}
           onChange={(e) => setCode(e.target.value)}
           className="pr-10 text-center tracking-[1em] font-bold text-lg"
-          maxLength={6}
+          maxLength={5}
           autoFocus
         />
       </div>
@@ -53,7 +53,7 @@ export default function StepVerify({
       <Button
         type="submit"
         className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-        disabled={isLoading || code.length < 4}
+        disabled={isLoading || code.length < 5}
       >
         {isLoading ? "در حال بررسی..." : "تایید و ورود"}
       </Button>
