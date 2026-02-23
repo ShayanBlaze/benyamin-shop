@@ -7,6 +7,6 @@ export const DEV_USER = {
 
 export const DEV_TOKEN = "dev-fake-token-12345";
 
-export const MOCK_OTP = "123456";
+export const MOCK_OTP = "12345";
 
 export const DEV_IS_EXISTING_USER = false;

@@ -8,7 +8,6 @@ export default function StepVerify({
   onBack,
   isLoading,
 }) {
-  // ۱. تغییر از ۶ خانه به ۵ خانه
   const [code, setCode] = useState(["", "", "", "", ""]);
   const [timer, setTimer] = useState(120);
   const inputsRef = useRef([]);
@@ -22,115 +21,160 @@ export default function StepVerify({
   }, [timer]);
 
   const formatTime = (s) =>
-    `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(
-      2,
-      "0",
-    )}`;
+    `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
-  const handleChange = (idx, val) => {
-    if (!/^\d?$/.test(val)) return;
+  const handleChange = (idx, e) => {
+    const val = e.target.value;
+
+    if (val === "") {
+      const next = [...code];
+      next[idx] = "";
+      setCode(next);
+      return;
+    }
+
+    const char = val.slice(-1);
+    const englishChar = char
+      .replace(/[۰-۹]/g, (w) => String.fromCharCode(w.charCodeAt(0) - 1728))
+      .replace(/[٠-٩]/g, (w) => String.fromCharCode(w.charCodeAt(0) - 1584));
+
+    if (!/^\d$/.test(englishChar)) return;
 
     const next = [...code];
-    next[idx] = val;
+    next[idx] = englishChar;
     setCode(next);
 
-    // ۲. آخرین ایندکس در آرایه ۵ تایی، ۴ است.
-    if (val && idx < 4) inputsRef.current[idx + 1]?.focus();
+    if (idx < 4) {
+      setTimeout(() => inputsRef.current[idx + 1]?.focus(), 10);
+    }
   };
 
   const handleKeyDown = (idx, e) => {
-    if (e.key === "Backspace" && !code[idx] && idx > 0) {
-      inputsRef.current[idx - 1]?.focus();
+    if (e.key === "Backspace") {
+      if (!code[idx] && idx > 0) {
+        setTimeout(() => inputsRef.current[idx - 1]?.focus(), 10);
+      }
+    } else if (e.key === "ArrowLeft") {
+      if (idx > 0) setTimeout(() => inputsRef.current[idx - 1]?.focus(), 10);
+    } else if (e.key === "ArrowRight") {
+      if (idx < 4) setTimeout(() => inputsRef.current[idx + 1]?.focus(), 10);
     }
   };
 
   const handlePaste = (e) => {
+    e.preventDefault();
     const pasted = e.clipboardData
       .getData("text")
+      .replace(/[۰-۹]/g, (w) => String.fromCharCode(w.charCodeAt(0) - 1728))
+      .replace(/[٠-٩]/g, (w) => String.fromCharCode(w.charCodeAt(0) - 1584))
       .replace(/\D/g, "")
-      // ۳. تغییر برش و بررسی از ۶ به ۵ کاراکتر
       .slice(0, 5);
 
-    if (pasted.length === 5) {
-      setCode(pasted.split(""));
-      // ۴. فکوس روی آخرین خانه (ایندکس ۴)
-      inputsRef.current[4]?.focus();
+    if (pasted) {
+      const next = [...code];
+      for (let i = 0; i < pasted.length; i++) next[i] = pasted[i];
+      setCode(next);
+      const nextFocusIdx = pasted.length < 5 ? pasted.length : 4;
+      setTimeout(() => inputsRef.current[nextFocusIdx]?.focus(), 10);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // ۵. بررسی رشته کامل (fullCode) به جای آرایه
     if (fullCode.length >= 5) onSubmit(fullCode);
   };
 
-  // ۶. بازسازی کامل JSX که در کانفلیکت حذف شده بود
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Header */}
       <div className="flex items-center mb-6">
         <button
           type="button"
           onClick={onBack}
-          className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+          className="p-2 rounded-full transition-colors"
+          style={{ backgroundColor: "transparent" }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "#2d3c4f")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "transparent")
+          }
         >
-          <ArrowRight className="w-5 h-5 text-slate-600" />
+          <ArrowRight className="w-5 h-5 text-gray-400" />
         </button>
         <div className="flex-1 text-center pr-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-3">
-            <ShieldCheck className="w-6 h-6 text-blue-600" />
+          <div
+            className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 border border-blue-500/30"
+            style={{ backgroundColor: "rgba(59,130,246,0.15)" }}
+          >
+            <ShieldCheck className="w-6 h-6 text-blue-400" />
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-1">کد تایید</h2>
-          <p className="text-sm text-slate-500" dir="ltr">
+          <h2 className="text-xl font-bold text-white mb-1">کد تایید</h2>
+          <p className="text-sm text-gray-400" dir="ltr">
             کد ارسال شده به {phoneNumber} را وارد کنید
           </p>
         </div>
       </div>
 
-      <div className="flex justify-center gap-3 py-4" dir="ltr">
+      {/* OTP Inputs */}
+      <div className="flex flex-row-reverse justify-center gap-2 sm:gap-3 py-4">
         {code.map((val, idx) => (
           <input
             key={idx}
             ref={(el) => (inputsRef.current[idx] = el)}
+            autoFocus={idx === 0}
             type="text"
             inputMode="numeric"
             autoComplete="one-time-code"
             value={val}
-            onChange={(e) => handleChange(idx, e.target.value)}
+            maxLength={2}
+            onChange={(e) => handleChange(idx, e)}
             onKeyDown={(e) => handleKeyDown(idx, e)}
             onPaste={handlePaste}
-            className="w-12 h-14 text-center text-xl font-bold rounded-xl border border-slate-200 
-                       bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-2 
-                       focus:ring-blue-500/20 transition-all outline-none"
-            maxLength={1}
+            onFocus={(e) => e.target.select()}
             dir="ltr"
+            className="w-12 h-14 sm:w-14 sm:h-16 text-center text-xl sm:text-2xl font-bold text-white rounded-xl border border-blue-500/30 transition-all outline-none focus:ring-1 focus:ring-blue-500"
+            style={{ backgroundColor: "#2d3c4f" }}
           />
         ))}
       </div>
 
-      <div className="flex items-center justify-center gap-2 text-sm">
+      {/* Timer / Resend */}
+      <div className="flex items-center justify-center gap-2 text-sm" dir="ltr">
         {timer > 0 ? (
-          <span className="text-slate-500 font-medium tracking-wide" dir="ltr">
+          <span className="text-gray-500 font-mono font-medium tracking-wide">
             {formatTime(timer)}
           </span>
         ) : (
           <button
             type="button"
-            onClick={() => setTimer(120)}
-            className="flex items-center gap-1 text-blue-600 font-medium hover:text-blue-700 transition-colors"
+            onClick={() => {
+              setTimer(120);
+              setCode(["", "", "", "", ""]);
+              setTimeout(() => inputsRef.current[0]?.focus(), 10);
+            }}
+            className="flex items-center gap-1.5 text-blue-400 font-medium hover:text-blue-300 transition-colors"
           >
             <RefreshCw className="w-4 h-4" />
-            ارسال مجدد کد
+            <span dir="rtl">ارسال مجدد کد</span>
           </button>
         )}
       </div>
 
+      {/* Submit */}
       <Button
         type="submit"
-        className="w-full h-12 text-base font-semibold bg-blue-600 hover:bg-blue-700 
-                   text-white shadow-lg shadow-blue-600/20 rounded-xl transition-all"
+        className="w-full h-11 text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-all shadow-lg shadow-blue-600/20 disabled:opacity-40 disabled:shadow-none"
         disabled={isLoading || fullCode.length < 5}
       >
-        {isLoading ? "در حال بررسی..." : "تایید و ورود"}
+        {isLoading ? (
+          <span className="flex items-center gap-2">
+            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            در حال بررسی...
+          </span>
+        ) : (
+          "تایید و ورود"
+        )}
       </Button>
     </form>
   );
