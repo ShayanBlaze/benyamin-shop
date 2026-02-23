@@ -9,6 +9,7 @@ export const useLogin = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otpCode, setOtpCode] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(false);
 
   const handleSendCode = async (phone) => {
     setLoading(true);
@@ -35,12 +36,12 @@ export const useLogin = () => {
     } catch (error) {
       const status = error.response?.status;
       if (status === 404) {
+        setIsNewUser(true);
         setStep(3);
-        toast.info("حساب کاربری پیدا نشد. لطفاً ثبت نام کنید.");
         return { success: false, needsRegister: true };
       }
       toast.error(error.response?.data?.message || "کد وارد شده صحیح نیست");
-      return { success: false, needsRegister: false };
+      return { success: false };
     } finally {
       setLoading(false);
     }
@@ -71,12 +72,14 @@ export const useLogin = () => {
     setStep(1);
     setPhoneNumber("");
     setOtpCode("");
+    setIsNewUser(false);
   };
 
   return {
     step,
     phoneNumber,
     loading,
+    isNewUser,
     handleSendCode,
     handleLogin,
     handleRegister,
