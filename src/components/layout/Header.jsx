@@ -7,6 +7,8 @@ import {
   History,
   TrendingUp,
   X,
+  LogOut,
+  LayoutDashboard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,17 +22,22 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useState, useRef, useEffect } from "react";
 import MobileSidebar from "./MobileSidebar";
-import { carCategories } from "@/const";
-import { recentSearches, popularSearches } from "@/const";
+import { carCategories, recentSearches, popularSearches } from "@/const";
+import { useAuth } from "@/contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 
 export default function Header() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const searchContainerRef = useRef(null);
+  const userMenuRef = useRef(null);
 
-  // Close search when clicking outside
+  // Close search and user menu when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -38,6 +45,9 @@ export default function Header() {
         !searchContainerRef.current.contains(event.target)
       ) {
         setIsSearchFocused(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -49,6 +59,44 @@ export default function Header() {
   const handleMobileMenuChange = (open) => {
     setMobileMenuOpen(open);
   };
+
+  const handleLogout = () => {
+    logout();
+    setIsUserMenuOpen(false);
+    navigate("/");
+  };
+
+  const UserDropdown = () => (
+    <div className="absolute top-full left-0 mt-2 w-64 bg-[#1f2a38] border border-gray-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-50">
+      <div className="p-4 border-b border-gray-700/50">
+        <p className="text-white font-bold text-sm">
+          {user?.firstName && user?.lastName
+            ? `${user.firstName} ${user.lastName}`
+            : "کاربر گرامی"}
+        </p>
+        <p className="text-gray-400 text-xs mt-1 font-mono">
+          {user?.phoneNumber}
+        </p>
+      </div>
+      <div className="p-2">
+        <Link
+          to="/dashboard"
+          onClick={() => setIsUserMenuOpen(false)}
+          className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-blue-400 transition-colors text-sm"
+        >
+          <LayoutDashboard className="w-4 h-4" />
+          داشبورد
+        </Link>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-red-400 hover:bg-red-500/10 transition-colors text-sm w-full text-right"
+        >
+          <LogOut className="w-4 h-4" />
+          خروج از حساب
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -65,10 +113,10 @@ export default function Header() {
 
       <header
         className={`
-  sticky top-0 z-50 w-full
-  backdrop-blur-sm "bg-white/90 border-slate-200
-  transition-colors duration-200
-`}
+          sticky top-0 z-50 w-full
+          backdrop-blur-sm bg-white/90 border-slate-200
+          transition-colors duration-200
+        `}
       >
         {/* Top Section */}
         <div className="container mx-auto px-4 sm:px-6 md:px-8 py-3 sm:py-4 lg:py-5 relative z-50">
@@ -93,9 +141,9 @@ export default function Header() {
                 <SheetContent
                   side="right"
                   className={`
-    w-[85vw] sm:w-95 p-0 overflow-hidden flex flex-col [&>button]:hidden
-    transition-colors duration-200 bg-slate-900 border-slate-700
-  `}
+                    w-[85vw] sm:w-95 p-0 overflow-hidden flex flex-col [&>button]:hidden
+                    transition-colors duration-200 bg-slate-900 border-slate-700
+                  `}
                 >
                   <SheetTitle className="sr-only">منوی اصلی</SheetTitle>
                   <SheetDescription className="sr-only">
@@ -107,6 +155,7 @@ export default function Header() {
                   />
                 </SheetContent>
               </Sheet>
+
               {/* Desktop Search Area (Hidden on Mobile) */}
               <div
                 ref={searchContainerRef}
@@ -137,7 +186,6 @@ export default function Header() {
                   {isSearchFocused && (
                     <div className="absolute top-full right-0 left-0 bg-[#1f2a38] rounded-b-xl sm:rounded-b-2xl border-t border-gray-700 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                       <div className="p-3 sm:p-4 max-h-[60vh] overflow-y-auto">
-                        {/* Recent Searches */}
                         <div className="mb-3 sm:mb-4">
                           <div className="flex items-center justify-between mb-2 px-1 sm:px-2">
                             <span className="text-xs sm:text-sm text-gray-400 flex items-center gap-1.5 sm:gap-2">
@@ -165,7 +213,6 @@ export default function Header() {
 
                         <div className="border-t border-gray-700 my-2"></div>
 
-                        {/* Popular Searches */}
                         <div>
                           <div className="mb-2 px-1 sm:px-2 pt-2">
                             <span className="text-xs sm:text-sm text-gray-400 flex items-center gap-1.5 sm:gap-2">
@@ -190,56 +237,130 @@ export default function Header() {
                   )}
                 </div>
               </div>
+
               {/* Center: Logo */}
               <div className="flex flex-col items-center order-1 lg:order-2 lg:justify-self-center">
-                <div className="flex items-center gap-0.5 sm:gap-1">
+                <Link to="/" className="flex items-center gap-0.5 sm:gap-1">
                   <span className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white">
                     بنیامین
                   </span>
                   <span className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-bold bg-linear-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
                     شاپ
                   </span>
-                </div>
+                </Link>
                 <p className="text-[10px] sm:text-xs lg:text-sm text-gray-400 mt-0.5 sm:mt-1 hidden sm:block">
                   مرجع تخصصی لوازم یدکی خودرو
                 </p>
               </div>
-              {/* Right: Desktop Icons */}
-              <div className="hidden lg:flex items-center justify-end gap-2 xl:gap-4 order-3">
-                <Button
-                  variant="outline"
-                  className="bg-transparent border-2 border-gray-600 hover:bg-white/10 hover:border-blue-400 text-white text-sm lg:text-base xl:text-lg h-11 lg:h-12 xl:h-14 px-4 lg:px-5 xl:px-6 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
-                >
-                  <User className="h-4 w-4 lg:h-5 lg:w-5 xl:h-6 xl:w-6 ml-2" />
-                  حساب کاربری
-                </Button>
+
+              {/* Right: Icons (Desktop & Mobile Unified) */}
+              <div className="flex items-center justify-end gap-1.5 sm:gap-2 xl:gap-4 order-3">
+                {/* Desktop User Button */}
+                <div className="hidden lg:block relative" ref={userMenuRef}>
+                  {user ? (
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                      className="bg-transparent border-2 border-gray-600 hover:bg-white/10 hover:border-blue-400 text-white text-sm lg:text-base xl:text-lg h-11 lg:h-12 xl:h-14 px-4 lg:px-5 xl:px-6 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+                    >
+                      <User className="h-4 w-4 lg:h-5 lg:w-5 xl:h-6 xl:w-6 ml-2 text-blue-400" />
+                      {user.firstName || "حساب کاربری"}
+                    </Button>
+                  ) : (
+                    <Link to="/auth">
+                      <Button
+                        variant="outline"
+                        className="bg-transparent border-2 border-gray-600 hover:bg-white/10 hover:border-blue-400 text-white text-sm lg:text-base xl:text-lg h-11 lg:h-12 xl:h-14 px-4 lg:px-5 xl:px-6 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+                      >
+                        <User className="h-4 w-4 lg:h-5 lg:w-5 xl:h-6 xl:w-6 ml-2" />
+                        ورود / ثبت‌نام
+                      </Button>
+                    </Link>
+                  )}
+                  {isUserMenuOpen && user && <UserDropdown />}
+                </div>
+
+                {/* Mobile User Button */}
+                <div className="lg:hidden relative">
+                  {user ? (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                      className="relative hover:bg-white/10 h-10 w-10 sm:h-11 sm:w-11 rounded-xl transition-all duration-300 touch-target"
+                    >
+                      <User className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
+                    </Button>
+                  ) : (
+                    <Link to="/auth">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="relative hover:bg-white/10 h-10 w-10 sm:h-11 sm:w-11 rounded-xl transition-all duration-300 touch-target"
+                      >
+                        <User className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                      </Button>
+                    </Link>
+                  )}
+                  {isUserMenuOpen && user && (
+                    <div className="fixed inset-0 z-50 lg:hidden">
+                      <div
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-[#1f2a38] rounded-t-3xl p-6 shadow-2xl animate-in slide-in-from-bottom duration-300">
+                        <div className="flex items-center justify-between mb-6">
+                          <div>
+                            <h3 className="text-white font-bold text-lg">
+                              {user.firstName && user.lastName
+                                ? `${user.firstName} ${user.lastName}`
+                                : "حساب کاربری"}
+                            </h3>
+                            <p className="text-gray-400 font-mono text-sm">
+                              {user.phoneNumber}
+                            </p>
+                          </div>
+                          <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                            <User className="w-6 h-6 text-blue-400" />
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <Link
+                            to="/dashboard"
+                            onClick={() => setIsUserMenuOpen(false)}
+                            className="flex items-center gap-3 w-full p-4 bg-[#2d3c4f] hover:bg-[#3d4f63] text-white rounded-xl transition-colors"
+                          >
+                            <LayoutDashboard className="w-5 h-5 text-blue-400" />
+                            داشبورد
+                          </Link>
+                          <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-3 w-full p-4 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-colors"
+                          >
+                            <LogOut className="w-5 h-5" />
+                            خروج از حساب
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Cart Button */}
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="relative hover:bg-blue-700 h-11 w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg border border-gray-700 bg-blue-500 cursor-pointer group"
+                  className="relative hover:bg-white/10 lg:hover:bg-blue-700 h-10 w-10 sm:h-11 sm:w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-xl lg:rounded-2xl transition-all duration-300 shadow-md lg:hover:shadow-lg lg:border lg:border-gray-700 lg:bg-blue-500 cursor-pointer group"
                 >
                   <ShoppingCart className="h-5 w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7" />
-                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-linear-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 border-0 text-xs font-bold shadow-md rounded-full animate-pulse">
-                    12
-                  </Badge>
-                </Button>
-              </div>
-              {/* Mobile Cart Icon - Location Removed */}
-              <div className="flex lg:hidden items-center gap-1.5 sm:gap-2 order-3">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="relative hover:bg-white/10 h-10 w-10 sm:h-11 sm:w-11 rounded-xl transition-all duration-300 touch-target"
-                >
-                  <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />
-                  <Badge className="absolute -top-1 -right-1 h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center p-0 bg-linear-to-r from-pink-500 to-rose-600 border-0 text-[10px] sm:text-xs font-bold rounded-full animate-pulse">
+                  <Badge className="absolute -top-1 -right-1 h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center p-0 bg-linear-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 border-0 text-[10px] sm:text-xs font-bold shadow-md rounded-full animate-pulse">
                     12
                   </Badge>
                 </Button>
               </div>
             </div>
 
-            {/* Row 2: Mobile Search Bar (Visible only on Mobile/Tablet) */}
+            {/* Row 2: Mobile Search Bar */}
             <div
               className="relative w-full lg:hidden"
               onClick={() => setIsMobileSearchOpen(true)}
@@ -340,13 +461,13 @@ export default function Header() {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center justify-between relative">
               <nav className="flex items-center gap-1">
-                <a
-                  href="#"
+                <Link
+                  to="/"
                   className="px-3 xl:px-4 py-5 xl:py-6 text-sm lg:text-base xl:text-lg hover:text-blue-400 transition-colors duration-300 relative group"
                 >
                   صفحه اصلی
                   <span className="absolute bottom-3 xl:bottom-4 right-3 xl:right-4 left-3 xl:left-4 h-0.5 bg-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                </a>
+                </Link>
 
                 {/* Mega Menu Trigger */}
                 <div className="group px-3 xl:px-4 py-5 xl:py-6 cursor-pointer">

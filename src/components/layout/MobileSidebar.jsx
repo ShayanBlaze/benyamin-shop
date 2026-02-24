@@ -1,14 +1,34 @@
-import { X, Home, Store, FileText, LogIn, ChevronDown } from "lucide-react";
+import {
+  X,
+  Home,
+  Store,
+  FileText,
+  LogIn,
+  ChevronDown,
+  User,
+  LogOut,
+  LayoutDashboard,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { mobileCategoris } from "@/const";
+import { useAuth } from "@/contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function MobileSidebar({ onClose }) {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [openCategory, setOpenCategory] = useState(null);
 
   const toggleCategory = (index) =>
     setOpenCategory(openCategory === index ? null : index);
+
+  const handleLogout = () => {
+    logout();
+    onClose();
+    navigate("/");
+  };
 
   return (
     <>
@@ -32,15 +52,16 @@ export default function MobileSidebar({ onClose }) {
         <nav className="p-4 space-y-2">
           {/* Quick Links */}
           <div className="space-y-1 mb-4">
-            <a
-              href="#"
+            <Link
+              to="/"
+              onClick={onClose}
               className="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors group hover:bg-white/5"
             >
               <Home className="h-5 w-5 text-blue-400 group-hover:scale-110 transition-transform" />
               <span className="text-base font-medium text-gray-200 group-hover:text-white">
                 خانه
               </span>
-            </a>
+            </Link>
             <a
               href="#"
               className="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors group hover:bg-white/5"
@@ -90,8 +111,7 @@ export default function MobileSidebar({ onClose }) {
                     }`}
                   />
                 </button>
-
-                {/* Collapsible Items */}
+                {/* Collapsible Items */}{" "}
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-out ${
                     openCategory === index
@@ -118,12 +138,49 @@ export default function MobileSidebar({ onClose }) {
         </nav>
       </div>
 
-      {/* Menu Footer */}
+      {/* Menu Footer (Login/User Panel) */}
       <div className="p-4 border-t space-y-2 bg-slate-800 border-gray-700/50">
-        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white justify-start gap-3 h-12 shadow-lg">
-          <LogIn className="h-5 w-5" />
-          <span>ورود / ثبت‌نام</span>
-        </Button>
+        {user ? (
+          <div className="bg-[#1f2a38] rounded-xl p-3 border border-gray-700/50">
+            <div className="flex items-center gap-3 mb-3 border-b border-gray-700/50 pb-3">
+              <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                <User className="w-6 h-6" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-white truncate">
+                  {user.firstName || "کاربر"} {user.lastName || ""}
+                </p>
+                <p className="text-xs text-gray-400 truncate font-mono">
+                  {user.phoneNumber}
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                to="/dashboard"
+                onClick={onClose}
+                className="flex items-center justify-center gap-2 h-10 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs transition-colors"
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                داشبورد
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center justify-center gap-2 h-10 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+                خروج
+              </button>
+            </div>
+          </div>
+        ) : (
+          <Link to="/auth" onClick={onClose}>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white justify-start gap-3 h-12 shadow-lg">
+              <LogIn className="h-5 w-5" />
+              <span>ورود / ثبت‌نام</span>
+            </Button>
+          </Link>
+        )}
       </div>
     </>
   );
