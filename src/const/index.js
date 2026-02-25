@@ -1,4 +1,4 @@
-export { carCategories } from "./categories.jsx";
+export { carCategories } from "./carCategories.jsx";
 export { recentSearches, popularSearches } from "./search";
 export { brandsData } from "./brands";
 export { sliderData } from "./sliderData";

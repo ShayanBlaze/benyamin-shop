@@ -3,6 +3,7 @@ import HeroSlider from "@/components/home/HeroSlider";
 import AmazingOffer from "@/components/home/AmazingOffer";
 import PopularProducts from "@/components/home/PopularProducts";
 import RecentArticles from "@/components/home/RecentArticles";
+import BrandSection from "@/components/home/BrandSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,9 @@ export default function Home() {
 
       {/* Amazing Offer Section */}
       <AmazingOffer />
+
+      {/* Brand Section */}
+      <BrandSection />
 
       {/* Categories */}
       <CategorySection />
