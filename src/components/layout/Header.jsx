@@ -114,7 +114,7 @@ export default function Header() {
       <header
         className={`
           sticky top-0 z-50 w-full
-          backdrop-blur-sm bg-white/90 border-slate-200
+          backdrop-blur-sm
           transition-colors duration-200
         `}
       >
