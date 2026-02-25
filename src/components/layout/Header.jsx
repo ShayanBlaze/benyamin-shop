@@ -27,6 +27,38 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 
+const UserDropdown = ({ user, handleLogout, setIsUserMenuOpen }) => (
+  <div className="absolute top-full left-0 mt-2 w-64 bg-[#1f2a38] border border-gray-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-50">
+    <div className="p-4 border-b border-gray-700/50">
+      <p className="text-white font-bold text-sm">
+        {user?.firstName && user?.lastName
+          ? `${user.firstName} ${user.lastName}`
+          : "کاربر گرامی"}
+      </p>
+      <p className="text-gray-400 text-xs mt-1 font-mono">
+        {user?.phoneNumber}
+      </p>
+    </div>
+    <div className="p-2">
+      <Link
+        to="/dashboard"
+        onClick={() => setIsUserMenuOpen(false)}
+        className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-blue-400 transition-colors text-sm"
+      >
+        <LayoutDashboard className="w-4 h-4" />
+        داشبورد
+      </Link>
+      <button
+        onClick={handleLogout}
+        className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-red-400 hover:bg-red-500/10 transition-colors text-sm w-full text-right"
+      >
+        <LogOut className="w-4 h-4" />
+        خروج از حساب
+      </button>
+    </div>
+  </div>
+);
+
 export default function Header() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -65,38 +97,6 @@ export default function Header() {
     setIsUserMenuOpen(false);
     navigate("/");
   };
-
-  const UserDropdown = () => (
-    <div className="absolute top-full left-0 mt-2 w-64 bg-[#1f2a38] border border-gray-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-50">
-      <div className="p-4 border-b border-gray-700/50">
-        <p className="text-white font-bold text-sm">
-          {user?.firstName && user?.lastName
-            ? `${user.firstName} ${user.lastName}`
-            : "کاربر گرامی"}
-        </p>
-        <p className="text-gray-400 text-xs mt-1 font-mono">
-          {user?.phoneNumber}
-        </p>
-      </div>
-      <div className="p-2">
-        <Link
-          to="/dashboard"
-          onClick={() => setIsUserMenuOpen(false)}
-          className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-blue-400 transition-colors text-sm"
-        >
-          <LayoutDashboard className="w-4 h-4" />
-          داشبورد
-        </Link>
-        <button
-          onClick={handleLogout}
-          className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-red-400 hover:bg-red-500/10 transition-colors text-sm w-full text-right"
-        >
-          <LogOut className="w-4 h-4" />
-          خروج از حساب
-        </button>
-      </div>
-    </div>
-  );
 
   return (
     <>
@@ -277,7 +277,13 @@ export default function Header() {
                       </Button>
                     </Link>
                   )}
-                  {isUserMenuOpen && user && <UserDropdown />}
+                  {isUserMenuOpen && user && (
+                    <UserDropdown
+                      user={user}
+                      handleLogout={handleLogout}
+                      setIsUserMenuOpen={setIsUserMenuOpen}
+                    />
+                  )}
                 </div>
 
                 {/* Mobile User Button */}
