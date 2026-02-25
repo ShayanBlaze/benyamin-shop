@@ -287,7 +287,7 @@ export default function Header() {
                 </div>
 
                 {/* Mobile User Button */}
-                <div className="lg:hidden relative">
+                <div className="lg:hidden">
                   {user ? (
                     <Button
                       variant="ghost"
@@ -307,49 +307,6 @@ export default function Header() {
                         <User className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                       </Button>
                     </Link>
-                  )}
-                  {/* The UserDropdown is handled differently on mobile via a full screen modal which was commented out below. We'll use the fixed modal for mobile instead to ensure it works beautifully. */}
-                  {isUserMenuOpen && user && (
-                    <div className="fixed inset-0 z-50 lg:hidden">
-                      <div
-                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-                        onClick={() => setIsUserMenuOpen(false)}
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-[#1f2a38] rounded-t-3xl p-6 shadow-2xl animate-in slide-in-from-bottom duration-300 max-h-[85vh] overflow-y-auto">
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="flex-1 truncate ml-4">
-                            <h3 className="text-white font-bold text-lg truncate">
-                              {user.firstName && user.lastName
-                                ? `${user.firstName} ${user.lastName}`
-                                : "حساب کاربری"}
-                            </h3>
-                            <p className="text-gray-400 font-mono text-sm truncate">
-                              {user.phoneNumber}
-                            </p>
-                          </div>
-                          <div className="w-12 h-12 shrink-0 rounded-full bg-blue-500/20 flex items-center justify-center">
-                            <User className="w-6 h-6 text-blue-400" />
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <Link
-                            to="/dashboard"
-                            onClick={() => setIsUserMenuOpen(false)}
-                            className="flex items-center gap-3 w-full p-4 bg-[#2d3c4f] hover:bg-[#3d4f63] text-white rounded-xl transition-colors"
-                          >
-                            <LayoutDashboard className="w-5 h-5 shrink-0 text-blue-400" />
-                            <span className="truncate">داشبورد</span>
-                          </Link>
-                          <button
-                            onClick={handleLogout}
-                            className="flex items-center gap-3 w-full p-4 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-colors"
-                          >
-                            <LogOut className="w-5 h-5 shrink-0" />
-                            <span className="truncate">خروج از حساب</span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
                   )}
                 </div>
 
@@ -382,9 +339,57 @@ export default function Header() {
           </div>
         </div>
 
+        {/* Mobile User Menu Modal */}
+        {isUserMenuOpen && user && (
+          <div className="fixed inset-0 z-[100] lg:hidden">
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setIsUserMenuOpen(false)}
+            />
+            {/* The modal panel comes from the bottom up */}
+            <div className="absolute bottom-0 left-0 right-0 bg-[#1f2a38] rounded-t-3xl p-6 shadow-2xl animate-in slide-in-from-bottom duration-300 max-h-[85vh] overflow-y-auto">
+              {/* Drag Indicator Handle */}
+              <div className="w-12 h-1.5 bg-gray-600 rounded-full mx-auto mb-6" />
+
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex-1 truncate ml-4">
+                  <h3 className="text-white font-bold text-lg truncate">
+                    {user.firstName && user.lastName
+                      ? `${user.firstName} ${user.lastName}`
+                      : "حساب کاربری"}
+                  </h3>
+                  <p className="text-gray-400 font-mono text-sm truncate mt-1">
+                    {user.phoneNumber}
+                  </p>
+                </div>
+                <div className="w-14 h-14 shrink-0 rounded-full bg-blue-500/20 flex items-center justify-center">
+                  <User className="w-7 h-7 text-blue-400" />
+                </div>
+              </div>
+              <div className="space-y-3">
+                <Link
+                  to="/dashboard"
+                  onClick={() => setIsUserMenuOpen(false)}
+                  className="flex items-center gap-3 w-full p-4 bg-[#2d3c4f] hover:bg-[#3d4f63] text-white rounded-2xl transition-colors"
+                >
+                  <LayoutDashboard className="w-5 h-5 shrink-0 text-blue-400" />
+                  <span className="truncate font-medium">داشبورد</span>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-3 w-full p-4 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-2xl transition-colors"
+                >
+                  <LogOut className="w-5 h-5 shrink-0" />
+                  <span className="truncate font-medium">خروج از حساب</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Mobile Search Modal */}
         {isMobileSearchOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden">
+          <div className="fixed inset-0 z-[100] lg:hidden">
             <div className="absolute inset-x-0 top-0 bg-[#1f2a38] rounded-b-3xl shadow-2xl p-4 animate-in slide-in-from-top duration-300">
               <div className="flex items-center gap-2 mb-4">
                 <Button
