@@ -7,12 +7,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // logout فقط state رو پاک می‌کنه.
+  // navigate کردن بعد از logout، مسئولیت کامپوننت صداکننده‌ست
+  // تا از race condition بین setUser(null) و window.location جلوگیری بشه.
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     delete api.defaults.headers.common["Authorization"];
     setUser(null);
-    window.location.href = "/";
   };
 
   useEffect(() => {
@@ -33,6 +35,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     initAuth();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const login = (token, userData) => {
