@@ -1,5 +1,4 @@
 import {
-  Send,
   ChevronDown,
   ArrowLeft,
   Shield,
@@ -7,8 +6,6 @@ import {
   RotateCcw,
   Clock,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { footerLinks } from "@/const";
 import { socialLinks } from "@/const/socialLinks";
@@ -46,6 +43,7 @@ function AccordionSection({ title, children }) {
 }
 
 // ─── Trust Badge ─────────────────────────────────────────────────────────────
+// eslint-disable-next-line no-unused-vars
 function TrustBadge({ icon: Icon, title, subtitle }) {
   return (
     <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/4 border border-white/6 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-300 group">
@@ -62,13 +60,7 @@ function TrustBadge({ icon: Icon, title, subtitle }) {
 
 // ─── Main Footer ─────────────────────────────────────────────────────────────
 function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
   const [teamModalOpen, setTeamModalOpen] = useState(false);
-
-  const handleSubscribe = () => {
-    if (email) setSubscribed(true);
-  };
 
   return (
     <footer
@@ -304,7 +296,7 @@ function Footer() {
           </div>
 
           {/* ── Col 4: Contact + Newsletter ── */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3">
             {/* Contact */}
             <div>
               <h3 className="text-sm font-semibold text-white/90 mb-4 hidden lg:block">
@@ -344,46 +336,6 @@ function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            {/* Newsletter Card */}
-            <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-blue-600/15 to-blue-900/10 border border-blue-500/15 p-5">
-              {/* Glow */}
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
-
-              <p className="text-sm font-semibold text-white mb-1 relative">
-                خبرنامه بنیامین شاپ
-              </p>
-              <p className="text-xs text-slate-500 mb-4 relative">
-                از تخفیف‌ها و جدیدترین محصولات باخبر باش
-              </p>
-
-              {subscribed ? (
-                <div className="flex items-center gap-2 text-green-400 text-sm py-2">
-                  <span className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center text-xs">
-                    ✓
-                  </span>
-                  عضویت با موفقیت انجام شد!
-                </div>
-              ) : (
-                <div className="flex gap-2 relative">
-                  <Input
-                    type="email"
-                    placeholder="ایمیل خود را وارد کنید"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleSubscribe()}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 text-sm h-10 rounded-xl focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0 focus-visible:border-blue-500/50"
-                  />
-                  <Button
-                    onClick={handleSubscribe}
-                    size="sm"
-                    className="bg-blue-600 hover:bg-blue-500 text-white h-10 px-4 rounded-xl shrink-0 transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25"
-                  >
-                    <Send className="w-3.5 h-3.5" />
-                  </Button>
-                </div>
-              )}
             </div>
           </div>
         </div>

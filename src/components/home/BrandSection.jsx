@@ -26,7 +26,7 @@ function CategoryItem({ cat }) {
         ].join(" ")}
       >
         {/* top-shine */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 rounded-full bg-linear-to-b from-white/10 to-transparent pointer-events-none" />
         <cat.Icon
           className={`w-9 h-9 sm:w-10 sm:h-10 ${cat.iconColor} relative z-10`}
         />
@@ -38,7 +38,7 @@ function CategoryItem({ cat }) {
           "text-xs sm:text-sm font-bold text-center leading-snug",
           "text-gray-300 group-hover:text-white",
           "transition-colors duration-200",
-          "w-full max-w-[90px]",
+          "w-full max-w-22.5",
         ].join(" ")}
       >
         {cat.label}
