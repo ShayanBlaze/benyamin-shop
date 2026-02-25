@@ -78,7 +78,16 @@ export default function Header() {
       ) {
         setIsSearchFocused(false);
       }
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+
+      // IMPORTANT: userMenuRef exists only for desktop dropdown.
+      // On mobile, the user menu is a fullscreen overlay; closing it via a document
+      // mousedown causes a race where the menu unmounts before Link/button click fires.
+      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+      if (
+        isDesktop &&
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target)
+      ) {
         setIsUserMenuOpen(false);
       }
     }
