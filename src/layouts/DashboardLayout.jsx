@@ -1,5 +1,12 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Package, Heart, MapPin, User, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  Package,
+  Heart,
+  MapPin,
+  User,
+  LogOut,
+} from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import Header from "@/components/layout/Header";
 
@@ -19,7 +26,7 @@ export default function DashboardLayout() {
     <div className="min-h-screen bg-[#0f1923] text-gray-100" dir="rtl">
       {/* Header stays at the top */}
       <Header />
-      
+
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Dashboard Sidebar */}
@@ -39,14 +46,14 @@ export default function DashboardLayout() {
                 </div>
               </div>
 
-              <nav className="space-y-2">
+              <nav className="space-y-3">
                 {menuItems.map((item) => {
                   const isActive = location.pathname === item.path;
                   return (
                     <Link
                       key={item.path}
                       to={item.path}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                      className={`flex items-center gap-3 px-4 py-5 rounded-xl transition-all duration-200 ${
                         isActive
                           ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
                           : "text-gray-400 hover:bg-white/5 hover:text-white"
@@ -57,13 +64,13 @@ export default function DashboardLayout() {
                     </Link>
                   );
                 })}
-                
+
                 <button
                   onClick={logout}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all duration-200 mt-4 border-t border-gray-700/50 pt-4"
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all duration-200 mt-4 border-t border-gray-700/50 pt-4 cursor-pointer"
                 >
                   <LogOut className="w-5 h-5" />
-                  <span className="text-sm font-medium">خروج از حساب</span>
+                  <span className="text-sm font-medium py-1">خروج از حساب</span>
                 </button>
               </nav>
             </div>
@@ -71,7 +78,7 @@ export default function DashboardLayout() {
 
           {/* Dashboard Content */}
           <div className="lg:col-span-3">
-            <div className="bg-[#1f2a38] rounded-2xl border border-gray-700/50 min-h-[500px] p-6">
+            <div className="bg-[#1f2a38] rounded-2xl border border-gray-700/50 min-h-125 p-6">
               <Outlet />
             </div>
           </div>
