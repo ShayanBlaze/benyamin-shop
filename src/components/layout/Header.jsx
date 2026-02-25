@@ -28,14 +28,14 @@ import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 
 const UserDropdown = ({ user, handleLogout, setIsUserMenuOpen }) => (
-  <div className="absolute top-full left-0 mt-2 w-64 bg-[#1f2a38] border border-gray-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-50">
-    <div className="p-4 border-b border-gray-700/50">
-      <p className="text-white font-bold text-sm">
+  <div className="absolute top-full left-0 sm:-left-4 lg:left-0 mt-2 w-56 sm:w-64 bg-[#1f2a38] border border-gray-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-50">
+    <div className="p-3 sm:p-4 border-b border-gray-700/50">
+      <p className="text-white font-bold text-sm truncate">
         {user?.firstName && user?.lastName
           ? `${user.firstName} ${user.lastName}`
           : "کاربر گرامی"}
       </p>
-      <p className="text-gray-400 text-xs mt-1 font-mono">
+      <p className="text-gray-400 text-xs mt-1 font-mono truncate">
         {user?.phoneNumber}
       </p>
     </div>
@@ -45,15 +45,15 @@ const UserDropdown = ({ user, handleLogout, setIsUserMenuOpen }) => (
         onClick={() => setIsUserMenuOpen(false)}
         className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-blue-400 transition-colors text-sm"
       >
-        <LayoutDashboard className="w-4 h-4" />
-        داشبورد
+        <LayoutDashboard className="w-4 h-4 shrink-0" />
+        <span className="truncate">داشبورد</span>
       </Link>
       <button
         onClick={handleLogout}
         className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-red-400 hover:bg-red-500/10 transition-colors text-sm w-full text-right"
       >
-        <LogOut className="w-4 h-4" />
-        خروج از حساب
+        <LogOut className="w-4 h-4 shrink-0" />
+        <span className="truncate">خروج از حساب</span>
       </button>
     </div>
   </div>
@@ -308,25 +308,26 @@ export default function Header() {
                       </Button>
                     </Link>
                   )}
+                  {/* The UserDropdown is handled differently on mobile via a full screen modal which was commented out below. We'll use the fixed modal for mobile instead to ensure it works beautifully. */}
                   {isUserMenuOpen && user && (
                     <div className="fixed inset-0 z-50 lg:hidden">
                       <div
                         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                         onClick={() => setIsUserMenuOpen(false)}
                       />
-                      <div className="absolute bottom-0 left-0 right-0 bg-[#1f2a38] rounded-t-3xl p-6 shadow-2xl animate-in slide-in-from-bottom duration-300">
+                      <div className="absolute bottom-0 left-0 right-0 bg-[#1f2a38] rounded-t-3xl p-6 shadow-2xl animate-in slide-in-from-bottom duration-300 max-h-[85vh] overflow-y-auto">
                         <div className="flex items-center justify-between mb-6">
-                          <div>
-                            <h3 className="text-white font-bold text-lg">
+                          <div className="flex-1 truncate ml-4">
+                            <h3 className="text-white font-bold text-lg truncate">
                               {user.firstName && user.lastName
                                 ? `${user.firstName} ${user.lastName}`
                                 : "حساب کاربری"}
                             </h3>
-                            <p className="text-gray-400 font-mono text-sm">
+                            <p className="text-gray-400 font-mono text-sm truncate">
                               {user.phoneNumber}
                             </p>
                           </div>
-                          <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                          <div className="w-12 h-12 shrink-0 rounded-full bg-blue-500/20 flex items-center justify-center">
                             <User className="w-6 h-6 text-blue-400" />
                           </div>
                         </div>
@@ -336,15 +337,15 @@ export default function Header() {
                             onClick={() => setIsUserMenuOpen(false)}
                             className="flex items-center gap-3 w-full p-4 bg-[#2d3c4f] hover:bg-[#3d4f63] text-white rounded-xl transition-colors"
                           >
-                            <LayoutDashboard className="w-5 h-5 text-blue-400" />
-                            داشبورد
+                            <LayoutDashboard className="w-5 h-5 shrink-0 text-blue-400" />
+                            <span className="truncate">داشبورد</span>
                           </Link>
                           <button
                             onClick={handleLogout}
                             className="flex items-center gap-3 w-full p-4 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-colors"
                           >
-                            <LogOut className="w-5 h-5" />
-                            خروج از حساب
+                            <LogOut className="w-5 h-5 shrink-0" />
+                            <span className="truncate">خروج از حساب</span>
                           </button>
                         </div>
                       </div>
