@@ -1,9 +1,9 @@
 import { useLogin } from "@/hooks/useLogin";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate, Link } from "react-router-dom";
-import StepPhone from "@/components/auth/StepPhone";
-import StepVerify from "@/components/auth/StepVerify";
-import StepRegister from "@/components/auth/StepRegister";
+import StepPhone from "@/components/Auth/StepPhone";
+import StepVerify from "@/components/Auth/StepVerify";
+import StepRegister from "@/components/Auth/StepRegister";
 import { ShoppingBag, Shield, Truck, Star } from "lucide-react";
 
 const features = [
