@@ -1,6 +1,7 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, Package, Heart, MapPin, User, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import Header from "@/components/layout/Header";
 
 export default function DashboardLayout() {
   const location = useLocation();
@@ -16,6 +17,9 @@ export default function DashboardLayout() {
 
   return (
     <div className="min-h-screen bg-[#0f1923] text-gray-100" dir="rtl">
+      {/* Header stays at the top */}
+      <Header />
+      
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Dashboard Sidebar */}
