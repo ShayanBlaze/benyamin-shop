@@ -91,13 +91,14 @@ export default function Header() {
   // Prevent body scroll when mobile user menu is open
   useEffect(() => {
     if (isUserMenuOpen && window.innerWidth < 1024) {
-      document.body.style.overflow = "hidden";
+      // Only lock the Y axis so we don't accidentally remove a global overflow-x: hidden
+      document.body.style.overflowY = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflowY = "";
     }
     // Cleanup on unmount or when menu closes
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflowY = "";
     };
   }, [isUserMenuOpen]);
 
@@ -116,7 +117,8 @@ export default function Header() {
       {/* Search Overlay/Backdrop */}
       {(isSearchFocused || isMobileSearchOpen) && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-all duration-300"
+          className="fixed inset-0 bg-slate-900/60 z-40 transition-all duration-300"
+          style={{ backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" }}
           onClick={() => {
             setIsSearchFocused(false);
             setIsMobileSearchOpen(false);
@@ -324,7 +326,8 @@ export default function Header() {
                   {isUserMenuOpen && user && (
                     <div className="fixed inset-0 z-50 lg:hidden">
                       <div
-                        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
+                        className="absolute inset-0 bg-slate-900/60 transition-opacity duration-300"
+                        style={{ backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
                         onClick={() => setIsUserMenuOpen(false)}
                       />
                       <div className="absolute top-[15%] left-4 right-4 bg-[#1f2a38] border border-gray-700 rounded-2xl p-6 shadow-2xl animate-in zoom-in-95 fade-in duration-200">
