@@ -6,7 +6,10 @@ import {
   DEV_IS_EXISTING_USER,
 } from "@/dev/mock-auth.js";
 
-const IS_DEV = import.meta.env.DEV;
+// چون بک‌اند هنوز آماده نیست، حالت ماک رو به صورت اجباری روی true قرار می‌دیم
+// تا هم در حالت لوکال و هم در دیپلویمنتِ ورسل از دیتای ماک استفاده بشه.
+// در آینده می‌تونید این رو مجدد به import.meta.env.DEV تغییر بدید.
+const USE_MOCK_AUTH = true;
 
 // ─── Helper: ساخت خطای شبیه‌سازی‌شده axios ───────────────────────────────
 function mockAxiosError(status, message) {
@@ -20,10 +23,10 @@ const delay = (ms = 600) => new Promise((res) => setTimeout(res, ms));
 
 export const authService = {
   sendCode: async (phoneNumber) => {
-    if (IS_DEV) {
+    if (USE_MOCK_AUTH) {
       await delay();
       console.info(
-        `%c[DEV] OTP sent to ${phoneNumber} → use code: ${MOCK_OTP}`,
+        `%c[MOCK] OTP sent to ${phoneNumber} → use code: ${MOCK_OTP}`,
         "color: #60a5fa; font-weight: bold;",
       );
       return { message: "کد تأیید ارسال شد" };
@@ -34,7 +37,7 @@ export const authService = {
   },
 
   login: async (phoneNumber, code) => {
-    if (IS_DEV) {
+    if (USE_MOCK_AUTH) {
       await delay();
 
       // شبیه‌سازی کد اشتباه → 400
@@ -61,10 +64,10 @@ export const authService = {
   },
 
   register: async (payload) => {
-    if (IS_DEV) {
+    if (USE_MOCK_AUTH) {
       await delay();
       console.info(
-        `%c[DEV] Registered user: ${payload.firstName} ${payload.lastName}`,
+        `%c[MOCK] Registered user: ${payload.firstName} ${payload.lastName}`,
         "color: #34d399; font-weight: bold;",
       );
       return { token: DEV_TOKEN, userId: DEV_USER.userId };
