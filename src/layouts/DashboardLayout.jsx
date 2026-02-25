@@ -15,8 +15,6 @@ export default function DashboardLayout() {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
 
-  // navigate بعد از logout انجام می‌شه تا race condition
-  // بین setUser(null) و redirect اتفاق نیفتد.
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -101,7 +99,7 @@ export default function DashboardLayout() {
 
           {/* Dashboard Content */}
           <div className="lg:col-span-3 flex flex-col">
-            <div className="bg-[#1f2a38] rounded-2xl border border-gray-700/50 min-h-[400px] lg:min-h-125 p-4 lg:p-6 flex-1">
+            <div className="bg-[#1f2a38] rounded-2xl border border-gray-700/50 min-h-100 lg:min-h-125 p-4 lg:p-6 flex-1">
               <Outlet />
             </div>
           </div>
