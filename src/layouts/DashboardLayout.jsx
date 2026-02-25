@@ -23,7 +23,10 @@ export default function DashboardLayout() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f1923] text-gray-100 flex flex-col" dir="rtl">
+    <div
+      className="min-h-screen bg-[#0f1923] text-gray-100 flex flex-col"
+      dir="rtl"
+    >
       {/* Header stays at the top */}
       <Header />
 
@@ -32,7 +35,6 @@ export default function DashboardLayout() {
           {/* Dashboard Sidebar / Mobile Navbar */}
           <div className="lg:col-span-1">
             <div className="bg-[#1f2a38] rounded-2xl border border-gray-700/50 p-4 lg:p-6 sticky top-20 lg:top-24 z-30">
-              
               {/* User Profile Info */}
               <div className="flex items-center justify-between lg:justify-start gap-4 mb-4 lg:mb-8 lg:pb-6 border-b border-gray-700/50 pb-4">
                 <div className="flex items-center gap-3 lg:gap-4 overflow-hidden">
@@ -74,7 +76,9 @@ export default function DashboardLayout() {
                       }`}
                     >
                       <item.icon className="w-4 h-4 lg:w-5 lg:h-5" />
-                      <span className="text-xs lg:text-sm font-medium whitespace-nowrap">{item.label}</span>
+                      <span className="text-xs lg:text-sm font-medium whitespace-nowrap">
+                        {item.label}
+                      </span>
                     </Link>
                   );
                 })}
@@ -93,7 +97,7 @@ export default function DashboardLayout() {
 
           {/* Dashboard Content */}
           <div className="lg:col-span-3 flex flex-col">
-            <div className="bg-[#1f2a38] rounded-2xl border border-gray-700/50 min-h-[400px] lg:min-h-125 p-4 lg:p-6 flex-1">
+            <div className="bg-[#1f2a38] rounded-2xl border border-gray-700/50 min-h-100 lg:min-h-125 p-4 lg:p-6 flex-1">
               <Outlet />
             </div>
           </div>
