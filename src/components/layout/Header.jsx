@@ -88,6 +88,19 @@ export default function Header() {
     };
   }, []);
 
+  // Prevent body scroll when mobile user menu is open
+  useEffect(() => {
+    if (isUserMenuOpen && window.innerWidth < 1024) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    // Cleanup on unmount or when menu closes
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isUserMenuOpen]);
+
   const handleMobileMenuChange = (open) => {
     setMobileMenuOpen(open);
   };
@@ -311,40 +324,53 @@ export default function Header() {
                   {isUserMenuOpen && user && (
                     <div className="fixed inset-0 z-50 lg:hidden">
                       <div
-                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
                         onClick={() => setIsUserMenuOpen(false)}
                       />
-                      <div className="absolute left-0 right-0 bg-[#1f2a38] rounded-t-3xl p-6 shadow-2xl animate-in slide-in-from-bottom duration-300 max-h-[85vh] overflow-y-auto">
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="flex-1 truncate ml-4">
+                      <div className="absolute top-[15%] left-4 right-4 bg-[#1f2a38] border border-gray-700 rounded-2xl p-6 shadow-2xl animate-in zoom-in-95 fade-in duration-200">
+                        {/* Close Button */}
+                        <button
+                          onClick={() => setIsUserMenuOpen(false)}
+                          className="absolute top-4 left-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 transition-colors"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+
+                        <div className="flex items-center gap-4 mb-6 mt-2">
+                          <div className="w-14 h-14 shrink-0 rounded-full bg-blue-500/20 flex items-center justify-center">
+                            <User className="w-7 h-7 text-blue-400" />
+                          </div>
+                          <div className="flex-1 truncate">
                             <h3 className="text-white font-bold text-lg truncate">
                               {user.firstName && user.lastName
                                 ? `${user.firstName} ${user.lastName}`
                                 : "حساب کاربری"}
                             </h3>
-                            <p className="text-gray-400 font-mono text-sm truncate">
+                            <p className="text-gray-400 font-mono text-sm truncate mt-1">
                               {user.phoneNumber}
                             </p>
                           </div>
-                          <div className="w-12 h-12 shrink-0 rounded-full bg-blue-500/20 flex items-center justify-center">
-                            <User className="w-6 h-6 text-blue-400" />
-                          </div>
                         </div>
-                        <div className="space-y-2">
+
+                        <div className="space-y-3">
                           <Link
                             to="/dashboard"
                             onClick={() => setIsUserMenuOpen(false)}
-                            className="flex items-center gap-3 w-full p-4 bg-[#2d3c4f] hover:bg-[#3d4f63] text-white rounded-xl transition-colors"
+                            className="flex items-center gap-3 w-full p-4 bg-[#2d3c4f] hover:bg-[#3d4f63] text-white rounded-2xl transition-colors shadow-sm"
                           >
                             <LayoutDashboard className="w-5 h-5 shrink-0 text-blue-400" />
-                            <span className="truncate">داشبورد</span>
+                            <span className="truncate font-medium">
+                              داشبورد
+                            </span>
                           </Link>
                           <button
                             onClick={handleLogout}
-                            className="flex items-center gap-3 w-full p-4 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-colors"
+                            className="flex items-center gap-3 w-full p-4 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-2xl transition-colors shadow-sm"
                           >
                             <LogOut className="w-5 h-5 shrink-0" />
-                            <span className="truncate">خروج از حساب</span>
+                            <span className="truncate font-medium">
+                              خروج از حساب
+                            </span>
                           </button>
                         </div>
                       </div>
